@@ -1,0 +1,476 @@
+/* Định dạng phần Main */
+.lib-renew-main-section {
+    padding: 60px 0 100px;
+    background: linear-gradient(135deg, #f4f4f4, #e0f7fa);
+    position: relative;
+}
+
+.lib-renew-main-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: relative;
+    min-height: calc(100vh - 160px);
+}
+
+/* Định dạng nội dung chính */
+.lib-renew-content-section {
+    display: none;
+    background: #fff;
+    border-radius: 15px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lib-renew-content-section.active {
+    display: block;
+}
+
+.lib-renew-content-section:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+/* Tiêu đề chính */
+.lib-renew-section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    color: #28a745;
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.lib-renew-section-title::after {
+    content: '';
+    width: 70px;
+    height: 4px;
+    background: linear-gradient(90deg, #28a745, #218838);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    animation: lib-renew-pulse 2s infinite;
+}
+
+@keyframes lib-renew-pulse {
+    0% { width: 70px; }
+    50% { width: 80px; }
+    100% { width: 70px; }
+}
+
+/* Định dạng container chính */
+.lib-renew-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Ô lớn chung cho thông tin thẻ và thông tin gia hạn */
+.lib-info-box {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+}
+
+/* Thông tin thẻ */
+.lib-renew-card-info {
+    text-align: center;
+}
+
+.lib-renew-card-grid {
+    display: grid;
+    grid-template-columns: 150px minmax(100px, 1fr) minmax(100px, 1fr); /* 3 cột: ảnh, nhãn, giá trị */
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.lib-renew-card-image {
+    grid-column: 1;
+}
+
+.lib-renew-card-photo {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+.lib-renew-card-details {
+    grid-column: 2 / span 2; /* Kết hợp cột 2 và 3 cho thông tin */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lib-renew-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lib-renew-info-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #28a745;
+    text-align: right;
+    padding: 5px 10px;
+    width: 100px; /* Định nghĩa chiều rộng cố định cho nhãn */
+    white-space: nowrap; /* Ngăn chữ xuống dòng mặc định */
+}
+
+.lib-renew-info-value {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+    padding: 5px 10px;
+    flex: 1;
+    white-space: nowrap; /* Ngăn chữ xuống dòng mặc định */
+}
+
+/* Ô lớn cho thông tin gia hạn thẻ */
+.lib-renewal-box {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+}
+
+/* Thông tin gia hạn thẻ */
+.lib-renew-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    color: #28a745;
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.lib-renew-subtitle::after {
+    content: '';
+    width: 70px;
+    height: 4px;
+    background: linear-gradient(90deg, #28a745, #218838);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    animation: lib-renew-pulse 2s infinite;
+}
+
+.lib-renewal-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.lib-renewal-year {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.lib-renewal-year input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: not-allowed;
+    accent-color: #28a745;
+}
+
+.lib-renewal-year label {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    color: #333;
+    width: 200px; /* Đảm bảo các label có chiều rộng bằng nhau */
+    text-align: left;
+    white-space: nowrap; /* Ngăn chữ xuống dòng mặc định */
+}
+
+/* Style cho năm 2025 (Đã mua) và 2026 (Chưa mở gia hạn) khi disabled */
+.lib-renewal-year input[type="checkbox"][disabled] {
+    background-color: #ccc;
+    border-color: #999;
+    cursor: not-allowed;
+}
+
+.lib-renewal-year input[type="checkbox"][disabled] + label {
+    color: #999;
+}
+
+/* Lưu ý */
+.lib-renewal-note {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #dc3545;
+    margin-top: 10px;
+    text-align: left;
+}
+
+/* Phí gia hạn trên cùng một hàng, dãn rộng label */
+.lib-renewal-fee {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: nowrap; /* Ngăn flex wrap xuống dòng mặc định */
+}
+
+.lib-renewal-fee .lib-renew-info-label {
+    margin-right: 20px;
+    margin-bottom: 0;
+    width: 130px; /* Tăng chiều rộng để chứa "Phí gia hạn năm:" */
+    text-align: right;
+    white-space: nowrap; /* Ngăn chữ xuống dòng mặc định */
+}
+
+.lib-renewal-fee .lib-renew-info-value {
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+    white-space: nowrap; /* Ngăn chữ xuống dòng mặc định */
+}
+
+/* Định dạng nút THANH TOÁN */
+.lib-renew-next-button {
+    background: #cccccc; /* Mặc định màu xám khi disabled */
+    color: #666;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: not-allowed;
+    display: block;
+    margin: 30px auto 0;
+    transition: all 0.3s ease;
+    box-shadow: none;
+    text-transform: uppercase;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .lib-renew-main-section {
+        padding: 40px 0 80px;
+    }
+
+    .lib-renew-main-wrapper {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+
+    .lib-renew-content-section {
+        padding: 30px;
+    }
+
+    .lib-renew-section-title,
+    .lib-renew-subtitle {
+        font-size: 20px;
+    }
+
+    .lib-renew-card-grid {
+        grid-template-columns: 120px minmax(90px, 1fr) minmax(90px, 1fr); /* Giảm kích thước ảnh */
+        gap: 15px;
+    }
+
+    .lib-renew-info-label {
+        font-size: 14px;
+        width: 90px;
+    }
+
+    .lib-renew-info-value {
+        font-size: 15px;
+    }
+
+    .lib-renewal-year label {
+        font-size: 15px;
+        width: 180px;
+    }
+
+    .lib-renewal-note {
+        font-size: 13px;
+    }
+
+    .lib-renewal-fee .lib-renew-info-label {
+        width: 110px;
+    }
+
+    .lib-renew-next-button {
+        padding: 10px 30px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 522px) {
+    .lib-renew-main-section {
+        padding: 30px 0 60px;
+    }
+
+    .lib-renew-main-wrapper {
+        padding: 0 15px;
+    }
+
+    .lib-renew-content-section {
+        padding: 20px;
+    }
+
+    .lib-renew-section-title,
+    .lib-renew-subtitle {
+        font-size: 18px;
+    }
+
+    .lib-renew-card-grid {
+        grid-template-columns: 100px minmax(80px, 1fr) minmax(80px, 1fr); /* Giảm kích thước ảnh */
+        gap: 10px;
+    }
+
+    .lib-renew-info-label {
+        font-size: 13px;
+        width: 80px;
+    }
+
+    .lib-renew-info-value {
+        font-size: 14px;
+    }
+
+    .lib-renewal-year label {
+        font-size: 14px;
+        width: 160px;
+    }
+
+    .lib-renewal-note {
+        font-size: 12px;
+    }
+
+    .lib-renewal-fee {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .lib-renewal-fee .lib-renew-info-label {
+        width: auto;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .lib-renewal-fee .lib-renew-info-value {
+        margin-left: 10px;
+    }
+
+    .lib-renew-next-button {
+        padding: 8px 25px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 443px) {
+    .lib-renew-info-label {
+        white-space: normal; /* Cho phép chữ xuống dòng */
+        width: 70px;
+        font-size: 12px;
+    }
+
+    .lib-renew-info-value {
+        white-space: normal; /* Cho phép chữ xuống dòng */
+        font-size: 13px;
+    }
+
+    .lib-renewal-year label {
+        white-space: normal; /* Cho phép chữ xuống dòng */
+        width: 140px;
+        font-size: 13px;
+    }
+
+    .lib-renewal-fee .lib-renew-info-label {
+        white-space: normal; /* Cho phép chữ xuống dòng */
+        font-size: 12px;
+    }
+
+    .lib-renewal-fee .lib-renew-info-value {
+        white-space: normal; /* Cho phép chữ xuống dòng */
+        font-size: 13px;
+    }
+
+    .lib-renewal-note {
+        font-size: 11px;
+    }
+
+    .lib-renew-next-button {
+        padding: 6px 20px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 400px) {
+    .lib-renew-card-grid {
+        grid-template-columns: 90px minmax(70px, 1fr) minmax(70px, 1fr); /* Giảm kích thước ảnh */
+    }
+
+    .lib-renew-info-label {
+        width: 60px;
+    }
+
+    .lib-renewal-year label {
+        width: 120px;
+    }
+
+    .lib-renew-next-button {
+        padding: 6px 20px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 320px) {
+    .lib-renew-card-grid {
+        grid-template-columns: 80px minmax(60px, 1fr) minmax(60px, 1fr); /* Giảm kích thước ảnh */
+    }
+
+    .lib-renew-info-label {
+        font-size: 11px;
+        width: 50px;
+    }
+
+    .lib-renew-info-value {
+        font-size: 12px;
+    }
+
+    .lib-renewal-year label {
+        font-size: 12px;
+        width: 100px;
+    }
+
+    .lib-renewal-note {
+        font-size: 10px;
+    }
+
+    .lib-renewal-fee .lib-renew-info-label {
+        font-size: 11px;
+    }
+
+    .lib-renew-next-button {
+        padding: 5px 15px;
+        font-size: 12px;
+    }
+}
