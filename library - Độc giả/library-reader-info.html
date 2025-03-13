@@ -27,37 +27,37 @@
   <body class="goto-here">
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a class="navbar-brand" href="index.html">LIBRARY</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="oi oi-menu"></span> Menu
-        </button>
-
-        <div class="collapse navbar-collapse" id="ftco-nav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active"><a href="index.html" class="nav-link">Trang chủ</a></li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thư viện sách</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-                <a class="dropdown-item" href="">Tất cả</a>
-                <a class="dropdown-item" href="">Tài liệu học tập</a>
-                <a class="dropdown-item" href="">Sách phát triển bản thân</a>
-                <a class="dropdown-item" href="">Tài liệu lịch sử</a>
-                <a class="dropdown-item" href="">Tiểu thuyết</a>
-              </div>
-            </li>
-            <li class="nav-item"><a href="about.html" class="nav-link">Về chúng tôi</a></li>
-            <li class="nav-item"><a href="cart.html" class="nav-link"><span class="icon-book"></span>[0]</a></li>
-            <li class="nav-item cta cta-colored dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tên tài khoản</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-                <a class="dropdown-item" href=""><span class="icon-user"></span>Thông tin cá nhân</a>
-                <a class="dropdown-item" href=""><span class="icon-id-card"></span>Thẻ thư viện</a>
-                <a class="dropdown-item" href=""><span class="icon-history"></span>Lịch sử mượn trả</a>
-                <a class="dropdown-item" href=""><span class="icon-sign-out"></span>Đăng xuất</a>
-              </div>
-            </li>
-          </ul>
-        </div>
+          <a class="navbar-brand" href="index.html">LIBRARY</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="oi oi-menu"></span> Menu
+          </button>
+  
+          <div class="collapse navbar-collapse" id="ftco-nav">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item active"><a href="index.html" class="nav-link">Trang chủ</a></li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thư viện sách</a>
+                      <div class="dropdown-menu" aria-labelledby="dropdown04">
+                          <a class="dropdown-item" href="">Tất cả</a>
+                          <a class="dropdown-item" href="">Tài liệu học tập</a>
+                          <a class="dropdown-item" href="">Sách phát triển bản thân</a>
+                          <a class="dropdown-item" href="">Tài liệu lịch sử</a>
+                          <a class="dropdown-item" href="">Tiểu thuyết</a>
+                      </div>
+                  </li>
+                  <li class="nav-item"><a href="about.html" class="nav-link">Về chúng tôi</a></li>
+                  <li class="nav-item"><a href="cart.html" class="nav-link"><span class="icon-book"></span>[0]</a></li>
+                  <li class="nav-item cta cta-colored dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tên tài khoản</a>
+                      <div class="dropdown-menu" aria-labelledby="dropdown04">
+                          <a class="dropdown-item" href="library-reader-info.html#library-personal-content" data-section="library-personal-content"><span class="icon-user"></span> Thông tin cá nhân</a>
+                          <a class="dropdown-item" href="library-reader-info.html#library-card-content" data-section="library-card-content"><span class="icon-id-card"></span> Thẻ thư viện</a>
+                          <a class="dropdown-item" href="library-history.html"><span class="icon-history"></span> Lịch sử mượn trả</a>
+                          <a class="dropdown-item" href="logout.html"><span class="icon-sign-out"></span> Đăng xuất</a>
+                      </div>
+                  </li>
+              </ul>
+          </div>
       </div>
     </nav>
     <!-- END nav -->
@@ -68,7 +68,7 @@
         <!-- Menu bên trái (Sidebar) -->
         <div class="library-sidebar">
           <ul class="library-nav-menu">
-            <li class="library-nav-item active" data-target="library-personal-content">
+            <li class="library-nav-item" data-target="library-personal-content">
               Thông Tin Cá Nhân
             </li>
             <li class="library-nav-separator"></li>
@@ -81,7 +81,7 @@
         <!-- Nội dung bên phải -->
         <div class="library-content-area">
           <!-- Phần thông tin cá nhân -->
-          <section id="library-personal-content" class="library-content-section library-personal-section active">
+          <section id="library-personal-content" class="library-content-section library-personal-section">
             <h2 class="library-section-title">Thông Tin Cá Nhân</h2>
             <div class="library-info-list">
               <div class="library-info-item">
@@ -156,7 +156,7 @@
                 </div>
                 <button class="library-renew-button" onclick="window.location.href='library-renew-card.html'">
                   <span class="renew-icon"></span> Gia Hạn Thẻ
-              </button>
+                </button>
               </div>
             </div>
           </section>
@@ -262,63 +262,96 @@
 
     <!-- JavaScript để chuyển đổi nội dung và xử lý nhấp -->
     <script>
+      // Xử lý nhấp chuột trên các mục dropdown
+      document.querySelectorAll('.dropdown-menu a[data-section]').forEach(item => {
+          item.addEventListener('click', (e) => {
+              e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+              const sectionId = item.getAttribute('data-section');
+
+              // Kiểm tra xem trang hiện tại có phải là library-reader-info.html không
+              if (window.location.pathname.endsWith('library-reader-info.html')) {
+                  // Nếu đã ở đúng trang, chỉ cần chuyển đổi section
+                  document.querySelectorAll('.library-nav-item').forEach(item => item.classList.remove('active'));
+                  document.querySelectorAll('.library-content-section').forEach(section => section.classList.remove('active'));
+                  const targetSection = document.getElementById(sectionId);
+                  if (targetSection) {
+                      targetSection.classList.add('active');
+                      document.querySelector(`.library-nav-item[data-target="${sectionId}"]`).classList.add('active');
+                      window.location.hash = sectionId; // Cập nhật hash
+                  }
+              } else {
+                  // Nếu không ở trang library-reader-info.html, chuyển hướng đến trang với hash
+                  window.location.href = `library-reader-info.html#${sectionId}`;
+              }
+          });
+      });
+
       // Chuyển đổi nội dung sidebar
       document.querySelectorAll('.library-nav-item').forEach(item => {
-        item.addEventListener('click', () => {
-          console.log('Sidebar item clicked:', item.getAttribute('data-target')); // Debug
-          document.querySelectorAll('.library-nav-item').forEach(item => item.classList.remove('active'));
-          document.querySelectorAll('.library-content-section').forEach(section => section.classList.remove('active'));
-          item.classList.add('active');
-          const targetSection = document.getElementById(item.getAttribute('data-target'));
-          targetSection.classList.add('active');
-        });
+          item.addEventListener('click', () => {
+              const targetSection = item.getAttribute('data-target');
+              document.querySelectorAll('.library-nav-item').forEach(item => item.classList.remove('active'));
+              document.querySelectorAll('.library-content-section').forEach(section => section.classList.remove('active'));
+              item.classList.add('active');
+              document.getElementById(targetSection).classList.add('active');
+              window.location.hash = targetSection; // Cập nhật hash
+          });
+      });
+
+      // Xử lý hash khi tải trang
+      window.addEventListener('load', () => {
+          const hash = window.location.hash.substring(1); // Loại bỏ '#' khỏi hash
+          if (hash) {
+              document.querySelectorAll('.library-nav-item').forEach(item => item.classList.remove('active'));
+              document.querySelectorAll('.library-content-section').forEach(section => section.classList.remove('active'));
+              const targetSection = document.getElementById(hash);
+              if (targetSection) {
+                  targetSection.classList.add('active');
+                  document.querySelector(`.library-nav-item[data-target="${hash}"]`).classList.add('active');
+              }
+          } else {
+              // Mặc định hiển thị section "Thông Tin Cá Nhân"
+              document.getElementById('library-personal-content').classList.add('active');
+              document.querySelector('[data-target="library-personal-content"]').classList.add('active');
+          }
       });
 
       // Logic xử lý nhấp vào box năm
       const statusItem = document.getElementById('cardStatus');
       const statusCircle = statusItem.querySelector('.status-circle');
-      const statusText = statusItem.querySelector('.status-text'); // Sửa lại để chọn đúng phần tử
+      const statusText = statusItem.querySelector('.status-text');
       const timeOptions = document.getElementById('timeOptions');
       const currentYear = 2025; // Năm hiện tại
 
-      // Hàm cập nhật trạng thái
       function updateStatus(selectedYear) {
-        console.log('Updating status for year:', selectedYear); // Debug
-        if (selectedYear === currentYear) {
-          console.log('Year matches current year, setting to Hoạt động'); // Debug
-          statusItem.classList.remove('inactive');
-          statusItem.classList.add('active');
-          statusCircle.innerHTML = '<i class="fas fa-check"></i>';
-          if (statusText) statusText.textContent = 'Đang hoạt động';
-        } else {
-          console.log('Year does not match current year, setting to Không hoạt động'); // Debug
-          statusItem.classList.remove('active');
-          statusItem.classList.add('inactive');
-          statusCircle.innerHTML = '<i class="fas fa-times"></i>';
-          if (statusText) statusText.textContent = 'Không hoạt động';
-        }
+          console.log('Updating status for year:', selectedYear);
+          if (selectedYear === currentYear) {
+              statusItem.classList.remove('inactive');
+              statusItem.classList.add('active');
+              statusCircle.innerHTML = '<i class="fas fa-check"></i>';
+              if (statusText) statusText.textContent = 'Đang hoạt động';
+          } else {
+              statusItem.classList.remove('active');
+              statusItem.classList.add('inactive');
+              statusCircle.innerHTML = '<i class="fas fa-times"></i>';
+              if (statusText) statusText.textContent = 'Không hoạt động';
+          }
       }
 
-      // Lắng nghe sự kiện nhấp vào box năm
       if (timeOptions) {
-        timeOptions.querySelectorAll('.card-time-option').forEach(option => {
-          option.addEventListener('click', () => {
-            console.log('Clicked on year:', option.getAttribute('data-year')); // Debug
-            const selectedYear = parseInt(option.getAttribute('data-year'));
-            timeOptions.querySelectorAll('.card-time-option').forEach(opt => opt.classList.remove('selected'));
-            option.classList.add('selected');
-            updateStatus(selectedYear);
+          timeOptions.querySelectorAll('.card-time-option').forEach(option => {
+              option.addEventListener('click', () => {
+                  const selectedYear = parseInt(option.getAttribute('data-year'));
+                  timeOptions.querySelectorAll('.card-time-option').forEach(opt => opt.classList.remove('selected'));
+                  option.classList.add('selected');
+                  updateStatus(selectedYear);
+              });
           });
-        });
-      } else {
-        console.error('timeOptions element not found!'); // Debug nếu không tìm thấy
       }
 
-      // Cập nhật trạng thái ban đầu khi tải trang
       document.addEventListener('DOMContentLoaded', () => {
-        console.log('DOM fully loaded, setting default year to 2025'); // Debug
-        const defaultYear = 2025;
-        updateStatus(defaultYear);
+          const defaultYear = 2025;
+          updateStatus(defaultYear);
       });
     </script>
   </body>
