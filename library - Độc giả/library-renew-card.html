@@ -209,6 +209,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/info.js"></script>
 
     <!-- JavaScript cho trang gia hạn thẻ -->
     <script>
@@ -225,15 +226,7 @@
             feeAmount.textContent = '0Đ'; // Phí luôn là 0Đ vì không thể gia hạn
         }
 
-        // Xử lý nhấp chuột trên các mục dropdown
-        document.querySelectorAll('.dropdown-menu a[data-section]').forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
-                const sectionId = item.getAttribute('data-section');
-                // Chuyển hướng đến trang library-reader-info.html với hash
-                window.location.href = `library-reader-info.html#${sectionId}`;
-            });
-        });
+        
 
         // Gọi hàm khi trang tải
         document.addEventListener('DOMContentLoaded', updatePaymentButton);
