@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Vegefoods - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Chi Tiết Sách - Thư Viện</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -33,6 +33,32 @@
     <link rel="stylesheet" href="css/flaticon.css" />
     <link rel="stylesheet" href="css/icomoon.css" />
     <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Custom CSS for book details layout -->
+    <style>
+      .book-details {
+        max-width: 600px;
+        margin: 50px auto;
+      }
+      .book-details img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      .book-details h3 {
+        font-size: 28px;
+        margin-bottom: 15px;
+      }
+      .book-details p {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+      .book-details .description {
+        text-align: justify;
+        line-height: 1.6;
+      }
+    </style>
   </head>
   <body class="goto-here">
     <nav
@@ -158,30 +184,27 @@
       </div>
     </section>
 
-    <!-- END nav -->
-
     <section class="ftco-section">
       <div class="container">
         <div class="row">
           <div class="col-lg-6 mb-5 ftco-animate">
-            <a href="images/book-1.jpg" class="image-popup"
+            <a href="#" class="image-popup"
               ><img
                 id="book-image"
-                src="./images/book-2.webp"
+                src=""
                 class="img-fluid"
-                alt="Colorlib Template"
+                alt="Hình ảnh sách"
             /></a>
           </div>
           <div class="col-lg-6 book-details pl-md-5 ftco-animate">
-            <h3>HISTORY</h3>
-
-            <p>
-              Cuốn sách "HISTORY" là một hành trình xuyên thời gian, đưa độc giả khám phá những sự kiện, nhân vật và biến cố đã định hình nên thế giới hiện đại. Với cách kể chuyện sống động và chi tiết, cuốn sách không chỉ tái hiện lại những khoảnh khắc lịch sử quan trọng mà còn phân tích sâu sắc về nguyên nhân, hậu quả và bài học rút ra từ chúng. Từ những nền văn minh cổ đại đến các cuộc cách mạng công nghiệp, từ những cuộc chiến tranh đẫm máu đến những bước tiến vĩ đại của nhân loại, "HISTORY" mang đến một cái nhìn toàn diện và đa chiều về quá khứ. Cuốn sách không chỉ dành cho những người yêu thích lịch sử mà còn là nguồn cảm hứng để chúng ta hiểu rõ hơn về hiện tại và định hướng tương lai. Với hình ảnh minh họa sinh động và ngôn từ dễ hiểu, "HISTORY" thực sự là một tác phẩm không thể bỏ qua cho bất kỳ ai muốn khám phá và hiểu sâu hơn về thế giới xung quanh mình.
-            </p>
+            <h3 id="book-title">Đang tải...</h3>
+            <!-- Added category display -->
+            <p id="book-category">Danh mục: Đang tải...</p>
+            <p id="book-description">Đang tải...</p>
             <div class="row mt-4">
               <div class="col-md-6">
                 <div class="form-group d-flex">
-                  <span>Số lượng bản sao hiện có : 10 </span>
+                  <span id="book-stock">Số lượng bản sao hiện có: Đang tải...</span>
                 </div>
               </div>
               <div class="w-100"></div>
@@ -219,10 +242,8 @@
               <div class="w-100"></div>
               <div class="col-md-12"></div>
             </div>
-            <p>
-              <a href="cart.html" class="btn btn-black py-3 px-5"
-                >Thêm vào kho
-              </a>
+            <p class="btn btn-black py-3 px-5">
+              Thêm vào kho
             </p>
           </div>
         </div>
@@ -246,20 +267,16 @@
               <a href="#" class="img-prod"
                 ><img
                   class="img-fluid"
-                  src="./images/book-10.webp"
+                  src="./images/book-3.webp"
                   alt="Colorlib Template"
                 />
-
                 <div class="overlay"></div>
               </a>
               <div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">Bell Pepper</a></h3>
+                <h3><a href="#">BÍ ẨN 19</a></h3>
                 <div class="d-flex">
                   <div class="pricing">
-                    <p class="price">
-                      <span class="mr-2 price-dc"></span
-                      ><span class="price-sale"></span>
-                    </p>
+                    <p class="price">Tiểu thuyết<span class="mr-2 price-dc"></span></p>
                   </div>
                 </div>
                 <div class="bottom-area d-flex px-3">
@@ -280,19 +297,16 @@
               <a href="#" class="img-prod"
                 ><img
                   class="img-fluid"
-                  src="./images/book-1.webp"
+                  src="./images/book-9.webp"
                   alt="Colorlib Template"
                 />
                 <div class="overlay"></div>
               </a>
               <div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">BÍ ẨN 11</a></h3>
+                <h3><a href="#">BÍ ẨN 122</a></h3>
                 <div class="d-flex">
                   <div class="pricing">
-                    <p class="price">
-                      <span class="mr-2 price-dc"></span
-                      ><span class="price-sale"></span>
-                    </p>
+                    <p class="price">Tiểu thuyết<span class="mr-2 price-dc"></span></p>
                   </div>
                 </div>
                 <div class="bottom-area d-flex px-3">
@@ -319,13 +333,10 @@
                 <div class="overlay"></div>
               </a>
               <div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">bÍ ẨN 44</a></h3>
+                <h3><a href="#">BÍ ẨN 77</a></h3>
                 <div class="d-flex">
                   <div class="pricing">
-                    <p class="price">
-                      <span class="mr-2 price-dc"></span
-                      ><span class="price-sale"></span>
-                    </p>
+                    <p class="price">Tiểu thuyết<span class="mr-2 price-dc"></span></p>
                   </div>
                 </div>
                 <div class="bottom-area d-flex px-3">
@@ -352,13 +363,10 @@
                 <div class="overlay"></div>
               </a>
               <div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">BÍ ẨN 77</a></h3>
+                <h3><a href="#">BÍ ẨN 1</a></h3>
                 <div class="d-flex">
                   <div class="pricing">
-                    <p class="price">
-                      <span class="mr-2 price-dc"></span
-                      ><span class="price-sale"></span>
-                    </p>
+                    <p class="price">Tiểu thuyết<span class="mr-2 price-dc"></span></p>
                   </div>
                 </div>
                 <div class="bottom-area d-flex px-3">
@@ -391,7 +399,16 @@
             >
           </div>
           <div class="col-md-6 d-flex align-items-center">
-            <form action="#" class="subscribe-form"></form>
+            <form action="#" class="subscribe-form">
+              <div class="form-group d-flex">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter email address"
+                />
+                <input type="submit" value="Subscribe" class="submit px-3" />
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -493,15 +510,13 @@
         <div class="row">
           <div class="col-md-12 text-center">
             <p>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy;
+              Copyright ©
               <script>
                 document.write(new Date().getFullYear());
               </script>
               Hệ thống thư viện Library.
               <i class="icon-heart color-danger" aria-hidden="true"></i> Bảo lưu
               mọi quyền
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
           </div>
         </div>
@@ -551,47 +566,135 @@
 
     <script>
       $(document).ready(function () {
-        // Lấy tham số book từ URL
+        // Lấy tham số book và category từ URL
         const urlParams = new URLSearchParams(window.location.search);
         const bookId = urlParams.get("book");
+        const category = urlParams.get("category"); // Lấy category từ URL
 
-        // Dữ liệu ảnh sách
-        const bookImages = {
-          "book-1": "./images/book-1.webp",
-          "book-2": "./images/book-2.webp",
-          "book-3": "./images/book-3.webp",
-          "book-4": "./images/book-4.webp",
-          "book-5": "./images/book-5.webp",
-          "book-6": "./images/book-6.webp",
-          "book-7": "./images/book-7.webp",
-          "book-8": "./images/book-8.webp",
-          "book-9": "./images/book-9.webp",
-          "book-10": "./images/book-10.webp",
-          "book-11": "./images/book-11.webp",
-          "book-12": "./images/book-12.webp",
+        // Dữ liệu chi tiết sách
+        const books = {
+          "book-1": {
+            title: "Bí ẩn 11",
+            image: "./images/book-1.webp",
+            description:
+              "Một cuốn tiểu thuyết bí ẩn đầy lôi cuốn, kể về những bí mật chưa được giải đáp.",
+            stock: 10,
+          },
+          "book-2": {
+            title: "HISTORY",
+            image: "./images/book-2.webp",
+            description:
+              "Cuốn sách 'HISTORY' là một hành trình xuyên thời gian, đưa độc giả khám phá những sự kiện, nhân vật và biến cố đã định hình nên thế giới hiện đại. Với cách kể chuyện sống động và chi tiết, cuốn sách không chỉ tái hiện lại những khoảnh khắc lịch sử quan trọng mà còn phân tích sâu sắc về nguyên nhân, hậu quả và bài học rút ra từ chúng.",
+            stock: 15,
+          },
+          "book-3": {
+            title: "SELF IMPROVEMENT",
+            image: "./images/book-3.webp",
+            description:
+              "Cuốn sách truyền cảm hứng giúp bạn phát triển bản thân và đạt được mục tiêu.",
+            stock: 8,
+          },
+          "book-4": {
+            title: "BÍ ẨN 44",
+            image: "./images/book-4.webp",
+            description:
+              "Khám phá những bí ẩn lịch sử qua các tài liệu được nghiên cứu kỹ lưỡng.",
+            stock: 12,
+          },
+          "book-5": {
+            title: "STUDY GUIDE",
+            image: "./images/book-5.webp",
+            description:
+              "Hướng dẫn học tập hiệu quả dành cho học sinh và sinh viên.",
+            stock: 20,
+          },
+          "book-6": {
+            title: "HISTORY",
+            image: "./images/book-6.webp",
+            description:
+              "Tiểu thuyết lịch sử kể về những sự kiện quan trọng trong quá khứ.",
+            stock: 10,
+          },
+          "book-7": {
+            title: "BÍ ẨN 77",
+            image: "./images/book-7.webp",
+            description:
+              "Cuốn sách giúp bạn khám phá tiềm năng ẩn giấu bên trong.",
+            stock: 7,
+          },
+          "book-8": {
+            title: "STUDY GUIDE",
+            image: "./images/book-8.webp",
+            description:
+              "Tài liệu lịch sử cung cấp kiến thức về các sự kiện quan trọng.",
+            stock: 14,
+          },
+          "book-9": {
+            title: "HISTORY",
+            image: "./images/book-9.webp",
+            description:
+              "Tài liệu học tập chuyên sâu về lịch sử thế giới.",
+            stock: 18,
+          },
+          "book-10": {
+            title: "SKIBIDI",
+            image: "./images/book-10.webp",
+            description:
+              "Tiểu thuyết giả tưởng đầy thú vị và sáng tạo.",
+            stock: 9,
+          },
+          "book-11": {
+            title: "CHILL DIDI",
+            image: "./images/book-11.webp",
+            description:
+              "Tài liệu lịch sử về văn hóa và phong tục cổ xưa.",
+            stock: 11,
+          },
+          "book-12": {
+            title: "Chilli",
+            image: "./images/book-12.webp",
+            description:
+              "Tài liệu học tập giúp bạn nắm vững kiến thức cơ bản.",
+            stock: 13,
+          },
         };
 
-        // Cập nhật ảnh nếu có tham số book
-        if (bookImages[bookId]) {
-          $("#book-image").attr("src", bookImages[bookId]);
-        }
+        // Lấy thông tin sách dựa trên bookId
+        const book = books[bookId] || {
+          title: "Không tìm thấy sách",
+          image: "",
+          description: "Không có mô tả.",
+          stock: 0,
+        };
 
-        // Giữ nguyên script tăng giảm số lượng của bạn
-        var quantitiy = 0;
+        // Cập nhật các phần tử HTML với thông tin sách
+        $("#book-title").text(book.title);
+        $("#book-image").attr("src", book.image).attr("alt", `Hình ảnh của ${book.title}`);
+        $("#book-description").text(book.description);
+        $("#book-stock").text(`Số lượng bản sao hiện có: ${book.stock}`);
+        // Cập nhật danh mục
+        $("#book-category").text(`Danh mục: ${category || "Không xác định"}`);
+
+        // Giữ nguyên script tăng giảm số lượng
+        var quantity = 0;
         $(".quantity-right-plus").click(function (e) {
           e.preventDefault();
-          var quantity = parseInt($("#quantity").val());
-          $("#quantity").val(quantity + 1);
+          var currentQuantity = parseInt($("#quantity").val());
+          if (currentQuantity < book.stock) {
+            $("#quantity").val(currentQuantity + 1);
+          }
         });
 
         $(".quantity-left-minus").click(function (e) {
           e.preventDefault();
-          var quantity = parseInt($("#quantity").val());
-          if (quantity > 0) {
-            $("#quantity").val(quantity - 1);
+          var currentQuantity = parseInt($("#quantity").val());
+          if (currentQuantity > 1) {
+            $("#quantity").val(currentQuantity - 1);
           }
         });
       });
+
+      
     </script>
   </body>
 </html>
