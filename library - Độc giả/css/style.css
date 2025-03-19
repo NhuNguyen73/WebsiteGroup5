@@ -10015,3 +10015,89 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+ /* Thanh tìm kiếm */
+.search-bar {
+  position: fixed;
+  top: 80px; /* Keep the same position */
+  right: 20px;
+  width: 300px;
+  z-index: 1000;
+  display: none; /* Hidden by default, controlled by JavaScript */
+  transition: opacity 0.3s ease; /* Keep the transition */
+}
+
+/* Show class for JavaScript toggle */
+.search-bar.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Form group inside the search form */
+.search-form .form-group {
+  margin-bottom: 0;
+  position: relative; /* For positioning the icon */
+}
+
+/* Flexbox for the search form */
+.search-form {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Style the input field */
+.search-form input[type="text"] {
+  width: 100%; /* Full width of the container */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 8px 40px 8px 12px; /* Add padding on the right for the icon */
+  font-size: 14px;
+  background-color: #fff; /* White background */
+  outline: none; /* Remove default outline */
+}
+
+/* Style the button to look like an icon inside the input */
+.search-form button {
+  position: absolute;
+  right: 5px; /* Position the icon inside the input field */
+  top: 50%;
+  transform: translateY(-50%); /* Center vertically */
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  padding: 5px; /* Small padding for clickable area */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Style the search icon */
+.search-form button .ion-ios-search {
+  font-size: 18px; /* Slightly larger icon */
+  color: #333; /* Dark gray color for the icon */
+}
+
+/* Remove hover effect on the button */
+.search-form button:hover {
+  background: none; /* No background change on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-bar {
+    width: 90%;
+    right: 5%;
+    top: 60px;
+  }
+  .search-form input[type="text"] {
+    width: 100%; /* Adjust for smaller screens */
+  }
+}
+
+/* Keep the navbar styling unchanged */
+.ftco-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1050;
+}
