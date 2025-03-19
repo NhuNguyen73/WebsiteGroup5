@@ -22,6 +22,11 @@
             <div class="form-group">
                 <input type="text" id="email" class="form-input" placeholder="Nhập Email" required>
             </div>
+
+            <label for="phone">Số điện thoại(*):</label>
+               <div class="form-group">
+                   <input type="tel" id="phone" class="form-input" placeholder="Nhập số điện thoại" required>
+               </div>
             
             <label for="password">Mật khẩu(*):</label>
             <div class="form-group">    
@@ -34,28 +39,17 @@
            
                <label for="dob">Ngày sinh(*):</label>
                <div class="form-group">
-                   <input type="date" id="dob" class="form-input" placeholder="Ngày sinh (dd/mm/yyyy)" required>
+                   <input type="date" id="dob" class="form-input" placeholder="Ngày sinh (dd/mm/yyyy)" max="2025-03-19" required>
                </div>
 
-               <label for="phone">Số điện thoại(*):</label>
-               <div class="form-group">
-                   <input type="tel" id="phone" class="form-input" placeholder="Nhập số điện thoại" required>
-               </div>
                
                <label for="education">Trình độ văn hoá(*):</label>
                <div class="form-group">
                    <select id="education" class="form-input" required>
-                       <option value="">Chọn trình độ văn hoá</option>
-                       <option value="tieuhoc">Tiểu học</option>
-                       <option value="thcs">Trung học cơ sở</option>
-                       <option value="thpt">Trung học phổ thông</option>
-                       <option value="daihoc">Đại học</option>
-                   </select>
-               </div>
-   
-               <label for="ethnicity">Dân tộc(*):</label>
-               <div class="form-group">
-                   <input type="text" id="ethnicity" class="form-input" placeholder="Nhập dân tộc" required>
+                           <option value="">Chọn trình độ văn hoá</option>
+                           <option value="trunghoc">Trung học</option>
+                           <option value="caohoc">Cao học</option>
+                       </select>
                </div>
    
                <label for="address">Địa chỉ(*):</label>
@@ -72,5 +66,16 @@
     </div>
     
     
+    <script>
+        // Set max date to today for date of birth
+        document.addEventListener('DOMContentLoaded', function() {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById('dob').max = today;
+        });
+    </script>
 </body>
 </html>

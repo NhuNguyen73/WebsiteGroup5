@@ -32,14 +32,54 @@ a:hover{
 }
 
 #form-login{
+    width: 100%;
     max-width: 300px;
-    /* background: rgba(235, 238, 78, 0.8); */
     background: rgba(226, 226, 211, 0.8);
     flex-grow: 1;
     padding: 25px 25px 30px;
-    /* box-shadow: 0px 0px 20px 3px rgba(186, 206, 8, 0.8); */
     box-shadow: 0px 0px 20px 3px rgba(241, 241, 239, 0.8);
     border-radius: 8px;
+    margin: 15px;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 480px) {
+    #form-login {
+        margin: 10px;
+        padding: 20px 15px;
+    }
+
+    .form-input::placeholder {
+        font-size: 14px;
+    }
+
+    .form-submit {
+        width: 50%;
+        font-size: 14px;
+    }
+
+    .link {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    #form-login {
+        margin: 5px;
+        padding: 15px 10px;
+    }
+
+    .title-head {
+        font-size: 18px;
+    }
+
+    .form-input {
+        font-size: 15px;
+    }
+
+    .form-submit {
+        width: 60%;
+    }
 }
 
 .form-heading{
