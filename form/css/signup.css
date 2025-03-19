@@ -74,6 +74,28 @@ label{
     height: 25px;
 }
 
+.form-input[type="tel"],
+.form-input[type="text"],
+.form-input[type="password"],
+.form-input[type="email"],
+.form-input[type="date"] {
+    height: 25px;
+    padding: 0 10px;
+}
+
+textarea.form-input {
+    height: 60px;
+    padding: 5px 10px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+select.form-input {
+    height: 35px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
 .form-input::placeholder{
     color: #0a0a0a;
     font-size: 15px;
