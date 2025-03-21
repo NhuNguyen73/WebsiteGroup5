@@ -46,15 +46,13 @@ header {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    font-size: 1.7rem; /* Chữ lớn hơn một chút */
+    font-size: 1.7rem;
     font-weight: bold;
-    color:#2c88a6; /* Màu vàng nổi bật */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng nhẹ */
-    letter-spacing: 1px; /* Giãn chữ một chút cho đẹp */
-    text-transform: uppercase; /* Viết hoa chữ cho chuyên nghiệp */
+    color: #2c88a6;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
-
-
 
 .sidebar-brand i {
     margin-right: 10px;
@@ -78,7 +76,7 @@ header {
     display: flex;
     align-items: center;
     padding: 15px 20px;
-    color: #fff; /* Màu chữ menu */
+    color: #fff;
     text-decoration: none;
     transition: background 0.3s;
 }
@@ -90,7 +88,7 @@ header {
 }
 
 .nav-link:hover, .nav-link.active {
-    background: #97c9aa; /* Màu nền menu */
+    background: #97c9aa;
 }
 
 .sidebar.toggled .nav-link span {
@@ -217,3 +215,57 @@ button:hover, .btn:hover {
     border-color: #2DA645;
     outline: none;
 }
+
+.search-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+.search-container input {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+.search-container button {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    background: #2c88a6;
+    color: white; /* Chữ trắng */
+    cursor: pointer;
+}
+.search-container button:hover {
+    background: #1f7e32;
+
+}
+.details-container {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: none;
+}
+.form-container input, .form-container select {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.form-container input[readonly] {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+

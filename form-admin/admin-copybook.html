@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý bản sao sách - Admin</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href=".\css\admin.css">
+    <link rel="stylesheet" href=".\css\admin-courses.css">
+    <!-- Thêm Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <header>
+        <div class="logo">Admin - YourWebsite</div>
+        <div class="user-info">
+            <span id="admin-name">[Admin Name]</span>
+            <a href="/logout">Đăng xuất</a>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <i class="fas fa-book-open" style="padding-right: 8px;"></i>
+            <span>Books Admin</span>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="admin-dashboard.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt" style="padding-right: 8px;"></i>
+                    <span>Bảng điều khiển</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-users.html" class="nav-link">
+                    <i class="fas fa-users" style="padding-right: 8px;"></i>
+                    <span>Quản lý người dùng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-book.html" class="nav-link">
+                    <i class="fas fa-book" style="padding-right: 8px;"></i>
+                    <span>Quản lý sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-copybook.html" class="nav-link">
+                    <i class="fas fa-book" style="padding-right: 8px;"></i>
+                    <span>Quản lý bản sao sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-library-cards.html" class="nav-link">
+                    <i class="fas fa-id-card" style="padding-right: 8px;"></i>
+                    <span>Quản lý thẻ thư viện</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-borrow-records.html" class="nav-link">
+                    <i class="fas fa-tasks" style="padding-right: 8px;"></i>
+                    <span>Quản lý phiếu mượn trả</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-book-reservations.html" class="nav-link">
+                    <i class="fas fa-shopping-cart" style="padding-right: 8px;"></i>
+                    <span>Quản lý đặt mượn sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-stats.html" class="nav-link">
+                    <i class="fas fa-chart-area" style="padding-right: 8px;"></i>
+                    <span>Thống kê</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-toggle">
+            <button id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </aside>
+
+    <main>
+        <h1>Quản lý bản sao sách</h1>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Tìm kiếm theo mã sách hoặc tên sách">
+            <button onclick="searchBooks()"><i class="fas fa-search"></i></button>
+        </div>
+        <table id="book-copy-list">
+            <thead>
+                <tr>
+                    <th>ID Sách</th>
+                    <th>Tên sách</th>
+                    <th>Số lượng</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BOOK-2025-001</td>
+                    <td>Đắc Nhân Tâm</td>
+                    <td>7</td>
+                    <td>
+                        <a href="#" class="btn" onclick="addBookCopy('BOOK-2025-001')">Thêm bản sao</a>
+                        <a href="#" class="btn" onclick="viewBookCopyDetails('BOOK-2025-001')">Xem chi tiết</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Form Thêm Bản sao Sách -->
+        <div id="add-book-copy-form" class="form-container" style="display:none;">
+            <h2>Thêm Bản sao Sách</h2>
+            <input type="text" placeholder="ID Sách" id="book-id" readonly>
+            <input type="text" placeholder="Tên sách" id="book-title" readonly>
+            <input type="number" placeholder="Số lượng bản sao thêm" id="book-copy-quantity" min="1" required>
+            <button class="btn" onclick="saveBookCopy()">Lưu</button>
+            <button class="btn" onclick="toggleForm('add-book-copy-form')">Hủy</button>
+        </div>
+        <!-- Chi tiết Bản sao Sách -->
+        <div id="book-copy-details" class="details-container">
+            <h2>Chi tiết Bản sao Sách</h2>
+            <p><strong>ID Sách:</strong> <span id="detail-book-id"></span></p>
+            <p><strong>Tên sách:</strong> <span id="detail-book-title"></span></p>
+            <p><strong>Số lượng bản sao:</strong> <span id="detail-book-quantity"></span></p>
+            <table id="book-copy-details-list">
+                <thead>
+                    <tr>
+                        <th>ID Bản sao Sách</th>
+                        <th>ID Sách</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày nhập kho</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="book-copy-details-tbody">
+                </tbody>
+            </table>
+            <button class="btn" onclick="toggleDetails()">Đóng</button>
+        </div>
+        <!-- Form Sửa Bản sao Sách -->
+        <div id="edit-book-copy-form" class="form-container" style="display:none;">
+            <h2>Sửa Bản sao Sách</h2>
+            <label>ID Bản sao:</label>
+            <input type="text" id="edit-copy-id" readonly>
+            <label>ID Sách:</label>
+            <input type="text" id="edit-book-id" readonly>
+            <label>Trạng thái:</label>
+            <select id="edit-book-copy-status" required>
+                <option value="">Chọn trạng thái</option>
+                <option value="Có sẵn">Có sẵn</option>
+                <option value="Đang mượn">Đang mượn</option>
+                <option value="Hỏng">Hỏng</option>
+            </select>
+            <label>Ngày nhập kho:</label>
+            <input type="date" id="edit-book-copy-created-at" required>
+            <button class="btn" onclick="updateBookCopy()">Cập nhật</button>
+            <button class="btn" onclick="toggleForm('edit-book-copy-form')">Hủy</button>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+    <script>
+        // Danh sách sách và bản sao (giả lập dữ liệu)
+        let bookCopies = [
+            { bookId: 'BOOK-2025-001', bookTitle: 'Đắc Nhân Tâm', quantity: 7 }
+        ];
+
+        let bookCopyDetails = [
+            { copyId: 'BS1', bookId: 'BOOK-2025-001', status: 'Có sẵn', createdAt: '2025-01-01' },
+            { copyId: 'BS2', bookId: 'BOOK-2025-001', status: 'Đang mượn', createdAt: '2025-01-02' },
+            { copyId: 'BS3', bookId: 'BOOK-2025-001', status: 'Hỏng', createdAt: '2025-01-03' },
+            { copyId: 'BS4', bookId: 'BOOK-2025-001', status: 'Có sẵn', createdAt: '2025-01-04' },
+            { copyId: 'BS5', bookId: 'BOOK-2025-001', status: 'Đang mượn', createdAt: '2025-01-05' },
+            { copyId: 'BS6', bookId: 'BOOK-2025-001', status: 'Có sẵn', createdAt: '2025-01-06' },
+            { copyId: 'BS7', bookId: 'BOOK-2025-001', status: 'Hỏng', createdAt: '2025-01-07' }
+        ];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderBookCopies();
+        });
+
+        function renderBookCopies(searchTerm = '') {
+            const tbody = document.querySelector('#book-copy-list tbody');
+            tbody.innerHTML = '';
+            const filteredBooks = bookCopies.filter(book => 
+                book.bookId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                book.bookTitle.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            filteredBooks.forEach(book => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${book.bookId}</td>
+                    <td>${book.bookTitle}</td>
+                    <td>${book.quantity}</td>
+                    <td>
+                        <a href="#" class="btn" onclick="addBookCopy('${book.bookId}')">Thêm bản sao</a>
+                        <a href="#" class="btn" onclick="viewBookCopyDetails('${book.bookId}')">Xem chi tiết</a>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function searchBooks() {
+            const searchTerm = document.getElementById('search-input').value;
+            renderBookCopies(searchTerm);
+        }
+
+        function toggleForm(formId) {
+            document.getElementById(formId).style.display =
+                document.getElementById(formId).style.display === 'none' ? 'block' : 'none';
+        }
+
+        function toggleDetails() {
+            const detailsContainer = document.getElementById('book-copy-details');
+            detailsContainer.style.display =
+                detailsContainer.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function addBookCopy(bookId) {
+            const book = bookCopies.find(b => b.bookId === bookId);
+            if (book) {
+                document.getElementById('book-id').value = book.bookId;
+                document.getElementById('book-title').value = book.bookTitle;
+                document.getElementById('book-copy-quantity').value = 1;
+                toggleForm('add-book-copy-form');
+            }
+        }
+
+        function saveBookCopy() {
+            const form = document.getElementById('add-book-copy-form');
+            const quantityInput = document.getElementById('book-copy-quantity');
+            const bookId = document.getElementById('book-id').value;
+            const quantity = parseInt(quantityInput.value);
+
+            if (!quantity || quantity < 1) {
+                alert('Vui lòng nhập số lượng bản sao hợp lệ (ít nhất 1)');
+                quantityInput.style.borderColor = 'red';
+                return;
+            }
+
+            const book = bookCopies.find(b => b.bookId === bookId);
+            if (book) {
+                book.quantity += quantity;
+                for (let i = 0; i < quantity; i++) {
+                    const newCopyId = `BS${bookCopyDetails.length + 1}`;
+                    const statuses = ['Có sẵn', 'Đang mượn', 'Hỏng'];
+                    const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                    const today = new Date();
+                    const createdAt = today.toISOString().split('T')[0];
+                    bookCopyDetails.push({
+                        copyId: newCopyId,
+                        bookId: bookId,
+                        status: randomStatus,
+                        createdAt: createdAt
+                    });
+                }
+                renderBookCopies();
+                alert('Đã thêm bản sao sách thành công!');
+                form.reset();
+                toggleForm('add-book-copy-form');
+            }
+        }
+
+        function viewBookCopyDetails(bookId) {
+            const book = bookCopies.find(b => b.bookId === bookId);
+            if (book) {
+                document.getElementById('detail-book-id').textContent = book.bookId;
+                document.getElementById('detail-book-title').textContent = book.bookTitle;
+                document.getElementById('detail-book-quantity').textContent = book.quantity;
+
+                const detailsTbody = document.getElementById('book-copy-details-tbody');
+                detailsTbody.innerHTML = '';
+                const copies = bookCopyDetails.filter(copy => copy.bookId === bookId);
+                copies.forEach(copy => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${copy.copyId}</td>
+                        <td>${copy.bookId}</td>
+                        <td>${copy.status}</td>
+                        <td>${copy.createdAt}</td>
+                        <td>
+                            <a href="#" class="btn" onclick="editBookCopy('${copy.copyId}')">Sửa</a>
+                            <a href="#" class="btn" onclick="deleteBookCopy('${copy.copyId}', '${bookId}')">Xóa</a>
+                        </td>
+                    `;
+                    detailsTbody.appendChild(row);
+                });
+
+                toggleDetails();
+            }
+        }
+
+        function editBookCopy(copyId) {
+            const copy = bookCopyDetails.find(c => c.copyId === copyId);
+            if (copy) {
+                document.getElementById('edit-copy-id').value = copy.copyId;
+                document.getElementById('edit-book-id').value = copy.bookId;
+                document.getElementById('edit-book-copy-status').value = copy.status;
+                document.getElementById('edit-book-copy-created-at').value = copy.createdAt;
+                toggleForm('edit-book-copy-form');
+            }
+        }
+
+        function updateBookCopy() {
+            const form = document.getElementById('edit-book-copy-form');
+            const copyId = document.getElementById('edit-copy-id').value;
+            const status = document.getElementById('edit-book-copy-status').value;
+            const createdAt = document.getElementById('edit-book-copy-created-at').value;
+
+            if (!status || !createdAt) {
+                alert('Vui lòng điền đầy đủ thông tin bắt buộc');
+                return;
+            }
+
+            const copy = bookCopyDetails.find(c => c.copyId === copyId);
+            if (copy) {
+                copy.status = status;
+                copy.createdAt = createdAt;
+                const bookId = copy.bookId;
+                viewBookCopyDetails(bookId);
+                alert('Đã cập nhật bản sao sách thành công!');
+                toggleForm('edit-book-copy-form');
+            }
+        }
+
+        function deleteBookCopy(copyId, bookId) {
+            if (confirm('Bạn có chắc chắn muốn xóa bản sao sách này?')) {
+                bookCopyDetails = bookCopyDetails.filter(c => c.copyId !== copyId);
+                const book = bookCopies.find(b => b.bookId === bookId);
+                if (book) {
+                    book.quantity -= 1;
+                    renderBookCopies();
+                    viewBookCopyDetails(bookId);
+                    alert('Đã xóa bản sao sách thành công!');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
