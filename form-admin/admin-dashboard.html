@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bảng điều khiển - Admin</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href=".\css\admin.css">
+    <link rel="stylesheet" href=".\css\admin-dashboard.css"> <!-- CSS riêng cho trang Dashboard -->
+    <!-- Thêm Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">Admin - YourWebsite</div>
+        <div class="user-info">
+            <span id="admin-name">[Admin Name]</span>
+            <a href="/logout">Đăng xuất</a>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <!-- Sidebar Brand -->
+        <div class="sidebar-brand">
+            <i class="fas fa-book-open" style="padding-right: 8px; "></i>
+            <span>Books Admin</span>
+        </div>
+    
+        <!-- Navigation -->
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="admin-dashboard.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt" style="padding-right: 8px; "></i>
+                    <span>Bảng điều khiển</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-users.html" class="nav-link">
+                    <i class="fas fa-users" style="padding-right: 8px; "></i>
+                    <span>Quản lý người dùng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-book.html" class="nav-link">
+                    <i class="fas fa-book" style="padding-right: 8px; "></i>
+                    <span>Quản lý sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-library-cards.html" class="nav-link">
+                    <i class="fas fa-id-card" style="padding-right: 8px; "></i>
+                    <span>Quản lý thẻ thư viện</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-borrow-records.html" class="nav-link">
+                    <i class="fas fa-tasks" style="padding-right: 8px; "></i>
+                    <span>Quản lý phiếu mượn trả</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-book-reservations.html" class="nav-link">
+                    <i class="fas fa-shopping-cart" style="padding-right: 8px; "></i>
+                    <span>Quản lý đặt mượn sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-stats.html" class="nav-link">
+                    <i class="fas fa-chart-area" style="padding-right: 8px; "></i>
+                    <span>Thống kê</span>
+                </a>
+            </li>
+        </ul>
+    
+        <!-- Toggle Button -->
+        <div class="sidebar-toggle">
+            <button id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </aside>
+
+    <main>
+        <h1>Bảng điều khiển</h1>
+        <div class="stats">
+            <div class="card">
+                <h3>Hoạt động hôm nay</h3>
+                <div>Lượt mượn: <span id="today-borrows">15</span></div>
+                <div>Lượt trả: <span id="today-returns">12</span></div>
+            </div>
+            <div class="card">
+                <h3>Tình trạng sách</h3>
+                <div>Tổng số sách: <span id="total-books">150</span></div>
+                <div>Đang cho mượn: <span id="borrowed-books">45</span></div>
+            </div>
+            <div class="card">
+                <h3>Độc giả</h3>
+                <div>Đang hoạt động: <span id="active-users">28</span></div>
+                <div>Thẻ hết hạn: <span id="expired-cards">5</span></div>
+            </div>
+            <div class="card">
+                <h3>Đặt mượn</h3>
+                <div>Chờ xử lý: <span id="pending-reservations">8</span></div>
+                <div>Quá hạn: <span id="overdue-books">3</span></div>
+            </div>
+        </div>
+        <section>
+            <h2>Biểu đồ hoạt động mượn/trả sách trong tháng</h2>
+            <div class="chart-container">
+                <canvas id="activityChart"></canvas>
+            </div>
+        </section>
+        
+        <h2>Hoạt động gần đây</h2>
+        <table id="recent-stats">
+            <thead>
+                <tr>
+                    <th>Sách</th>
+                    <th>Thể loại</th>
+                    <th>Người mượn</th>
+                    <th>Ngày</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Đắc Nhân Tâm</td>
+                    <td>Tâm lý</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>Hôm nay 14:30</td>
+                </tr>
+                <tr>
+                    <td>Nhà Giả Kim</td>
+                    <td>Văn học</td>
+                    <td>Trần Thị B</td>
+                    <td>Hôm nay 11:15</td>
+                </tr>
+                <tr>
+                    <td>Sách Giáo Khoa Toán 12</td>
+                    <td>Giáo khoa</td>
+                    <td>Lê Văn C</td>
+                    <td>Hôm nay 09:45</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script> <!-- Font Awesome : Các ký hiêu ở aside -->
+    
+    <script>
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('toggled');
+        });
+    </script>
+    
+    <!-- Script biểu đồ hoạt động tháng -->
+    <script>
+        const currentDate = new Date();
+        const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+        const dayLabels = Array.from({length: daysInMonth}, (_, i) => i + 1);
+
+        const activityCtx = document.getElementById('activityChart').getContext('2d');
+        new Chart(activityCtx, {
+            type: 'line',
+            data: {
+                labels: dayLabels,
+                datasets: [
+                    {
+                        label: 'Lượt mượn sách',
+                        data: [12, 15, 18, 14, 16, 19, 22, 20, 18, 15, 17, 14, 16, 15, 18, 20, 22, 19, 17, 15, 16, 18, 20, 21, 19, 17, 15, 16, 18, 20],
+                        borderColor: '#2DA645',
+                        backgroundColor: 'rgba(45, 166, 69, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    },
+                    {
+                        label: 'Lượt trả sách',
+                        data: [10, 13, 16, 12, 14, 17, 20, 18, 16, 13, 15, 12, 14, 13, 16, 18, 20, 17, 15, 13, 14, 16, 18, 19, 17, 15, 13, 14, 16, 18],
+                        borderColor: '#007bff',
+                        backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Hoạt động mượn/trả sách trong tháng'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Số lượt'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Ngày trong tháng'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+/* admin-courses.css - CSS cho trang Quản lý khóa học 
+admin-users.css*/
+
+#course-list {
+    margin-top: 20px;
+}
+
+#add-course-form {
+    margin-top: 20px;
+}

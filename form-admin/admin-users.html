@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý người dùng - Admin</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href=".\css\admin.css">
+    <link rel="stylesheet" href=".\css\admin-users.css"> <!-- CSS riêng cho trang Dashboard -->
+    <!-- Thêm Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">Admin - YourWebsite</div>
+        <div class="user-info">
+            <span id="admin-name">[Admin Name]</span>
+            <a href="/logout">Đăng xuất</a>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <!-- Sidebar Brand -->
+        <div class="sidebar-brand">
+            <i class="fas fa-book-open" style="padding-right: 8px; "></i>
+            <span>Books Admin</span>
+        </div>
+    
+        <!-- Navigation -->
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="admin-dashboard.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt" style="padding-right: 8px; "></i>
+                    <span>Bảng điều khiển</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-users.html" class="nav-link">
+                    <i class="fas fa-users" style="padding-right: 8px; "></i>
+                    <span>Quản lý người dùng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-book.html" class="nav-link">
+                    <i class="fas fa-book" style="padding-right: 8px; "></i>
+                    <span>Quản lý sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-library-cards.html" class="nav-link">
+                    <i class="fas fa-id-card" style="padding-right: 8px; "></i>
+                    <span>Quản lý thẻ thư viện</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-borrow-records.html" class="nav-link">
+                    <i class="fas fa-tasks" style="padding-right: 8px; "></i>
+                    <span>Quản lý phiếu mượn trả</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-book-reservations.html" class="nav-link">
+                    <i class="fas fa-shopping-cart" style="padding-right: 8px; "></i>
+                    <span>Quản lý đặt mượn sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-stats.html" class="nav-link">
+                    <i class="fas fa-chart-area" style="padding-right: 8px; "></i>
+                    <span>Thống kê</span>
+                </a>
+            </li>
+        </ul>
+    
+        <!-- Toggle Button -->
+        <div class="sidebar-toggle">
+            <button id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </aside>
+
+    <main>
+        <h1>Quản lý người dùng</h1>
+        <button class="btn" onclick="toggleForm('add-user-form')">Thêm người dùng</button>
+        <table id="user-list">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Họ tên</th>
+                    <th>Vai trò</th>
+                    <th>Ngày tạo</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>user@example.com</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>USER</td>
+                    <td>2025-03-12</td>
+                    <td>
+                        <a href="#" class="btn" onclick="toggleForm('edit-user-form')">Sửa</a>
+                        <a href="#" class="btn">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="add-user-form" class="form-container" style="display:none;">
+            <h2>Thêm người dùng</h2>
+            <input type="email" placeholder="Email" id="user-email">
+            <input type="text" placeholder="Họ tên" id="user-fullname">
+            <input type="password" placeholder="Pass" id="user-pass">
+            <select id="user-role">
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
+            <button class="btn">Lưu</button>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script> <!-- Font Awesome : Các ký hiêu ở aside -->
+
+    <script>
+        function toggleForm(formId) {
+            document.getElementById(formId).style.display = 
+                document.getElementById(formId).style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

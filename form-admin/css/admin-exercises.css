@@ -1,0 +1,8 @@
+/* admin-exercises.css - CSS cho trang Quản lý bài tập */
+#exercise-list {
+    margin-top: 20px;
+}
+
+#add-exercise-form {
+    margin-top: 20px;
+}
