@@ -13111,3 +13111,67 @@ textarea.form-control {
   width: 100%;
   z-index: 1050;
 }
+.col-xl-7 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.borrow-list {
+  max-width: 600px; /* Giới hạn chiều rộng tối đa để không bị "to đùng" */
+  margin: 0 auto; /* Căn giữa trong .col-xl-7 */
+  padding: 1rem; /* Giảm padding so với p-3 p-md-4 */
+}
+
+.borrow-item {
+  gap: 1rem; /* Khoảng cách giữa các phần tử trong hàng */
+}
+
+.item-image {
+  width: 50px; /* Kích thước hình ảnh nhỏ trên điện thoại */
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.item-info {
+  overflow: hidden;
+}
+
+.item-name {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.item-quantity {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.item-stt {
+  font-size: 0.9rem;
+  font-weight: bold;
+  min-width: 30px; /* Đảm bảo cột STT không bị co lại quá nhỏ */
+}
+
+/* Responsive cho máy tính */
+@media (min-width: 768px) {
+  .item-image {
+    width: 70px; /* Tăng kích thước hình ảnh trên máy tính */
+    height: 70px;
+  }
+
+  .item-name {
+    font-size: 1.125rem; /* Tăng kích thước chữ trên máy tính */
+  }
+
+  .item-stt {
+    font-size: 1.125rem;
+  }
+}
+
+/* Đảm bảo responsive trên màn hình nhỏ */
+@media (max-width: 1199px) {
+  .col-xl-7 {
+    max-width: 100%; /* Trên màn hình nhỏ hơn xl, chiếm toàn bộ chiều rộng */
+  }
+}
