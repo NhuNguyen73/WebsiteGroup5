@@ -8,7 +8,6 @@
     <link rel="stylesheet" href=".\css\admin-courses.css">
     <!-- Thêm Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </head>
 <body>
     <header>
@@ -91,6 +90,7 @@
                     <th>ID Sách</th>
                     <th>Tên sách</th>
                     <th>Số lượng</th>
+                    <th>Số lượng sẵn sàng mượn</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -99,6 +99,7 @@
                     <td>BOOK-2025-001</td>
                     <td>Đắc Nhân Tâm</td>
                     <td>7</td>
+                    <td>3</td>
                     <td>
                         <a href="#" class="btn" onclick="addBookCopy('BOOK-2025-001')">Thêm bản sao</a>
                         <a href="#" class="btn" onclick="viewBookCopyDetails('BOOK-2025-001')">Xem chi tiết</a>
@@ -180,6 +181,13 @@
             renderBookCopies();
         });
 
+        // Hàm tính số lượng sách sẵn sàng mượn
+        function getAvailableQuantity(bookId) {
+            return bookCopyDetails.filter(copy => 
+                copy.bookId === bookId && copy.status === 'Có sẵn'
+            ).length;
+        }
+
         function renderBookCopies(searchTerm = '') {
             const tbody = document.querySelector('#book-copy-list tbody');
             tbody.innerHTML = '';
@@ -188,11 +196,13 @@
                 book.bookTitle.toLowerCase().includes(searchTerm.toLowerCase())
             );
             filteredBooks.forEach(book => {
+                const availableQuantity = getAvailableQuantity(book.bookId);
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${book.bookId}</td>
                     <td>${book.bookTitle}</td>
                     <td>${book.quantity}</td>
+                    <td>${availableQuantity}</td>
                     <td>
                         <a href="#" class="btn" onclick="addBookCopy('${book.bookId}')">Thêm bản sao</a>
                         <a href="#" class="btn" onclick="viewBookCopyDetails('${book.bookId}')">Xem chi tiết</a>
@@ -245,14 +255,12 @@
                 book.quantity += quantity;
                 for (let i = 0; i < quantity; i++) {
                     const newCopyId = `BS${bookCopyDetails.length + 1}`;
-                    const statuses = ['Có sẵn', 'Đang mượn', 'Hỏng'];
-                    const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
                     const today = new Date();
                     const createdAt = today.toISOString().split('T')[0];
                     bookCopyDetails.push({
                         copyId: newCopyId,
                         bookId: bookId,
-                        status: randomStatus,
+                        status: 'Có sẵn',
                         createdAt: createdAt
                     });
                 }
@@ -320,6 +328,7 @@
                 copy.createdAt = createdAt;
                 const bookId = copy.bookId;
                 viewBookCopyDetails(bookId);
+                renderBookCopies(); // Cập nhật lại bảng chính
                 alert('Đã cập nhật bản sao sách thành công!');
                 toggleForm('edit-book-copy-form');
             }
