@@ -10,8 +10,47 @@ let pendingCards = [
         phone: "0987654321",
         birthday: "20/11/2005",
         gender: "Nữ",
-        education: "Cao học",
+        education: "Đại học",
         address: "Thái Bình"
+    },
+    {
+        readerId: "DG0001",
+        name: "Mai Minh Đức Đức",
+        createdDate: "22/03/2025",
+        duration: "2025",
+        cardId: "LIB123457",
+        email: "ducduc@email.com",
+        phone: "0912345678",
+        birthday: "15/05/2005",
+        gender: "Nam",
+        education: "Đại học",
+        address: "Hải Phòng"
+    },
+    {
+        readerId: "DG0002",
+        name: "Nguyễn Phương Quỳnh",
+        createdDate: "23/03/2025",
+        duration: "2025",
+        cardId: "LIB123458",
+        email: "quynhphuong2000@email.com",
+        phone: "0934567890",
+        birthday: "20/11/20055",
+        gender: "Nữ",
+        education: "Tiến sĩ",
+        address: "Hải Dương"
+    },
+    {
+        readerId: "DG0003",
+        name: "Nguyễn Phúc ĐứcĐức",
+        createdDate: "24/03/2025",
+        duration: "2025",
+        cardId: "LIB123459",
+        email: "phucphuc@email.com",
+        phone: "0971234567",
+        birthday: "11/2/2004",
+        gender: "Nam",
+        education: "Đại học",
+        address: "Hưng Yên"
     }
 ];
 
@@ -40,6 +79,25 @@ function showModal(modalId) {
     setTimeout(() => {
         modal.classList.add('show');
     }, 10);
+}
+
+// Hiển thị thông báo tùy chỉnh
+function showCustomAlert(message) {
+    const alertPopup = document.getElementById('custom-alert-popup');
+    document.getElementById('custom-alert-message').textContent = message;
+    alertPopup.style.display = 'block';
+    setTimeout(() => {
+        alertPopup.classList.add('show');
+    }, 10);
+}
+
+// Đóng thông báo tùy chỉnh
+function closeCustomAlert() {
+    const alertPopup = document.getElementById('custom-alert-popup');
+    alertPopup.classList.remove('show');
+    setTimeout(() => {
+        alertPopup.style.display = 'none';
+    }, 300);
 }
 
 // Hiển thị popup duyệt thẻ thư viện
@@ -97,28 +155,30 @@ function rejectCard(readerId) {
 function approveCard(readerId) {
     const card = pendingCards.find(c => c.readerId === readerId);
     if (card) {
-        approvedCards.push(card);
+        approvedCards.unshift(card); // Thêm vào đầu danh sách
         pendingCards = pendingCards.filter(c => c.readerId !== readerId);
         updateApprovedCardsTable();
         closeModal('confirm-action-popup');
-        closeModal('pending-cards-popup');
-        alert('Thẻ đã được xác nhận thành công!');
+        // Không đóng popup "Duyệt thẻ thư viện", mà cập nhật lại danh sách
+        showPendingCardsPopup();
+        showCustomAlert('Thẻ đã được xác nhận thành công!');
     }
 }
 
 // Loại bỏ thẻ khỏi danh sách chờ
 function removeCard(readerId) {
     pendingCards = pendingCards.filter(c => c.readerId !== readerId);
-    showPendingCardsPopup();
     closeModal('confirm-action-popup');
-    alert('Thẻ đã bị loại bỏ!');
+    // Không đóng popup "Duyệt thẻ thư viện", mà cập nhật lại danh sách
+    showPendingCardsPopup();
+    showCustomAlert('Thẻ đã bị loại bỏ!');
 }
 
 // Cập nhật bảng thẻ đã phê duyệt
-function updateApprovedCardsTable() {
+function updateApprovedCardsTable(filteredCards = approvedCards) {
     const tbody = document.querySelector('#library-cards-list tbody');
     tbody.innerHTML = '';
-    approvedCards.forEach(card => {
+    filteredCards.forEach(card => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${card.cardId}</td>
@@ -134,6 +194,31 @@ function updateApprovedCardsTable() {
         `;
         tbody.appendChild(row);
     });
+}
+
+// Tìm kiếm thẻ
+function searchCards() {
+    const searchInput = document.getElementById('search-input');
+    const searchValue = searchInput.value.toLowerCase();
+    const clearButton = document.getElementById('clear-search');
+
+    // Hiển thị/ẩn nút "X" dựa trên nội dung ô tìm kiếm
+    clearButton.style.display = searchValue ? 'block' : 'none';
+
+    const filteredCards = approvedCards.filter(card => 
+        card.cardId.toLowerCase().includes(searchValue) ||
+        card.readerId.toLowerCase().includes(searchValue) ||
+        card.name.toLowerCase().includes(searchValue)
+    );
+    updateApprovedCardsTable(filteredCards);
+}
+
+// Xóa từ khóa tìm kiếm
+function clearSearch() {
+    const searchInput = document.getElementById('search-input');
+    searchInput.value = '';
+    document.getElementById('clear-search').style.display = 'none';
+    updateApprovedCardsTable(); // Hiển thị lại danh sách ban đầu
 }
 
 // Hiển thị chi tiết độc giả/thẻ thư viện
@@ -203,8 +288,9 @@ function saveEditedCard() {
         card.duration = newDuration;
         updateApprovedCardsTable();
         closeModal('edit-card-popup');
-        closeModal('reader-details-popup');
-        alert('Thông tin thẻ đã được cập nhật!');
+        // Không đóng popup "Chi tiết", mà cập nhật lại nội dung
+        showReaderDetails(currentReaderId, isFromPending);
+        showCustomAlert('Thông tin thẻ đã được cập nhật!');
     }
 }
 
@@ -222,7 +308,7 @@ function lockCard() {
         updateApprovedCardsTable();
         closeModal('lock-card-popup');
         closeModal('reader-details-popup');
-        alert('Thẻ đã bị khóa!');
+        showCustomAlert('Thẻ đã bị khóa!');
     }
 }
 
@@ -259,12 +345,13 @@ function unlockCardConfirm(readerId) {
 function unlockCard() {
     const card = lockedCards.find(c => c.readerId === currentReaderId);
     if (card) {
-        approvedCards.push(card);
+        approvedCards.unshift(card); // Thêm vào đầu danh sách
         lockedCards = lockedCards.filter(c => c.readerId !== currentReaderId);
         updateApprovedCardsTable();
         closeModal('unlock-card-popup');
-        closeModal('locked-cards-popup');
-        alert('Thẻ đã được mở khóa!');
+        // Không đóng popup "Danh sách các thẻ bị khóa", mà cập nhật lại danh sách
+        showLockedCardsPopup();
+        showCustomAlert('Thẻ đã được mở khóa!');
     }
 }
 
@@ -276,4 +363,9 @@ window.onclick = function(event) {
             closeModal(modal.id);
         }
     });
+
+    const alertPopup = document.getElementById('custom-alert-popup');
+    if (event.target === alertPopup) {
+        closeCustomAlert();
+    }
 };

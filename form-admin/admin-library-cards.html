@@ -84,6 +84,15 @@
             <button class="btn" onclick="showLockedCardsPopup()">Danh sách các thẻ bị khóa</button>
         </div>
 
+        <!-- Thanh tìm kiếm -->
+        <div class="search-container">
+            <div class="search-wrapper">
+                <input type="text" id="search-input" placeholder="Tìm kiếm theo ID thẻ, ID độc giả hoặc tên độc giả..." oninput="searchCards()">
+                <span class="search-icon" onclick="searchCards()"><i class="fas fa-search"></i></span>
+                <span class="clear-search" id="clear-search" onclick="clearSearch()"><i class="fas fa-times"></i></span>
+            </div>
+        </div>
+
         <!-- Bảng Quản lý thẻ thư viện -->
         <table id="library-cards-list">
             <thead>
@@ -118,24 +127,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>LIB123456</td>
-                            <td>DG0000</td>
-                            <td>Phạm Thị Minh Sang</td>
-                            <td>21/03/2025</td>
-                            <td>2025</td>
-                            <td>
-                                <button class="btn btn-details" onclick="showReaderDetails('DG0000', true)">
-                                    <i class="fas fa-eye"></i> Chi tiết
-                                </button>
-                                <button class="btn btn-confirm" onclick="confirmCard('DG0000')">
-                                    <i class="fas fa-check"></i> Xác nhận
-                                </button>
-                                <button class="btn btn-reject" onclick="rejectCard('DG0000')">
-                                    <i class="fas fa-times"></i> Loại bỏ
-                                </button>
-                            </td>
-                        </tr>
+                        <!-- Dữ liệu sẽ được thêm động bằng JavaScript -->
                     </tbody>
                 </table>
             </div>
@@ -271,6 +263,14 @@
                         <i class="fas fa-times"></i> Hủy
                     </button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Popup thông báo tùy chỉnh -->
+        <div id="custom-alert-popup" class="custom-alert" style="display:none;">
+            <div class="custom-alert-content">
+                <p id="custom-alert-message"></p>
+                <button class="btn btn-ok" onclick="closeCustomAlert()">OK</button>
             </div>
         </div>
     </main>
