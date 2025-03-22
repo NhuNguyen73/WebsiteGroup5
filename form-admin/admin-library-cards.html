@@ -1,404 +1,281 @@
 <!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8">
     <title>Quản lý thẻ thư viện - Admin</title>
-    <link rel="stylesheet" href="admin.css" />
-    <link rel="stylesheet" href=".\css\admin.css" />
-    <link rel="stylesheet" href=".\css\admin-exercises.css" />
-    <!-- CSS riêng cho trang Dashboard -->
-    <!-- Thêm Chart.js -->
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin-exercises.css">
+    <link rel="stylesheet" href="./css/admin-library-cards.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
-  <body>
+</head>
+<body>
     <header>
-      <div class="logo">Admin - YourWebsite</div>
-      <div class="user-info">
-        <span id="admin-name">[Admin Name]</span>
-        <a href="/logout">Đăng xuất</a>
-      </div>
+        <div class="logo">Admin - YourWebsite</div>
+        <div class="user-info">
+            <span id="admin-name">[Admin Name]</span>
+            <a href="/logout">Đăng xuất</a>
+        </div>
     </header>
 
     <aside class="sidebar" id="sidebar">
-      <!-- Sidebar Brand -->
-      <div class="sidebar-brand">
-        <i class="fas fa-book-open" style="padding-right: 8px"></i>
-        <span>Books Admin</span>
-      </div>
-
-      <!-- Navigation -->
-      <ul class="nav-list">
-        <li class="nav-item">
-          <a href="admin-dashboard.html" class="nav-link">
-            <i class="fas fa-tachometer-alt" style="padding-right: 8px"></i>
-            <span>Bảng điều khiển</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="admin-users.html" class="nav-link">
-            <i class="fas fa-users" style="padding-right: 8px"></i>
-            <span>Quản lý người dùng</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="admin-book.html" class="nav-link">
-            <i class="fas fa-book" style="padding-right: 8px"></i>
-            <span>Quản lý sách</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="admin-copybook.html" class="nav-link">
-            <i class="fas fa-book" style="padding-right: 8px"></i>
-            <span>Quản lý bản sao sách</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="admin-library-cards.html" class="nav-link">
-            <i class="fas fa-id-card" style="padding-right: 8px"></i>
-            <span>Quản lý thẻ thư viện</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="admin-borrow-records.html" class="nav-link">
-            <i class="fas fa-tasks" style="padding-right: 8px"></i>
-            <span>Quản lý phiếu mượn trả</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="admin-book-reservations.html" class="nav-link">
-            <i class="fas fa-shopping-cart" style="padding-right: 8px"></i>
-            <span>Quản lý đặt mượn sách</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="admin-stats.html" class="nav-link">
-            <i class="fas fa-chart-area" style="padding-right: 8px"></i>
-            <span>Thống kê</span>
-          </a>
-        </li>
-      </ul>
-
-      <!-- Toggle Button -->
-      <div class="sidebar-toggle">
-        <button id="sidebarToggle"><i class="fas fa-bars"></i></button>
-      </div>
+        <div class="sidebar-brand">
+            <i class="fas fa-book-open" style="padding-right: 8px;"></i>
+            <span>Books Admin</span>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="admin-dashboard.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt" style="padding-right: 8px;"></i>
+                    <span>Bảng điều khiển</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-users.html" class="nav-link">
+                    <i class="fas fa-users" style="padding-right: 8px;"></i>
+                    <span>Quản lý người dùng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-book.html" class="nav-link">
+                    <i class="fas fa-book" style="padding-right: 8px;"></i>
+                    <span>Quản lý sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-copybook.html" class="nav-link">
+                    <i class="fas fa-book" style="padding-right: 8px;"></i>
+                    <span>Quản lý bản sao sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-library-cards.html" class="nav-link">
+                    <i class="fas fa-id-card" style="padding-right: 8px;"></i>
+                    <span>Quản lý thẻ thư viện</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-borrow-records.html" class="nav-link">
+                    <i class="fas fa-tasks" style="padding-right: 8px;"></i>
+                    <span>Quản lý phiếu mượn trả</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-book-reservations.html" class="nav-link">
+                    <i class="fas fa-shopping-cart" style="padding-right: 8px;"></i>
+                    <span>Quản lý đặt mượn sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-stats.html" class="nav-link">
+                    <i class="fas fa-chart-area" style="padding-right: 8px;"></i>
+                    <span>Thống kê</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-toggle">
+            <button id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        </div>
     </aside>
-
+    
     <main>
-      <h1>Quản lý thẻ thư viện</h1>
-      <button class="btn" onclick="toggleForm('add-card-form')">
-        Thêm thẻ thư viện
-      </button>
-      <table id="library-cards-list">
-        <thead>
-          <tr>
-            <th>ID độc giả</th>
-            <th>Tên độc giả</th>
-            <th>ID thẻ thư viện</th>
-            <th>Ngày tạo</th>
-            <th>Ngày hết hạn</th>
-            <th>Hành động</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>DG001</td>
-            <td>Nguyễn Văn A</td>
-            <td>TTVDG001</td>
-            <td>21/03/2025</td>
-            <td>21/03/2026</td>
-            <td>
-              <a href="#" class="btn" onclick="editLibraryCard('DG001')">Sửa</a>
-              <a href="#" class="btn" onclick="deleteLibraryCard('DG001')"
-                >Xóa</a
-              >
-              <a href="#" class="btn" onclick="showReaderDetails('DG001')"
-                >Chi tiết</a
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- Form thêm thẻ thư viện -->
-      <div id="add-card-form" class="form-container" style="display: none">
-        <h2>Thêm thẻ thư viện</h2>
-        <input type="text" placeholder="ID độc giả" id="reader-id" required />
-        <input type="text" placeholder="Họ và tên" id="reader-name" required />
-        <input type="email" placeholder="Email" id="reader-email" required />
-        <input
-          type="tel"
-          placeholder="Số điện thoại"
-          id="reader-phone"
-          required
-        />
-        <input type="text" placeholder="Địa chỉ" id="reader-address" required />
-        <input
-          type="date"
-          placeholder="Ngày sinh"
-          id="reader-birthday"
-          required
-        />
-        <select id="reader-gender" required>
-          <option value="">Chọn giới tính</option>
-          <option value="male">Nam</option>
-          <option value="female">Nữ</option>
-          <option value="other">Khác</option>
-        </select>
-        <div class="form-group">
-          <label>Thời hạn thẻ:</label>
-          <select id="card-duration" required>
-            <option value="6">6 tháng</option>
-            <option value="12">1 năm</option>
-            <option value="24">2 năm</option>
-          </select>
+        <h1>Quản lý thẻ thư viện</h1>
+        <div class="button-group">
+            <button class="btn" onclick="showPendingCardsPopup()">Duyệt thẻ thư viện</button>
+            <button class="btn" onclick="showLockedCardsPopup()">Danh sách các thẻ bị khóa</button>
         </div>
-        <button class="btn" onclick="saveLibraryCard()">Lưu</button>
-      </div>
 
-      <!-- Modal chi tiết độc giả -->
-      <div id="reader-details-modal" class="modal" style="display: none">
-        <div class="modal-content">
-          <span class="close-button" onclick="closeModal()">&times;</span>
-          <h2>Thông tin chi tiết độc giả</h2>
-          <div class="reader-info">
-            <p>
-              <strong>ID độc giả:</strong> <span id="modal-reader-id"></span>
-            </p>
-            <p>
-              <strong>Họ và tên:</strong> <span id="modal-reader-name"></span>
-            </p>
-            <p><strong>Email:</strong> <span id="modal-reader-email"></span></p>
-            <p>
-              <strong>Số điện thoại:</strong>
-              <span id="modal-reader-phone"></span>
-            </p>
-            <p>
-              <strong>Địa chỉ:</strong> <span id="modal-reader-address"></span>
-            </p>
-            <p>
-              <strong>Ngày sinh:</strong>
-              <span id="modal-reader-birthday"></span>
-            </p>
-            <p>
-              <strong>Giới tính:</strong> <span id="modal-reader-gender"></span>
-            </p>
-            <p>
-              <strong>Thẻ thư viện:</strong> <span id="modal-card-id"></span>
-            </p>
-            <p>
-              <strong>Ngày tạo thẻ:</strong>
-              <span id="modal-card-created"></span>
-            </p>
-            <p>
-              <strong>Ngày hết hạn:</strong>
-              <span id="modal-card-expired"></span>
-            </p>
-          </div>
-          <div class="reader-stats">
-            <h3>Thống kê mượn sách</h3>
-            <p>Số sách đang mượn: <span id="modal-books-borrowed">0</span></p>
-            <p>Sách đã trả: <span id="modal-books-returned">0</span></p>
-            <p>Quá hạn: <span id="modal-books-overdue">0</span></p>
-          </div>
+        <!-- Bảng Quản lý thẻ thư viện -->
+        <table id="library-cards-list">
+            <thead>
+                <tr>
+                    <th>ID thẻ thư viện</th>
+                    <th>ID độc giả</th>
+                    <th>Tên độc giả</th>
+                    <th>Ngày tạo</th>
+                    <th>Gia hạn</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dữ liệu sẽ được thêm động bằng JavaScript -->
+            </tbody>
+        </table>
+
+        <!-- Popup duyệt thẻ thư viện -->
+        <div id="pending-cards-popup" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('pending-cards-popup')">×</span>
+                <h2>Duyệt thẻ thư viện</h2>
+                <table id="pending-cards-table">
+                    <thead>
+                        <tr>
+                            <th>ID thẻ thư viện</th>
+                            <th>ID độc giả</th>
+                            <th>Tên độc giả</th>
+                            <th>Ngày tạo</th>
+                            <th>Gia hạn</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>LIB123456</td>
+                            <td>DG0000</td>
+                            <td>Phạm Thị Minh Sang</td>
+                            <td>21/03/2025</td>
+                            <td>2025</td>
+                            <td>
+                                <button class="btn btn-details" onclick="showReaderDetails('DG0000', true)">
+                                    <i class="fas fa-eye"></i> Chi tiết
+                                </button>
+                                <button class="btn btn-confirm" onclick="confirmCard('DG0000')">
+                                    <i class="fas fa-check"></i> Xác nhận
+                                </button>
+                                <button class="btn btn-reject" onclick="rejectCard('DG0000')">
+                                    <i class="fas fa-times"></i> Loại bỏ
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
 
-      <style>
-        /* Styles cho modal */
-        .modal {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.5);
-          z-index: 1000;
-        }
-        .modal-content {
-          position: relative;
-          background-color: white;
-          margin: 15% auto;
-          padding: 20px;
-          width: 70%;
-          max-width: 700px;
-          border-radius: 5px;
-        }
-        .close-button {
-          position: absolute;
-          right: 10px;
-          top: 10px;
-          font-size: 24px;
-          cursor: pointer;
-        }
-        .reader-info,
-        .reader-stats {
-          margin: 20px 0;
-        }
-        .reader-info p,
-        .reader-stats p {
-          margin: 10px 0;
-        }
-      </style>
+        <!-- Popup xác nhận/loại bỏ thẻ -->
+        <div id="confirm-action-popup" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('confirm-action-popup')">×</span>
+                <h2 id="confirm-action-title"></h2>
+                <p id="confirm-action-message"></p>
+                <div class="modal-actions">
+                    <button class="btn btn-confirm" id="confirm-action-btn">
+                        <i class="fas fa-check"></i> Xác nhận
+                    </button>
+                    <button class="btn btn-cancel" onclick="closeModal('confirm-action-popup')">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup chi tiết độc giả/thẻ thư viện -->
+        <div id="reader-details-popup" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('reader-details-popup')">×</span>
+                <h2 id="reader-details-title"></h2>
+                <div class="reader-info" id="reader-info-content">
+                    <!-- Nội dung sẽ được thêm động bằng JavaScript -->
+                </div>
+                <div class="modal-actions" id="reader-details-actions">
+                    <button class="btn btn-edit" onclick="showEditCardPopup()">
+                        <i class="fas fa-edit"></i> Sửa
+                    </button>
+                    <button class="btn btn-lock" onclick="lockCardConfirm()">
+                        <i class="fas fa-lock"></i> Khóa thẻ
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup chỉnh sửa thông tin thẻ -->
+        <div id="edit-card-popup" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('edit-card-popup')">×</span>
+                <h2>Chỉnh sửa thông tin thẻ</h2>
+                <div class="form-group">
+                    <label>ID thẻ thư viện:</label>
+                    <input type="text" id="edit-card-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>ID độc giả:</label>
+                    <input type="text" id="edit-reader-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Họ và tên:</label>
+                    <input type="text" id="edit-reader-name" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Ngày tạo:</label>
+                    <input type="text" id="edit-card-created" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Gia hạn:</label>
+                    <select id="edit-card-duration">
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-save" onclick="saveEditedCard()">
+                        <i class="fas fa-save"></i> Lưu
+                    </button>
+                    <button class="btn btn-cancel" onclick="closeModal('edit-card-popup')">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup xác nhận khóa thẻ -->
+        <div id="lock-card-popup" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('lock-card-popup')">×</span>
+                <h2>Xác nhận khóa thẻ</h2>
+                <p>Bạn có chắc chắn muốn khóa thẻ của độc giả này?</p>
+                <div class="modal-actions">
+                    <button class="btn btn-confirm" onclick="lockCard()">
+                        <i class="fas fa-check"></i> Xác nhận
+                    </button>
+                    <button class="btn btn-cancel" onclick="closeModal('lock-card-popup')">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup danh sách thẻ bị khóa -->
+        <div id="locked-cards-popup" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('locked-cards-popup')">×</span>
+                <h2>Danh sách các thẻ bị khóa</h2>
+                <table id="locked-cards-table">
+                    <thead>
+                        <tr>
+                            <th>ID thẻ thư viện</th>
+                            <th>ID độc giả</th>
+                            <th>Tên độc giả</th>
+                            <th>Ngày tạo</th>
+                            <th>Gia hạn</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dữ liệu sẽ được thêm động bằng JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Popup xác nhận mở khóa thẻ -->
+        <div id="unlock-card-popup" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('unlock-card-popup')">×</span>
+                <h2>Xác nhận mở khóa thẻ</h2>
+                <p>Bạn có chắc chắn muốn mở khóa thẻ của độc giả này?</p>
+                <div class="modal-actions">
+                    <button class="btn btn-confirm" onclick="unlockCard()">
+                        <i class="fas fa-check"></i> Xác nhận
+                    </button>
+                    <button class="btn btn-cancel" onclick="closeModal('unlock-card-popup')">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-    <!-- Font Awesome : Các ký hiêu ở aside -->
-
-    <script>
-      function toggleForm(formId) {
-        document.getElementById(formId).style.display =
-          document.getElementById(formId).style.display === "none"
-            ? "block"
-            : "none";
-      }
-
-      function showReaderDetails(readerId) {
-        // Trong thực tế, dữ liệu này sẽ được lấy từ server
-        const readerData = {
-          readerId: "DG001",
-          name: "Nguyễn Văn A",
-          email: "nguyenvana@email.com",
-          phone: "0123456789",
-          address: "123 Đường ABC, Quận XYZ, TP.HCM",
-          birthday: "1990-01-01",
-          gender: "Nam",
-          idNumber: "079123456789",
-          cardId: "TTVDG001",
-          cardCreated: "21/03/2025",
-          cardExpired: "21/03/2026",
-          statistics: {
-            borrowing: 2,
-            returned: 15,
-            overdue: 0,
-          },
-        };
-
-        // Cập nhật thông tin vào modal
-        document.getElementById("modal-reader-id").textContent =
-          readerData.readerId;
-        document.getElementById("modal-reader-name").textContent =
-          readerData.name;
-        document.getElementById("modal-reader-email").textContent =
-          readerData.email;
-        document.getElementById("modal-reader-phone").textContent =
-          readerData.phone;
-        document.getElementById("modal-reader-address").textContent =
-          readerData.address;
-        document.getElementById("modal-reader-birthday").textContent =
-          readerData.birthday;
-        document.getElementById("modal-reader-gender").textContent =
-          readerData.gender;
-        document.getElementById("modal-reader-id-number").textContent =
-          readerData.idNumber;
-        document.getElementById("modal-card-id").textContent =
-          readerData.cardId;
-        document.getElementById("modal-card-created").textContent =
-          readerData.cardCreated;
-        document.getElementById("modal-card-expired").textContent =
-          readerData.cardExpired;
-        document.getElementById("modal-books-borrowed").textContent =
-          readerData.statistics.borrowing;
-        document.getElementById("modal-books-returned").textContent =
-          readerData.statistics.returned;
-        document.getElementById("modal-books-overdue").textContent =
-          readerData.statistics.overdue;
-
-        // Hiện modal
-        document.getElementById("reader-details-modal").style.display = "block";
-      }
-
-      function closeModal() {
-        document.getElementById("reader-details-modal").style.display = "none";
-      }
-
-      function saveLibraryCard() {
-        // Lấy dữ liệu từ form
-        const readerId = document.getElementById("reader-id").value;
-        const readerName = document.getElementById("reader-name").value;
-        const readerEmail = document.getElementById("reader-email").value;
-        const readerPhone = document.getElementById("reader-phone").value;
-        const readerAddress = document.getElementById("reader-address").value;
-        const readerBirthday = document.getElementById("reader-birthday").value;
-        const readerGender = document.getElementById("reader-gender").value;
-        const readerIdNumber =
-          document.getElementById("reader-id-number").value;
-        const cardDuration = document.getElementById("card-duration").value;
-
-        // Kiểm tra dữ liệu
-        if (
-          !readerId ||
-          !readerName ||
-          !readerEmail ||
-          !readerPhone ||
-          !readerAddress ||
-          !readerBirthday ||
-          !readerGender ||
-          !readerIdNumber
-        ) {
-          alert("Vui lòng điền đầy đủ thông tin");
-          return;
-        }
-
-        // Tạo ID thẻ thư viện mới
-        const cardId = "TTV" + readerId;
-
-        // Tính ngày hết hạn
-        const createdDate = new Date();
-        const expiredDate = new Date();
-        expiredDate.setMonth(expiredDate.getMonth() + parseInt(cardDuration));
-
-        // Thêm vào bảng (trong thực tế sẽ gửi lên server)
-        const table = document
-          .getElementById("library-cards-list")
-          .getElementsByTagName("tbody")[0];
-        const newRow = table.insertRow();
-        newRow.innerHTML = `
-                <td>${readerId}</td>
-                <td>${readerName}</td>
-                <td>${cardId}</td>
-                <td>${createdDate.toLocaleDateString("vi-VN")}</td>
-                <td>${expiredDate.toLocaleDateString("vi-VN")}</td>
-                <td>
-                    <a href="#" class="btn" onclick="editLibraryCard('${readerId}')">Sửa</a>
-                    <a href="#" class="btn" onclick="deleteLibraryCard('${readerId}')">Xóa</a>
-                    <a href="#" class="btn" onclick="showReaderDetails('${readerId}')">Chi tiết</a>
-                </td>
-            `;
-
-        // Đóng form và reset
-        document.getElementById("add-card-form").reset();
-        toggleForm("add-card-form");
-        alert("Thêm thẻ thư viện thành công!");
-      }
-
-      function editLibraryCard(readerId) {
-        // Trong thực tế sẽ lấy thông tin từ server và điền vào form
-        alert("Chức năng đang được phát triển");
-      }
-
-      function deleteLibraryCard(readerId) {
-        if (confirm("Bạn có chắc chắn muốn xóa thẻ thư viện này?")) {
-          // Xóa hàng trong bảng (trong thực tế sẽ gửi request lên server)
-          const table = document.getElementById("library-cards-list");
-          const rows = table.getElementsByTagName("tr");
-          for (let i = 0; i < rows.length; i++) {
-            const cells = rows[i].getElementsByTagName("td");
-            if (cells.length > 0 && cells[0].textContent === readerId) {
-              table.deleteRow(i);
-              break;
-            }
-          }
-          alert("Đã xóa thẻ thư viện thành công!");
-        }
-      }
-
-      // Đóng modal khi click bên ngoài
-      window.onclick = function (event) {
-        const modal = document.getElementById("reader-details-modal");
-        if (event.target == modal) {
-          closeModal();
-        }
-      };
-    </script>
-  </body>
+    <script src="./js/admin-library-cards.js"></script>
+</body>
 </html>
