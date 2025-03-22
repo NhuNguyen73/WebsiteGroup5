@@ -1,421 +1,326 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title>Quản lý phiếu mượn trả - Admin</title>
-    <link rel="stylesheet" href="admin.css">
-    <link rel="stylesheet" href=".\css\admin.css">
-    <link rel="stylesheet" href=".\css\admin-borrow.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quản lý phiếu mượn - Admin</title>
+    <link rel="stylesheet" href="./css/admin.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
     <header>
-        <div class="logo">Admin - YourWebsite</div>
-        <div class="user-info">
-            <span id="admin-name">[Admin Name]</span>
-            <a href="/logout">Đăng xuất</a>
-        </div>
+      <div class="logo">Admin - YourWebsite</div>
+      <div class="user-info">
+        <span id="admin-name">[Admin Name]</span>
+        <a href="/logout">Đăng xuất</a>
+      </div>
     </header>
 
     <aside class="sidebar" id="sidebar">
-        <!-- Sidebar Brand -->
-        <div class="sidebar-brand">
-            <i class="fas fa-book-open" style="padding-right: 8px; "></i>
-            <span>Books Admin</span>
-        </div>
-    
-        <!-- Navigation -->
-        <ul class="nav-list">
-            <li class="nav-item">
-                <a href="admin-dashboard.html" class="nav-link">
-                    <i class="fas fa-tachometer-alt" style="padding-right: 8px;"></i>
-                    <span>Bảng điều khiển</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="admin-users.html" class="nav-link">
-                    <i class="fas fa-users" style="padding-right: 8px;"></i>
-                    <span>Quản lý người dùng</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="admin-book.html" class="nav-link">
-                    <i class="fas fa-book" style="padding-right: 8px;"></i>
-                    <span>Quản lý sách</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="admin-copybook.html" class="nav-link">
-                    <i class="fas fa-book" style="padding-right: 8px;"></i>
-                    <span>Quản lý bản sao sách</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="admin-library-cards.html" class="nav-link">
-                    <i class="fas fa-id-card" style="padding-right: 8px;"></i>
-                    <span>Quản lý thẻ thư viện</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="admin-borrow-records.html" class="nav-link">
-                    <i class="fas fa-tasks" style="padding-right: 8px;"></i>
-                    <span>Quản lý phiếu mượn trả</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="admin-book-reservations.html" class="nav-link">
-                    <i class="fas fa-shopping-cart" style="padding-right: 8px;"></i>
-                    <span>Quản lý đặt mượn sách</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="admin-stats.html" class="nav-link">
-                    <i class="fas fa-chart-area" style="padding-right: 8px;"></i>
-                    <span>Thống kê</span>
-                </a>
-            </li>
-        </ul>
-    
-        <!-- Toggle Button -->
-        <div class="sidebar-toggle">
-            <button id="sidebarToggle"><i class="fas fa-bars"></i></button>
-        </div>
+      <!-- Sidebar giống như code gốc -->
+      <div class="sidebar-brand">
+        <i class="fas fa-book-open" style="padding-right: 8px"></i>
+        <span>Books Admin</span>
+      </div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="admin-dashboard.html" class="nav-link"
+            ><i class="fas fa-tachometer-alt" style="padding-right: 8px"></i
+            ><span>Bảng điều khiển</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="admin-users.html" class="nav-link"
+            ><i class="fas fa-users" style="padding-right: 8px"></i
+            ><span>Quản lý người dùng</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="admin-book.html" class="nav-link"
+            ><i class="fas fa-book" style="padding-right: 8px"></i
+            ><span>Quản lý sách</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="admin-copybook.html" class="nav-link"
+            ><i class="fas fa-book" style="padding-right: 8px"></i
+            ><span>Quản lý bản sao sách</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="admin-library-cards.html" class="nav-link"
+            ><i class="fas fa-id-card" style="padding-right: 8px"></i
+            ><span>Quản lý thẻ thư viện</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="admin-borrow-records.html" class="nav-link active"
+            ><i class="fas fa-tasks" style="padding-right: 8px"></i
+            ><span>Quản lý phiếu mượn trả</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="admin-book-reservations.html" class="nav-link"
+            ><i class="fas fa-shopping-cart" style="padding-right: 8px"></i
+            ><span>Quản lý đặt mượn sách</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="admin-stats.html" class="nav-link"
+            ><i class="fas fa-chart-area" style="padding-right: 8px"></i
+            ><span>Thống kê</span></a
+          >
+        </li>
+      </ul>
+      <div class="sidebar-toggle">
+        <button id="sidebarToggle"><i class="fas fa-bars"></i></button>
+      </div>
     </aside>
 
     <main>
-        <h1>Quản lý phiếu mượn trả</h1>
-        <button class="btn" onclick="toggleForm('add-borrow-form')">Thêm phiếu mượn</button>
-        <table id="borrow-records-list">
-            <thead>
-                <tr>
-                    <th>Mã phiếu mượn</th>
-                    <th>Mã thẻ thư viện</th>
-                    <th>Tên sách</th>
-                    <th>Số lượng</th>
-                    <th>Ngày mượn</th>
-                    <th>Hạn trả</th>
-                    <th>Tình trạng</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>PM001</td>
-                    <td>TTVDG001</td>
-                    <td>Đắc Nhân Tâm</td>
-                    <td>1</td>
-                    <td>21/03/2025</td>
-                    <td>05/04/2025</td>
-                    <td>Đang mượn</td>
-                    <td>
-                        <a href="#" class="btn" onclick="showBorrowDetails('PM001')">Chi tiết</a>
-                        <a href="#" class="btn" onclick="editBorrowRecord('PM001')">Sửa</a>
-                        <a href="#" class="btn" onclick="markAsReturned('PM001')">Đánh dấu đã trả</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <!-- Modal chi tiết phiếu mượn -->
-        </table>
+      <h1>Quản lý phiếu mượn</h1>
+      <button class="btn" onclick="toggleForm('add-borrow-form')">
+        Thêm phiếu mượn
+      </button>
+      <table id="borrow-records-list">
+        <thead>
+          <tr>
+            <th>ID phiếu mượn</th>
+            <th>ID độc giả</th>
+            <th>Tên độc giả</th>
+            <th>ID bản sao sách</th>
+            <th>Ngày mượn</th>
+            <th>Ngày đến hạn</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PM001</td>
+            <td>DG001</td>
+            <td>Nguyễn Văn A</td>
+            <td>BS001</td>
+            <td>21/03/2025</td>
+            <td>28/03/2025</td>
+            <td>Đang mượn</td>
+            <td>
+              <a href="#" class="btn" onclick="editBorrowRecord('PM001')"
+                >Sửa</a
+              >
+              <a href="#" class="btn" onclick="deleteBorrowRecord('PM001')"
+                >Xóa</a
+              >
+              <a href="#" class="btn" onclick="showBorrowDetails('PM001')"
+                >Chi tiết</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-        <!-- Modal chi tiết phiếu mượn -->
-        <div id="borrow-details-modal" class="modal" style="display:none;">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal()">&times;</span>
-                <h2>Chi tiết phiếu mượn</h2>
-                <div class="borrow-info">
-                    <p><strong>Mã phiếu mượn:</strong> <span id="modal-borrow-id"></span></p>
-                    <p><strong>Thông tin độc giả</strong></p>
-                    <p>Mã thẻ: <span id="modal-card-id"></span></p>
-                    <p>Tên độc giả: <span id="modal-reader-name"></span></p>
-                    <p>Số điện thoại: <span id="modal-reader-phone"></span></p>
-                    <p><strong>Thông tin sách</strong></p>
-                    <p>Tên sách: <span id="modal-book-name"></span></p>
-                    <p>Số lượng: <span id="modal-quantity"></span></p>
-                    <p><strong>Thời gian</strong></p>
-                    <p>Ngày mượn: <span id="modal-borrow-date"></span></p>
-                    <p>Hạn trả: <span id="modal-due-date"></span></p>
-                    <p>Tình trạng: <span id="modal-status"></span></p>
-                    <p class="note">* Sách phải được trả trong vòng 15 ngày kể từ ngày mượn</p>
-                </div>
-            </div>
+      <!-- Form thêm phiếu mượn -->
+      <div id="add-borrow-form" class="form-container" style="display: none">
+        <h2>Thêm phiếu mượn</h2>
+        <input
+          type="text"
+          placeholder="ID độc giả"
+          id="borrow-reader-id"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Tên độc giả"
+          id="borrow-reader-name"
+          required
+        />
+        <input
+          type="text"
+          placeholder="ID bản sao sách"
+          id="borrow-copy-id"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Tên sách"
+          id="borrow-book-name"
+          required
+        />
+        <input type="date" placeholder="Ngày mượn" id="borrow-date" required />
+        <div class="form-group">
+          <label>Thời hạn mượn:</label>
+          <select id="borrow-duration" required>
+            <option value="7">7 ngày</option>
+            <option value="14">14 ngày</option>
+            <option value="30">30 ngày</option>
+          </select>
         </div>
-        
-        <!-- Modal chi tiết phiếu mượn -->
-        <div id="borrow-details-modal" class="modal">
-=======
+        <button class="btn" onclick="saveBorrowRecord()">Lưu</button>
+      </div>
 
-        <div id="add-borrow-form" class="form-container" style="display:none;">
-            <h2>Thêm phiếu mượn</h2>
-            
-            <!-- ID phiếu mượn sẽ được tạo tự động -->
-            <input type="text" placeholder="Mã phiếu mượn" id="borrow-id" readonly>
-            
-            <!-- Chọn thẻ thư viện -->
-            <div class="form-group">
-                <label>Mã thẻ thư viện:</label>
-                <select id="library-card-id" required>
-                    <option value="">Chọn thẻ thư viện</option>
-                    <option value="TTVDG001">TTVDG001 - Nguyễn Văn A</option>
-                    <option value="TTVDG002">TTVDG002 - Trần Thị B</option>
-                </select>
-            </div>
-
-            <!-- Chọn sách -->
-            <div class="form-group">
-                <label>Sách mượn:</label>
-                <select id="book-id" required>
-                    <option value="">Chọn sách</option>
-                    <option value="BOOK001">Đắc Nhân Tâm</option>
-                    <option value="BOOK002">Nhà Giả Kim</option>
-                    <option value="BOOK003">Cách Mạng Công Nghiệp 4.0</option>
-                </select>
-            </div>
-
-            <!-- Số lượng -->
-            <div class="form-group">
-                <label>Số lượng:</label>
-                <input type="number" id="borrow-quantity" min="1" max="3" value="1" required>
-            </div>
-
-            <!-- Tình trạng mặc định là "Đang mượn" -->
-            <input type="hidden" id="borrow-status" value="Đang mượn">
-
-            <button class="btn" onclick="saveBorrowRecord()">Lưu</button>
+      <!-- Modal chi tiết phiếu mượn -->
+      <div id="borrow-details-modal" class="modal" style="display: none">
+        <div class="modal-content">
+          <span class="close-button" onclick="closeModal()">×</span>
+          <h2>Thông tin chi tiết phiếu mượn</h2>
+          <div class="borrow-info">
+            <p>
+              <strong>ID phiếu mượn:</strong> <span id="modal-borrow-id"></span>
+            </p>
+            <p>
+              <strong>ID độc giả:</strong>
+              <span id="modal-borrow-reader-id"></span>
+            </p>
+            <p>
+              <strong>Tên độc giả:</strong>
+              <span id="modal-borrow-reader-name"></span>
+            </p>
+            <p>
+              <strong>ID bản sao sách:</strong>
+              <span id="modal-borrow-copy-id"></span>
+            </p>
+            <p>
+              <strong>Tên sách:</strong>
+              <span id="modal-borrow-book-name"></span>
+            </p>
+            <p>
+              <strong>Ngày mượn:</strong> <span id="modal-borrow-date"></span>
+            </p>
+            <p>
+              <strong>Ngày đến hạn:</strong>
+              <span id="modal-borrow-due-date"></span>
+            </p>
+            <p>
+              <strong>Trạng thái:</strong>
+              <span id="modal-borrow-status"></span>
+            </p>
+          </div>
         </div>
-<style>
-    /* Form và input styles */
-    .form-group {
-        margin: 15px 0;
-    }
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-    select, input[type="number"], input[type="text"] {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-    .form-container {
-        max-width: 600px;
-        margin: 20px 0;
-        padding: 20px;
-        background-color: #f8f9fa;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-    }
-    
-    /* Modal styles */
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 1000;
-    }
-    .modal-content {
-        background-color: #fff;
-        margin: 5% auto;
-        padding: 20px;
-        width: 70%;
-        max-width: 600px;
-        border-radius: 5px;
-        position: relative;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .close-button {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        font-size: 24px;
-        cursor: pointer;
-        color: #666;
-    }
-    .close-button:hover {
-        color: #000;
-    }
-    
-    /* Info display styles */
-    .borrow-info {
-        margin-top: 20px;
-    }
-    .borrow-info p {
-        margin: 10px 0;
-        line-height: 1.5;
-    }
-    .note {
-        margin-top: 20px;
-        padding: 10px;
-        background-color: #fff3cd;
-        border: 1px solid #ffeeba;
-        border-radius: 4px;
-        color: #856404;
-    }
-    
-    /* Button styles */
-    .btn {
-        padding: 8px 15px;
-        margin: 5px;
-        border-radius: 4px;
-        cursor: pointer;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        text-decoration: none;
-        display: inline-block;
-    }
-    .btn:hover {
-        background-color: #0056b3;
-    }
-        </style>
-        
+      </div>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script> <!-- Font Awesome : Các ký hiêu ở aside -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 
     <script>
-        function calculateDueDate(borrowDate) {
-            const dueDate = new Date(borrowDate);
-            dueDate.setDate(dueDate.getDate() + 15); // Thêm 15 ngày
-            return dueDate;
+      function toggleForm(formId) {
+        document.getElementById(formId).style.display =
+          document.getElementById(formId).style.display === "none"
+            ? "block"
+            : "none";
+      }
+
+      function showBorrowDetails(borrowId) {
+        const borrowData = {
+          borrowId: "PM001",
+          readerId: "DG001",
+          readerName: "Nguyễn Văn A",
+          copyId: "BS001",
+          bookName: "Sách mẫu",
+          borrowDate: "21/03/2025",
+          dueDate: "28/03/2025",
+          status: "Đang mượn",
+        };
+
+        document.getElementById("modal-borrow-id").textContent =
+          borrowData.borrowId;
+        document.getElementById("modal-borrow-reader-id").textContent =
+          borrowData.readerId;
+        document.getElementById("modal-borrow-reader-name").textContent =
+          borrowData.readerName;
+        document.getElementById("modal-borrow-copy-id").textContent =
+          borrowData.copyId;
+        document.getElementById("modal-borrow-book-name").textContent =
+          borrowData.bookName;
+        document.getElementById("modal-borrow-date").textContent =
+          borrowData.borrowDate;
+        document.getElementById("modal-borrow-due-date").textContent =
+          borrowData.dueDate;
+        document.getElementById("modal-borrow-status").textContent =
+          borrowData.status;
+
+        document.getElementById("borrow-details-modal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("borrow-details-modal").style.display = "none";
+      }
+
+      function saveBorrowRecord() {
+        const readerId = document.getElementById("borrow-reader-id").value;
+        const readerName = document.getElementById("borrow-reader-name").value;
+        const copyId = document.getElementById("borrow-copy-id").value;
+        const bookName = document.getElementById("borrow-book-name").value;
+        const borrowDate = document.getElementById("borrow-date").value;
+        const borrowDuration = document.getElementById("borrow-duration").value;
+
+        if (!readerId || !readerName || !copyId || !bookName || !borrowDate) {
+          alert("Vui lòng điền đầy đủ thông tin");
+          return;
         }
 
-        function formatDate(date) {
-            const d = new Date(date);
-            return `${d.getDate().toString().padStart(2, '0')}/${(d.getMonth() + 1).toString().padStart(2, '0')}/${d.getFullYear()}`;
-        }
+        const borrowId =
+          "PM" +
+          Math.floor(Math.random() * 1000)
+            .toString()
+            .padStart(3, "0");
+        const borrowDateObj = new Date(borrowDate);
+        const dueDateObj = new Date(borrowDateObj);
+        dueDateObj.setDate(dueDateObj.getDate() + parseInt(borrowDuration));
 
-        function toggleForm(formId) {
-            document.getElementById(formId).style.display =
-                document.getElementById(formId).style.display === 'none' ? 'block' : 'none';
-            
-            // Nếu đang mở form thêm mới, tạo mã phiếu mượn mới
-            if (formId === 'add-borrow-form' && document.getElementById(formId).style.display === 'block') {
-                document.getElementById('borrow-id').value = generateBorrowId();
-            }
-        }
-
-        function generateBorrowId() {
-            const date = new Date();
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-            return `PM${year}${month}${random}`;
-        }
-
-        function showBorrowDetails(borrowId) {
-            // Trong thực tế, dữ liệu này sẽ được lấy từ server
-            const borrowData = {
-                borrowId: "PM001",
-                cardId: "TTVDG001",
-                readerName: "Nguyễn Văn A",
-                readerPhone: "0123456789",
-                bookName: "Đắc Nhân Tâm",
-                quantity: 1,
-                borrowDate: "21/03/2025",
-                dueDate: "05/04/2025",
-                status: "Đang mượn"
-            };
-
-            // Cập nhật thông tin vào modal
-            document.getElementById('modal-borrow-id').textContent = borrowData.borrowId;
-            document.getElementById('modal-card-id').textContent = borrowData.cardId;
-            document.getElementById('modal-reader-name').textContent = borrowData.readerName;
-            document.getElementById('modal-reader-phone').textContent = borrowData.readerPhone;
-            document.getElementById('modal-book-name').textContent = borrowData.bookName;
-            document.getElementById('modal-quantity').textContent = borrowData.quantity;
-            document.getElementById('modal-borrow-date').textContent = borrowData.borrowDate;
-            document.getElementById('modal-due-date').textContent = borrowData.dueDate;
-            document.getElementById('modal-status').textContent = borrowData.status;
-
-            // Hiển thị modal
-            document.getElementById('borrow-details-modal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('borrow-details-modal').style.display = 'none';
-        }
-
-        function saveBorrowRecord() {
-            // Lấy dữ liệu từ form
-            const borrowId = document.getElementById('borrow-id').value;
-            const cardId = document.getElementById('library-card-id').value;
-            const bookSelect = document.getElementById('book-id');
-            const bookName = bookSelect.options[bookSelect.selectedIndex].text;
-            const quantity = document.getElementById('borrow-quantity').value;
-
-            // Validate
-            if (!cardId || !bookSelect.value || !quantity) {
-                alert('Vui lòng điền đầy đủ thông tin');
-                return;
-            }
-
-            // Tạo ngày mượn và hạn trả
-            const borrowDate = new Date();
-            const dueDate = calculateDueDate(borrowDate);
-
-            // Thêm vào bảng
-            const table = document.getElementById('borrow-records-list').getElementsByTagName('tbody')[0];
-            const newRow = table.insertRow();
-            newRow.innerHTML = `
+        const table = document
+          .getElementById("borrow-records-list")
+          .getElementsByTagName("tbody")[0];
+        const newRow = table.insertRow();
+        newRow.innerHTML = `
                 <td>${borrowId}</td>
-                <td>${cardId}</td>
-                <td>${bookName}</td>
-                <td>${quantity}</td>
-                <td>${formatDate(borrowDate)}</td>
-                <td>${formatDate(dueDate)}</td>
+                <td>${readerId}</td>
+                <td>${readerName}</td>
+                <td>${copyId}</td>
+                <td>${borrowDateObj.toLocaleDateString("vi-VN")}</td>
+                <td>${dueDateObj.toLocaleDateString("vi-VN")}</td>
                 <td>Đang mượn</td>
                 <td>
-                    <a href="#" class="btn" onclick="showBorrowDetails('${borrowId}')">Chi tiết</a>
                     <a href="#" class="btn" onclick="editBorrowRecord('${borrowId}')">Sửa</a>
-                    <a href="#" class="btn" onclick="markAsReturned('${borrowId}')">Đánh dấu đã trả</a>
+                    <a href="#" class="btn" onclick="deleteBorrowRecord('${borrowId}')">Xóa</a>
+                    <a href="#" class="btn" onclick="showBorrowDetails('${borrowId}')">Chi tiết</a>
                 </td>
             `;
 
-            // Đóng form và reset
-            document.getElementById('add-borrow-form').reset();
-            document.getElementById('add-borrow-form').style.display = 'none';
-            alert('Thêm phiếu mượn thành công!');
-        }
+        document.getElementById("add-borrow-form").reset();
+        toggleForm("add-borrow-form");
+        alert("Thêm phiếu mượn thành công!");
+      }
 
-        function editBorrowRecord(borrowId) {
-            alert('Chức năng đang được phát triển');
-        }
+      function editBorrowRecord(borrowId) {
+        alert("Chức năng đang được phát triển");
+      }
 
-        function markAsReturned(borrowId) {
-            if (confirm('Xác nhận đánh dấu phiếu mượn này đã được trả?')) {
-                // Tìm và cập nhật trạng thái trong bảng
-                const table = document.getElementById('borrow-records-list');
-                const rows = table.getElementsByTagName('tr');
-                for (let i = 0; i < rows.length; i++) {
-                    const cells = rows[i].getElementsByTagName('td');
-                    if (cells.length > 0 && cells[0].textContent === borrowId) {
-                        cells[6].textContent = 'Đã trả';  // Cập nhật trạng thái
-                        cells[7].innerHTML = `
-                            <a href="#" class="btn" onclick="showBorrowDetails('${borrowId}')">Chi tiết</a>
-                            <a href="#" class="btn" onclick="editBorrowRecord('${borrowId}')">Sửa</a>
-                        `;  // Ẩn nút đánh dấu đã trả
-                        break;
-                    }
-                }
-                alert('Đã cập nhật trạng thái phiếu mượn!');
+      function deleteBorrowRecord(borrowId) {
+        if (confirm("Bạn có chắc chắn muốn xóa phiếu mượn này?")) {
+          const table = document.getElementById("borrow-records-list");
+          const rows = table.getElementsByTagName("tr");
+          for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName("td");
+            if (cells.length > 0 && cells[0].textContent === borrowId) {
+              table.deleteRow(i);
+              break;
             }
+          }
+          alert("Đã xóa phiếu mượn thành công!");
         }
+      }
 
-        // Đóng modal khi click bên ngoài
-        window.onclick = function(event) {
-            const modal = document.getElementById('borrow-details-modal');
-            if (event.target == modal) {
-                closeModal();
-            }
+      window.onclick = function (event) {
+        const modal = document.getElementById("borrow-details-modal");
+        if (event.target == modal) {
+          closeModal();
         }
+      };
+
+      document
+        .getElementById("sidebarToggle")
+        .addEventListener("click", function () {
+          document.getElementById("sidebar").classList.toggle("toggled");
+        });
     </script>
-</body>
+  </body>
 </html>
