@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý người dùng - Admin</title>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin-users.css"> <!-- CSS riêng cho trang Quản lý người dùng -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">Admin - YourWebsite</div>
+        <div class="user-info">
+            <span id="admin-name">[Admin Name]</span>
+            <a href="/logout">Đăng xuất</a>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <!-- Sidebar Brand -->
+        <div class="sidebar-brand">
+            <i class="fas fa-book-open" style="padding-right: 8px; "></i>
+            <span>Books Admin</span>
+        </div>
+    
+        <!-- Navigation -->
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a href="admin-dashboard.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt" style="padding-right: 8px;"></i>
+                    <span>Bảng điều khiển</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-users.html" class="nav-link">
+                    <i class="fas fa-users" style="padding-right: 8px;"></i>
+                    <span>Quản lý người dùng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-book.html" class="nav-link">
+                    <i class="fas fa-book" style="padding-right: 8px;"></i>
+                    <span>Quản lý sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-copybook.html" class="nav-link">
+                    <i class="fas fa-book" style="padding-right: 8px;"></i>
+                    <span>Quản lý bản sao sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-library-cards.html" class="nav-link">
+                    <i class="fas fa-id-card" style="padding-right: 8px;"></i>
+                    <span>Quản lý thẻ thư viện</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-borrow-records.html" class="nav-link">
+                    <i class="fas fa-tasks" style="padding-right: 8px;"></i>
+                    <span>Quản lý phiếu mượn trả</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-book-reservations.html" class="nav-link">
+                    <i class="fas fa-shopping-cart" style="padding-right: 8px;"></i>
+                    <span>Quản lý đặt mượn sách</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin-stats.html" class="nav-link">
+                    <i class="fas fa-chart-area" style="padding-right: 8px;"></i>
+                    <span>Thống kê</span>
+                </a>
+            </li>
+        </ul>
+    
+        <!-- Toggle Button -->
+        <div class="sidebar-toggle">
+            <button id="sidebarToggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </aside>
+
+    <main>
+        <div class="main-header">
+            <h1>Quản lý người dùng</h1>
+            <button class="btn" onclick="toggleForm('add-user-form')">
+                <i class="fas fa-plus"></i> Thêm độc giả
+            </button>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm theo mã hoặc tên độc giả...">
+                <button class="btn" onclick="searchReaders()">
+                    <i class="fas fa-search"></i> Tìm kiếm
+                </button>
+            </div>
+        </div>
+        <table id="user-list">
+            <thead>
+                <tr>
+                    <th>ID Độc giả</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>Trình độ văn hoá</th>
+                    <th>Địa chỉ</th>
+                    <th>Vai trò</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="ID Độc giả">DG001</td>
+                    <td data-label="Họ tên">Nguyễn Văn A</td>
+                    <td data-label="Email">user@example.com</td>
+                    <td data-label="Số điện thoại">08888888888</td>
+                    <td data-label="Ngày sinh">2005-03-12</td>
+                    <td data-label="Giới tính">Nam</td>
+                    <td data-label="Trình độ văn hoá">Trung học</td>
+                    <td data-label="Địa chỉ">123 Đường ABC, Quận XYZ, TP HCM</td>
+                    <td data-label="Vai trò">USER</td>
+                    <td class="actions-column">
+                        <button class="btn btn-edit" onclick="toggleForm('edit-user-form')">
+                            <i class="fas fa-edit"></i> Sửa
+                        </button>
+                        <button class="btn btn-delete">
+                            <i class="fas fa-trash-alt"></i> Xóa
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="add-user-form" class="form-container" style="display:none;">
+            <h2><i class="fas fa-user-plus"></i> Thêm độc giả</h2>
+            <div class="form-group">
+                <input type="email" placeholder="Email" id="user-email" required>
+                <input type="text" placeholder="Họ tên" id="user-fullname" required>
+                <input type="password" placeholder="Mật khẩu" id="user-pass" required>
+                <input type="tel" placeholder="Số điện thoại" id="user-phone" required>
+                <input type="date" placeholder="Ngày sinh" id="user-dob" required>
+                <select id="user-gender" required>
+                    <option value="">Chọn giới tính</option>
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                    <option value="Khác">Khác</option>
+                </select>
+                <select id="user-education" required>
+                    <option value="">Chọn trình độ văn hoá</option>
+                    <option value="Tiểu học">Tiểu học</option>
+                    <option value="Trung học">Trung học</option>
+                    <option value="Đại học">Đại học</option>
+                    <option value="Sau đại học">Sau đại học</option>
+                </select>
+                <textarea id="user-address" placeholder="Địa chỉ" required></textarea>
+                <select id="user-role" required>
+                    <option value="">Chọn vai trò</option>
+                    <option value="USER">Người dùng</option>
+                    <option value="ADMIN">Quản trị viên</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="toggleForm('add-user-form')">Huỷ</button>
+                <button type="submit" class="btn">
+                    <i class="fas fa-save"></i> Lưu
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script> <!-- Font Awesome : Các ký hiêu ở aside -->
+
+    <script>
+        function toggleForm(formId) {
+            document.getElementById(formId).style.display =
+                document.getElementById(formId).style.display === 'none' ? 'block' : 'none';
+        }
+
+        function searchReaders() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const table = document.getElementById('user-list');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (let row of rows) {
+                const idCell = row.cells[0];
+                const nameCell = row.cells[1];
+                const idText = idCell.textContent.toLowerCase();
+                const nameText = nameCell.textContent.toLowerCase();
+                
+                // Reset highlights
+                idCell.innerHTML = idCell.textContent;
+                nameCell.innerHTML = nameCell.textContent;
+                
+                if (idText.includes(searchInput) || nameText.includes(searchInput)) {
+                    row.style.display = '';
+                    if (searchInput) {
+                        if (idText.includes(searchInput)) highlightText(idCell, searchInput);
+                        if (nameText.includes(searchInput)) highlightText(nameCell, searchInput);
+                    }
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+
+        function highlightText(cell, searchText) {
+            const originalText = cell.textContent;
+            const lowerText = originalText.toLowerCase();
+            const index = lowerText.indexOf(searchText.toLowerCase());
+            
+            if (index >= 0) {
+                const beforeText = originalText.substring(0, index);
+                const matchedText = originalText.substring(index, index + searchText.length);
+                const afterText = originalText.substring(index + searchText.length);
+                
+                cell.innerHTML = beforeText +
+                    '<span class="highlight">' + matchedText + '</span>' +
+                    afterText;
+            }
+        }
+
+        // Thêm sự kiện input để tìm kiếm realtime
+        document.getElementById('searchInput').addEventListener('input', searchReaders);
+        document.getElementById('searchType').addEventListener('change', searchReaders);
+    </script>
+
+    <style>
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px;
+            border-radius: 2px;
+        }
+    </style>
+</body>
+</html>
