@@ -17,59 +17,58 @@
     </header>
 
     <aside class="sidebar" id="sidebar">
-      <!-- Sidebar giống như code gốc -->
       <div class="sidebar-brand">
         <i class="fas fa-book-open" style="padding-right: 8px"></i>
         <span>Books Admin</span>
       </div>
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="admin-dashboard.html" class="nav-link"
-            ><i class="fas fa-tachometer-alt" style="padding-right: 8px"></i
-            ><span>Bảng điều khiển</span></a
-          >
+          <a href="admin-dashboard.html" class="nav-link">
+            <i class="fas fa-tachometer-alt" style="padding-right: 8px"></i>
+            <span>Bảng điều khiển</span>
+          </a>
         </li>
         <li class="nav-item">
-          <a href="admin-readers.html" class="nav-link"
-            ><i class="fas fa-users" style="padding-right: 8px"></i
-            ><span>Quản lý độc giả</span></a
-          >
+          <a href="admin-readers.html" class="nav-link">
+            <i class="fas fa-users" style="padding-right: 8px"></i>
+            <span>Quản lý độc giả</span>
+          </a>
         </li>
         <li class="nav-item">
-          <a href="admin-book.html" class="nav-link"
-            ><i class="fas fa-book" style="padding-right: 8px"></i
-            ><span>Quản lý sách</span></a
-          >
+          <a href="admin-book.html" class="nav-link">
+            <i class="fas fa-book" style="padding-right: 8px"></i>
+            <span>Quản lý sách</span>
+          </a>
         </li>
         <li class="nav-item">
-          <a href="admin-copybook.html" class="nav-link"
-            ><i class="fas fa-book" style="padding-right: 8px"></i
-            ><span>Quản lý bản sao sách</span></a
-          >
+          <a href="admin-copybook.html" class="nav-link">
+            <i class="fas fa-book" style="padding-right: 8px"></i>
+            <span>Quản lý bản sao sách</span>
+          </a>
         </li>
         <li class="nav-item">
-          <a href="admin-library-cards.html" class="nav-link"
-            ><i class="fas fa-id-card" style="padding-right: 8px"></i
-            ><span>Quản lý thẻ thư viện</span></a
-          >
+          <a href="admin-library-cards.html" class="nav-link">
+            <i class="fas fa-id-card" style="padding-right: 8px"></i>
+            <span>Quản lý thẻ thư viện</span>
+          </a>
         </li>
         <li class="nav-item">
-          <a href="admin-borrow-records.html" class="nav-link active"
-            ><i class="fas fa-tasks" style="padding-right: 8px"></i
-            ><span>Quản lý phiếu mượn trả</span></a
-          >
+          <a href="admin-borrow-records.html" class="nav-link active">
+            <i class="fas fa-tasks" style="padding-right: 8px"></i>
+            <span>Quản lý phiếu mượn trả</span>
+          </a>
         </li>
         <li class="nav-item">
-          <a href="admin-book-reservations.html" class="nav-link"
-            ><i class="fas fa-shopping-cart" style="padding-right: 8px"></i
-            ><span>Quản lý đặt mượn sách</span></a
-          >
+          <a href="admin-book-reservations.html" class="nav-link">
+            <i class="fas fa-shopping-cart" style="padding-right: 8px"></i>
+            <span>Quản lý đặt mượn sách</span>
+          </a>
         </li>
         <li class="nav-item">
-          <a href="admin-stats.html" class="nav-link"
-            ><i class="fas fa-chart-area" style="padding-right: 8px"></i
-            ><span>Thống kê</span></a
-          >
+          <a href="admin-stats.html" class="nav-link">
+            <i class="fas fa-chart-area" style="padding-right: 8px"></i>
+            <span>Thống kê</span>
+          </a>
         </li>
       </ul>
       <div class="sidebar-toggle">
@@ -79,7 +78,7 @@
 
     <main>
       <div class="main-header">
-        <h1>Quản lý phiếu mượn</h1>
+        <h1>Quản lý phiếu mượn trả</h1>
         <button class="btn" onclick="toggleForm('add-borrow-form')">
           <i class="fas fa-plus"></i> Thêm phiếu mượn
         </button>
@@ -88,7 +87,7 @@
       <div class="search-section">
         <div class="search-container">
             <div class="search-wrapper">
-                <input type="text" id="search-input" placeholder="Tìm kiếm theo mã sách hoặc tên sách..." oninput="searchBooks()">
+                <input type="text" id="search-input" placeholder="Tìm kiếm theo mã phiếu mượn hoặc tên độc giả..." oninput="searchBooks()">
                 <span class="search-icon" onclick="searchBooks()"><i class="fas fa-search"></i></span>
                 <span class="clear-search" id="clear-search" onclick="clearSearch()"><i class="fas fa-times"></i></span>
             </div>
@@ -110,23 +109,17 @@
         </thead>
         <tbody>
           <tr>
-            <td>PM001</td>
-            <td>DG001</td>
-            <td>Nguyễn Văn A</td>
-            <td>BS001</td>
-            <td>21/03/2025</td>
-            <td>28/03/2025</td>
-            <td>Đang mượn</td>
-            <td>
-              <a href="#" class="btn" onclick="editBorrowRecord('PM001')"
-                >Sửa</a
-              >
-              <a href="#" class="btn" onclick="deleteBorrowRecord('PM001')"
-                >Xóa</a
-              >
-              <a href="#" class="btn" onclick="showBorrowDetails('PM001')"
-                >Chi tiết</a
-              >
+            <td data-label="ID phiếu mượn">PM001</td>
+            <td data-label="ID độc giả">DG0001</td>
+            <td data-label="Tên độc giả">Phạm Thị Minh Sang</td>
+            <td data-label="ID bản sao sách">BS001</td>
+            <td data-label="Ngày mượn">21/03/2025</td>
+            <td data-label="Ngày đến hạn">28/03/2025</td>
+            <td data-label="Trạng thái">Đang mượn</td>
+            <td data-label="Hành động">
+              <a href="#" class="btn" onclick="editBorrowRecord('PM001')">Sửa</a>
+              <a href="#" class="btn" onclick="deleteBorrowRecord('PM001')">Xóa</a>
+              <a href="#" class="btn" onclick="showBorrowDetails('PM001')">Chi tiết</a>
             </td>
           </tr>
         </tbody>
@@ -135,40 +128,38 @@
       <!-- Form thêm phiếu mượn -->
       <div id="add-borrow-form" class="form-container" style="display: none">
         <h2>Thêm phiếu mượn</h2>
-        <input
-          type="text"
-          placeholder="ID độc giả"
-          id="borrow-reader-id"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Tên độc giả"
-          id="borrow-reader-name"
-          required
-        />
-        <input
-          type="text"
-          placeholder="ID bản sao sách"
-          id="borrow-copy-id"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Tên sách"
-          id="borrow-book-name"
-          required
-        />
-        <input type="date" placeholder="Ngày mượn" id="borrow-date" required />
         <div class="form-group">
-          <label>Thời hạn mượn:</label>
+          <label>ID độc giả</label>
+          <input type="text" id="borrow-reader-id" required>
+        </div>
+        <div class="form-group">
+          <label>Tên độc giả</label>
+          <input type="text" id="borrow-reader-name" required>
+        </div>
+        <div class="form-group">
+          <label>ID bản sao sách</label>
+          <input type="text" id="borrow-copy-id" required>
+        </div>
+        <div class="form-group">
+          <label>Tên sách</label>
+          <input type="text" id="borrow-book-name" required>
+        </div>
+        <div class="form-group">
+          <label>Ngày mượn</label>
+          <input type="date" id="borrow-date" required>
+        </div>
+        <div class="form-group">
+          <label>Thời hạn mượn</label>
           <select id="borrow-duration" required>
             <option value="7">7 ngày</option>
             <option value="14">14 ngày</option>
             <option value="30">30 ngày</option>
           </select>
         </div>
-        <button class="btn" onclick="saveBorrowRecord()">Lưu</button>
+        <div class="modal-actions">
+          <button class="btn btn-save" onclick="saveBorrowRecord()">Lưu</button>
+          <button class="btn btn-cancel" onclick="toggleForm('add-borrow-form')">Hủy</button>
+        </div>
       </div>
 
       <!-- Modal chi tiết phiếu mượn -->
@@ -177,227 +168,20 @@
           <span class="close-button" onclick="closeModal()">×</span>
           <h2>Thông tin chi tiết phiếu mượn</h2>
           <div class="borrow-info">
-            <p>
-              <strong>ID phiếu mượn:</strong> <span id="modal-borrow-id"></span>
-            </p>
-            <p>
-              <strong>ID độc giả:</strong>
-              <span id="modal-borrow-reader-id"></span>
-            </p>
-            <p>
-              <strong>Tên độc giả:</strong>
-              <span id="modal-borrow-reader-name"></span>
-            </p>
-            <p>
-              <strong>ID bản sao sách:</strong>
-              <span id="modal-borrow-copy-id"></span>
-            </p>
-            <p>
-              <strong>Tên sách:</strong>
-              <span id="modal-borrow-book-name"></span>
-            </p>
-            <p>
-              <strong>Ngày mượn:</strong> <span id="modal-borrow-date"></span>
-            </p>
-            <p>
-              <strong>Ngày đến hạn:</strong>
-              <span id="modal-borrow-due-date"></span>
-            </p>
-            <p>
-              <strong>Trạng thái:</strong>
-              <span id="modal-borrow-status"></span>
-            </p>
+            <p><strong>ID phiếu mượn:</strong> <span id="modal-borrow-id"></span></p>
+            <p><strong>ID độc giả:</strong> <span id="modal-borrow-reader-id"></span></p>
+            <p><strong>Tên độc giả:</strong> <span id="modal-borrow-reader-name"></span></p>
+            <p><strong>ID bản sao sách:</strong> <span id="modal-borrow-copy-id"></span></p>
+            <p><strong>Tên sách:</strong> <span id="modal-borrow-book-name"></span></p>
+            <p><strong>Ngày mượn:</strong> <span id="modal-borrow-date"></span></p>
+            <p><strong>Ngày đến hạn:</strong> <span id="modal-borrow-due-date"></span></p>
+            <p><strong>Trạng thái:</strong> <span id="modal-borrow-status"></span></p>
           </div>
         </div>
       </div>
     </main>
 
-    <style>
-      .highlight {
-        background-color: #fff3cd;
-        padding: 2px;
-        border-radius: 2px;
-      }
-    </style>
-  
-    <script>
-      // Giả lập dữ liệu phiếu mượn
-      let borrowRecords = [
-        {
-          borrowId: "PM001",
-          readerId: "DG001",
-          readerName: "Nguyễn Văn A",
-          copyId: "BS001",
-          borrowDate: "21/03/2025",
-          dueDate: "28/03/2025",
-          status: "Đang mượn"
-        }
-      ];
-
-      function searchBorrowRecords() {
-        const searchTerm = document.getElementById('search-input').value.toLowerCase();
-        const tbody = document.querySelector('#borrow-records-list tbody');
-        const rows = tbody.getElementsByTagName('tr');
-
-        for (let row of rows) {
-          const borrowId = row.cells[0].textContent.toLowerCase();
-          const readerName = row.cells[2].textContent.toLowerCase();
-          
-          // Reset highlights
-          row.cells[0].innerHTML = row.cells[0].textContent;
-          row.cells[2].innerHTML = row.cells[2].textContent;
-          
-          if (borrowId.includes(searchTerm) || readerName.includes(searchTerm)) {
-            row.style.display = '';
-            if (searchTerm) {
-              if (borrowId.includes(searchTerm)) highlightText(row.cells[0], searchTerm);
-              if (readerName.includes(searchTerm)) highlightText(row.cells[2], searchTerm);
-            }
-          } else {
-            row.style.display = 'none';
-          }
-        }
-      }
-
-      function highlightText(cell, searchText) {
-        const originalText = cell.textContent;
-        const lowerText = originalText.toLowerCase();
-        const index = lowerText.indexOf(searchText.toLowerCase());
-        
-        if (index >= 0) {
-          const beforeText = originalText.substring(0, index);
-          const matchedText = originalText.substring(index, index + searchText.length);
-          const afterText = originalText.substring(index + searchText.length);
-          
-          cell.innerHTML = beforeText +
-            '<span class="highlight">' + matchedText + '</span>' +
-            afterText;
-        }
-      }
-
-      // Thêm sự kiện input để tìm kiếm realtime
-      document.getElementById('search-input').addEventListener('input', searchBorrowRecords);
-
-      function toggleForm(formId) {
-        document.getElementById(formId).style.display =
-          document.getElementById(formId).style.display === "none"
-            ? "block"
-            : "none";
-      }
-
-      function showBorrowDetails(borrowId) {
-        const borrowData = {
-          borrowId: "PM001",
-          readerId: "DG001",
-          readerName: "Nguyễn Văn A",
-          copyId: "BS001",
-          bookName: "Sách mẫu",
-          borrowDate: "21/03/2025",
-          dueDate: "28/03/2025",
-          status: "Đang mượn",
-        };
-
-        document.getElementById("modal-borrow-id").textContent =
-          borrowData.borrowId;
-        document.getElementById("modal-borrow-reader-id").textContent =
-          borrowData.readerId;
-        document.getElementById("modal-borrow-reader-name").textContent =
-          borrowData.readerName;
-        document.getElementById("modal-borrow-copy-id").textContent =
-          borrowData.copyId;
-        document.getElementById("modal-borrow-book-name").textContent =
-          borrowData.bookName;
-        document.getElementById("modal-borrow-date").textContent =
-          borrowData.borrowDate;
-        document.getElementById("modal-borrow-due-date").textContent =
-          borrowData.dueDate;
-        document.getElementById("modal-borrow-status").textContent =
-          borrowData.status;
-
-        document.getElementById("borrow-details-modal").style.display = "block";
-      }
-
-      function closeModal() {
-        document.getElementById("borrow-details-modal").style.display = "none";
-      }
-
-      function saveBorrowRecord() {
-        const readerId = document.getElementById("borrow-reader-id").value;
-        const readerName = document.getElementById("borrow-reader-name").value;
-        const copyId = document.getElementById("borrow-copy-id").value;
-        const bookName = document.getElementById("borrow-book-name").value;
-        const borrowDate = document.getElementById("borrow-date").value;
-        const borrowDuration = document.getElementById("borrow-duration").value;
-
-        if (!readerId || !readerName || !copyId || !bookName || !borrowDate) {
-          alert("Vui lòng điền đầy đủ thông tin");
-          return;
-        }
-
-        const borrowId =
-          "PM" +
-          Math.floor(Math.random() * 1000)
-            .toString()
-            .padStart(3, "0");
-        const borrowDateObj = new Date(borrowDate);
-        const dueDateObj = new Date(borrowDateObj);
-        dueDateObj.setDate(dueDateObj.getDate() + parseInt(borrowDuration));
-
-        const table = document
-          .getElementById("borrow-records-list")
-          .getElementsByTagName("tbody")[0];
-        const newRow = table.insertRow();
-        newRow.innerHTML = `
-                <td>${borrowId}</td>
-                <td>${readerId}</td>
-                <td>${readerName}</td>
-                <td>${copyId}</td>
-                <td>${borrowDateObj.toLocaleDateString("vi-VN")}</td>
-                <td>${dueDateObj.toLocaleDateString("vi-VN")}</td>
-                <td>Đang mượn</td>
-                <td>
-                    <a href="#" class="btn" onclick="editBorrowRecord('${borrowId}')">Sửa</a>
-                    <a href="#" class="btn" onclick="deleteBorrowRecord('${borrowId}')">Xóa</a>
-                    <a href="#" class="btn" onclick="showBorrowDetails('${borrowId}')">Chi tiết</a>
-                </td>
-            `;
-
-        document.getElementById("add-borrow-form").reset();
-        toggleForm("add-borrow-form");
-        alert("Thêm phiếu mượn thành công!");
-      }
-
-      function editBorrowRecord(borrowId) {
-        alert("Chức năng đang được phát triển");
-      }
-
-      function deleteBorrowRecord(borrowId) {
-        if (confirm("Bạn có chắc chắn muốn xóa phiếu mượn này?")) {
-          const table = document.getElementById("borrow-records-list");
-          const rows = table.getElementsByTagName("tr");
-          for (let i = 0; i < rows.length; i++) {
-            const cells = rows[i].getElementsByTagName("td");
-            if (cells.length > 0 && cells[0].textContent === borrowId) {
-              table.deleteRow(i);
-              break;
-            }
-          }
-          alert("Đã xóa phiếu mượn thành công!");
-        }
-      }
-
-      window.onclick = function (event) {
-        const modal = document.getElementById("borrow-details-modal");
-        if (event.target == modal) {
-          closeModal();
-        }
-      };
-
-      document
-        .getElementById("sidebarToggle")
-        .addEventListener("click", function () {
-          document.getElementById("sidebar").classList.toggle("toggled");
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script src="./js/admin-borrow-records.js"></script>
   </body>
 </html>

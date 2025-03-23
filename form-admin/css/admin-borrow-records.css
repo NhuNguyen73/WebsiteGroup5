@@ -1,64 +1,306 @@
-/* Thanh tìm kiếm */
+/* File: css/admin-borrow-records.css */
+
+
+/* Search section */
 .search-section {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
+    gap: 15px;
 }
 
-.search-container {
+.search-box {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 10px;
     width: 100%;
     max-width: 500px;
-}
-
-.search-wrapper {
     position: relative;
-    width: 100%;
 }
 
-.search-container input {
-    width: 100%;
-    padding: 10px 40px 10px 40px;
+.search-box input {
+    flex: 1;
+    padding: 10px 10px 10px 40px;
     border: 1px solid #ddd;
     border-radius: 25px;
     outline: none;
     font-size: 16px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
 }
 
-.search-container input:focus {
+.search-box input:focus {
     border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
 
-.search-icon {
+.search-box::before {
+    content: '\f002'; /* Font Awesome search icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     position: absolute;
-    left: 10px;
+    left: 15px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 16px;
     color: #6c757d;
+}
+
+/* Button "Thêm phiếu mượn" */
+.search-section .btn {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    white-space: nowrap;
 }
 
-.search-icon:hover {
-    color: #007bff;
+.search-section .btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
-.clear-search {
+.search-section .btn:active {
+    transform: translateY(0);
+}
+
+/* Table styles */
+#borrow-records-list {
+    margin-top: 20px;
+}
+
+#borrow-records-list th,
+#borrow-records-list td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+#borrow-records-list th {
+    background-color: #f8f9fa;
+    color: #2c88a6;
+    font-weight: 600;
+}
+
+#borrow-records-list tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button styles in table */
+#borrow-records-list td .btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-right: 5px;
+}
+
+#borrow-records-list td .btn:hover {
+    transform: translateY(-2px);
+}
+
+#borrow-records-list td .btn:active {
+    transform: translateY(0);
+}
+
+#borrow-records-list td .btn:nth-child(1) {
+    background-color: #007bff;
+    color: white;
+}
+
+#borrow-records-list td .btn:nth-child(1):hover {
+    background-color: #0056b3;
+}
+
+#borrow-records-list td .btn:nth-child(2) {
+    background-color: #dc3545;
+    color: white;
+}
+
+#borrow-records-list td .btn:nth-child(2):hover {
+    background-color: #c82333;
+}
+
+#borrow-records-list td .btn:nth-child(3) {
+    background-color: #28a745;
+    color: white;
+}
+
+#borrow-records-list td .btn:nth-child(3):hover {
+    background-color: #218838;
+}
+
+/* Form container */
+.form-container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.form-container h2 {
+    font-size: 18px;
+    color: #2c88a6;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.form-container .form-group {
+    margin-bottom: 15px;
+}
+
+.form-container .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2c88a6;
+    font-weight: 600;
+}
+
+.form-container .form-group input,
+.form-container .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-container .modal-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.form-container .modal-actions .btn {
+    margin-left: 10px;
+}
+
+.form-container .btn-save {
+    background-color: #007bff;
+    color: white;
+}
+
+.form-container .btn-save:hover {
+    background-color: #0056b3;
+}
+
+.form-container .btn-cancel {
+    background-color: #6c757d;
+    color: white;
+}
+
+.form-container .btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: block;
+    opacity: 1;
+}
+
+.modal-content {
+    position: relative;
+    background-color: white;
+    margin: 5% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 5px;
+    max-height: 80vh;
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+}
+
+.close-button {
     position: absolute;
     right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    color: #6c757d;
+    top: 10px;
+    font-size: 24px;
     cursor: pointer;
-    display: none;
     transition: color 0.3s ease;
 }
 
-.clear-search:hover {
+.close-button:hover {
     color: #dc3545;
+}
+
+.borrow-info p {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.borrow-info p strong {
+    color: #2c88a6;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .main-header {
+        text-align: center;
+    }
+
+    .search-box {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
+
+    .search-section .btn {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    #borrow-records-list thead {
+        display: none;
+    }
+
+    #borrow-records-list tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+    }
+
+    #borrow-records-list tbody td {
+        display: grid;
+        grid-template-columns: 35% 65%;
+        padding: 8px 15px;
+        border: none;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    #borrow-records-list tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #2c88a6;
+    }
+
+    .form-container {
+        width: 90%;
+    }
 }
