@@ -3,37 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Quản lý sách - Admin</title>
-    <link rel="stylesheet" href="admin.css">
-    <link rel="stylesheet" href=".\css\admin.css">
-    <link rel="stylesheet" href=".\css\admin-courses.css">
-    <!-- Thêm Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin-users.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <style>
-        /* CSS cho thanh tìm kiếm */
-        .search-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-        .search-container input {
-            padding: 8px;
-            width: 200px;
-            border: 1px solid #ccc;
-            border-radius: 4px 0 0 4px;
-            outline: none;
-        }
-        .search-container button {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-left: none;
-            border-radius: 0 4px 4px 0;
-            background-color: #17a2b8; /* Màu xanh dương */
-            color: white; /* Chữ trắng */
-            cursor: pointer;
-        }
-        .search-container button:hover {
-            background-color: #138496; /* Màu xanh đậm hơn khi hover */
-        }
         /* CSS cho bảng và form */
         table {
             width: 100%;
@@ -46,24 +19,118 @@
         }
         .form-container {
             margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .form-container input, .form-container select, .form-container textarea {
-            margin-bottom: 10px;
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+
+        .form-container h2 {
+            color: #2c88a6;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .form-container input[readonly] {
-            background-color: #f0f0f0;
-            cursor: not-allowed;
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
         }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: #2c88a6;
+        }
+
+        .required {
+            color: #dc3545;
+            margin-left: 4px;
+        }
+
+        .form-container input,
+        .form-container select,
         .form-container textarea {
-            height: 100px;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .form-container input[readonly] {
+            background-color: #f8f9fa;
+            cursor: not-allowed;
+            border-color: #e9ecef;
+        }
+
+        .form-container textarea {
+            height: 120px;
             resize: vertical;
+        }
+
+        .form-container input:focus,
+        .form-container select:focus,
+        .form-container textarea:focus {
+            border-color: #2c88a6;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(44, 136, 166, 0.25);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .btn-save {
+            background-color: #2c88a6;
+            min-width: 100px;
+        }
+
+        .btn-save:hover {
+            background-color: #236d87;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            min-width: 100px;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+
+        @media screen and (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
         }
         .btn {
             padding: 5px 10px;
@@ -150,13 +217,21 @@
     </aside>
 
     <main>
-        <h1>Quản lý sách</h1>
-        <!-- Thanh tìm kiếm -->
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Tìm kiếm theo mã sách hoặc tên sách">
-            <button onclick="searchBooks()"><i class="fas fa-search"></i></button>
+        <div class="main-header">
+            <h1>Quản lý sách</h1>
+            <button class="btn" onclick="prefillAddBookForm()">
+                <i class="fas fa-plus"></i> Thêm sách
+            </button>
         </div>
-        <button class="btn" onclick="prefillAddBookForm()">Thêm sách</button>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Tìm kiếm theo mã sách hoặc tên sách...">
+                <button class="btn" onclick="searchBooks()">
+                    <i class="fas fa-search"></i> Tìm kiếm
+                </button>
+            </div>
+        </div>
         <table id="book-list">
             <thead>
                 <tr>
@@ -188,40 +263,99 @@
         </table>
         <!-- Form Thêm Sách -->
         <div id="add-book-form" class="form-container" style="display:none;">
-            <h2>Thêm Sách</h2>
-            <input type="text" placeholder="ID Sách" id="book-id" readonly>
-            <input type="text" placeholder="Tên sách" id="book-title" required>
-            <textarea placeholder="Mô tả" id="book-description" required></textarea>
-            <input type="number" placeholder="Giá bìa sách (VNĐ)" id="book-price" required>
-            <input type="text" placeholder="Tác giả" id="book-author" required>
-            <select id="book-category" required>
-                <option value="">Chọn thể loại</option>
-                <option value="van-hoc">Tài liệu học tập</option>
-                <option value="khoa-hoc">Tài liệu lịch sử</option>
-                <option value="lich-su">Sách phát triển bản thân</option>
-                <option value="tam-ly">Tiểu thuyết</option>
-            </select>
-            <input type="file" id="book-image" accept="image/*" required>
-            <button class="btn" onclick="saveBook()">Lưu</button>
+            <h2><i class="fas fa-plus-circle"></i> Thêm Sách</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label><i class="fas fa-key"></i> ID Sách</label>
+                    <input type="text" id="book-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-book"></i> Tên sách <span class="required">*</span></label>
+                    <input type="text" id="book-title" required>
+                </div>
+                <div class="form-group full-width">
+                    <label><i class="fas fa-align-left"></i> Mô tả <span class="required">*</span></label>
+                    <textarea id="book-description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Giá bìa sách (VNĐ) <span class="required">*</span></label>
+                    <input type="number" id="book-price" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-user-edit"></i> Tác giả <span class="required">*</span></label>
+                    <input type="text" id="book-author" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-list"></i> Thể loại <span class="required">*</span></label>
+                    <select id="book-category" required>
+                        <option value="">Chọn thể loại</option>
+                        <option value="van-hoc">Tài liệu học tập</option>
+                        <option value="khoa-hoc">Tài liệu lịch sử</option>
+                        <option value="lich-su">Sách phát triển bản thân</option>
+                        <option value="tam-ly">Tiểu thuyết</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-image"></i> Ảnh sách <span class="required">*</span></label>
+                    <input type="file" id="book-image" accept="image/*" required>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-cancel" onclick="toggleForm('add-book-form')">
+                    <i class="fas fa-times"></i> Hủy
+                </button>
+                <button class="btn btn-save" onclick="saveBook()">
+                    <i class="fas fa-save"></i> Lưu
+                </button>
+            </div>
         </div>
         <!-- Form Chỉnh sửa Sách -->
         <div id="edit-book-form" class="form-container" style="display:none;">
-            <h2>Chỉnh sửa Sách</h2>
-            <input type="text" placeholder="ID Sách" id="edit-book-id" readonly>
-            <input type="text" placeholder="Tên sách" id="edit-book-title" required>
-            <textarea placeholder="Mô tả" id="edit-book-description" required></textarea>
-            <input type="number" placeholder="Giá bìa sách (VNĐ)" id="edit-book-price" required>
-            <input type="text" placeholder="Tác giả" id="edit-book-author" required>
-            <select id="edit-book-category" required>
-                <option value="">Chọn thể loại</option>
-                <option value="van-hoc">Tài liệu học tập</option>
-                <option value="khoa-hoc">Tài liệu lịch sử</option>
-                <option value="lich-su">Sách phát triển bản thân</option>
-                <option value="tam-ly">Tiểu thuyết</option>
-            </select>
-            <input type="file" id="edit-book-image" accept="image/*">
-            <button class="btn" onclick="updateBook()">Cập nhật</button>
-            <button class="btn" onclick="toggleForm('edit-book-form')">Hủy</button>
+            <h2><i class="fas fa-edit"></i> Chỉnh sửa Sách</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label><i class="fas fa-key"></i> ID Sách</label>
+                    <input type="text" id="edit-book-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-book"></i> Tên sách <span class="required">*</span></label>
+                    <input type="text" id="edit-book-title" required>
+                </div>
+                <div class="form-group full-width">
+                    <label><i class="fas fa-align-left"></i> Mô tả <span class="required">*</span></label>
+                    <textarea id="edit-book-description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Giá bìa sách (VNĐ) <span class="required">*</span></label>
+                    <input type="number" id="edit-book-price" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-user-edit"></i> Tác giả <span class="required">*</span></label>
+                    <input type="text" id="edit-book-author" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-list"></i> Thể loại <span class="required">*</span></label>
+                    <select id="edit-book-category" required>
+                        <option value="">Chọn thể loại</option>
+                        <option value="van-hoc">Tài liệu học tập</option>
+                        <option value="khoa-hoc">Tài liệu lịch sử</option>
+                        <option value="lich-su">Sách phát triển bản thân</option>
+                        <option value="tam-ly">Tiểu thuyết</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-image"></i> Ảnh sách</label>
+                    <input type="file" id="edit-book-image" accept="image/*">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-cancel" onclick="toggleForm('edit-book-form')">
+                    <i class="fas fa-times"></i> Hủy
+                </button>
+                <button class="btn btn-save" onclick="updateBook()">
+                    <i class="fas fa-save"></i> Cập nhật
+                </button>
+            </div>
         </div>
     </main>
 

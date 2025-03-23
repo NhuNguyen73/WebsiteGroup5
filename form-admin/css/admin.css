@@ -14,16 +14,32 @@ header {
     justify-content: space-between;
     align-items: center;
     position: fixed;
-    width: calc(100vw - 250px);
+    width: calc(100% - 280px);
     top: 0;
     left: 250px;
+    
     height: 60px;
     z-index: 1000;
 }
 
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 .user-info a {
-    color: #F7F7F7;
-    margin-left: 10px;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    background-color: #d2d0d0;
+    transition: all 0.3s ease;
+}
+
+.user-info a:hover {
+    background-color: #e0e0e0;
+    color: #2c88a6;
 }
 
 .sidebar {

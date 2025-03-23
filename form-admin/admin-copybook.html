@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Quản lý bản sao sách - Admin</title>
-    <link rel="stylesheet" href="admin.css">
-    <link rel="stylesheet" href=".\css\admin.css">
-    <link rel="stylesheet" href=".\css\admin-courses.css">
-    <!-- Thêm Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin-users.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </head>
 <body>
     <header>
@@ -79,10 +77,17 @@
     </aside>
 
     <main>
-        <h1>Quản lý bản sao sách</h1>
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Tìm kiếm theo mã sách hoặc tên sách">
-            <button onclick="searchBooks()"><i class="fas fa-search"></i></button>
+        <div class="main-header">
+            <h1>Quản lý bản sao sách</h1>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Tìm kiếm theo mã sách hoặc tên sách...">
+                <button class="btn" onclick="searchBooks()">
+                    <i class="fas fa-search"></i> Tìm kiếm
+                </button>
+            </div>
         </div>
         <table id="book-copy-list">
             <thead>

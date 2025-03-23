@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Quản lý thẻ thư viện - Admin</title>
     <link rel="stylesheet" href="./css/admin.css">
-    <link rel="stylesheet" href="./css/admin-exercises.css">
+    <link rel="stylesheet" href="./css/admin-users.css">
     <link rel="stylesheet" href="./css/admin-library-cards.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </head>
 <body>
     <header>
@@ -78,18 +78,24 @@
     </aside>
     
     <main>
-        <h1>Quản lý thẻ thư viện</h1>
-        <div class="button-group">
-            <button class="btn" onclick="showPendingCardsPopup()">Duyệt thẻ thư viện</button>
-            <button class="btn" onclick="showLockedCardsPopup()">Danh sách các thẻ bị khóa</button>
+        <div class="main-header">
+            <h1>Quản lý thẻ thư viện</h1>
+            <div class="button-group">
+                <button class="btn" onclick="showPendingCardsPopup()">
+                    <i class="fas fa-clipboard-check"></i> Duyệt thẻ thư viện
+                </button>
+                <button class="btn" onclick="showLockedCardsPopup()">
+                    <i class="fas fa-lock"></i> Danh sách các thẻ bị khóa
+                </button>
+            </div>
         </div>
 
-        <!-- Thanh tìm kiếm -->
-        <div class="search-container">
-            <div class="search-wrapper">
-                <input type="text" id="search-input" placeholder="Tìm kiếm theo ID thẻ, ID độc giả hoặc tên độc giả..." oninput="searchCards()">
-                <span class="search-icon" onclick="searchCards()"><i class="fas fa-search"></i></span>
-                <span class="clear-search" id="clear-search" onclick="clearSearch()"><i class="fas fa-times"></i></span>
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Tìm kiếm theo ID thẻ, ID độc giả hoặc tên độc giả...">
+                <button class="btn" onclick="searchCards()">
+                    <i class="fas fa-search"></i> Tìm kiếm
+                </button>
             </div>
         </div>
 

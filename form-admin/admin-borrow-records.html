@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <title>Quản lý phiếu mượn - Admin</title>
-    <link rel="stylesheet" href="./css/admin.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin-users.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
   </head>
   <body>
     <header>
@@ -77,10 +78,21 @@
     </aside>
 
     <main>
-      <h1>Quản lý phiếu mượn</h1>
-      <button class="btn" onclick="toggleForm('add-borrow-form')">
-        Thêm phiếu mượn
-      </button>
+      <div class="main-header">
+        <h1>Quản lý phiếu mượn</h1>
+        <button class="btn" onclick="toggleForm('add-borrow-form')">
+          <i class="fas fa-plus"></i> Thêm phiếu mượn
+        </button>
+      </div>
+
+      <div class="search-section">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Tìm kiếm theo mã phiếu mượn hoặc tên độc giả...">
+          <button class="btn" onclick="searchBorrowRecords()">
+            <i class="fas fa-search"></i> Tìm kiếm
+          </button>
+        </div>
+      </div>
       <table id="borrow-records-list">
         <thead>
           <tr>
@@ -198,9 +210,72 @@
       </div>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-
+    <style>
+      .highlight {
+        background-color: #fff3cd;
+        padding: 2px;
+        border-radius: 2px;
+      }
+    </style>
+  
     <script>
+      // Giả lập dữ liệu phiếu mượn
+      let borrowRecords = [
+        {
+          borrowId: "PM001",
+          readerId: "DG001",
+          readerName: "Nguyễn Văn A",
+          copyId: "BS001",
+          borrowDate: "21/03/2025",
+          dueDate: "28/03/2025",
+          status: "Đang mượn"
+        }
+      ];
+
+      function searchBorrowRecords() {
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        const tbody = document.querySelector('#borrow-records-list tbody');
+        const rows = tbody.getElementsByTagName('tr');
+
+        for (let row of rows) {
+          const borrowId = row.cells[0].textContent.toLowerCase();
+          const readerName = row.cells[2].textContent.toLowerCase();
+          
+          // Reset highlights
+          row.cells[0].innerHTML = row.cells[0].textContent;
+          row.cells[2].innerHTML = row.cells[2].textContent;
+          
+          if (borrowId.includes(searchTerm) || readerName.includes(searchTerm)) {
+            row.style.display = '';
+            if (searchTerm) {
+              if (borrowId.includes(searchTerm)) highlightText(row.cells[0], searchTerm);
+              if (readerName.includes(searchTerm)) highlightText(row.cells[2], searchTerm);
+            }
+          } else {
+            row.style.display = 'none';
+          }
+        }
+      }
+
+      function highlightText(cell, searchText) {
+        const originalText = cell.textContent;
+        const lowerText = originalText.toLowerCase();
+        const index = lowerText.indexOf(searchText.toLowerCase());
+        
+        if (index >= 0) {
+          const beforeText = originalText.substring(0, index);
+          const matchedText = originalText.substring(index, index + searchText.length);
+          const afterText = originalText.substring(index + searchText.length);
+          
+          cell.innerHTML = beforeText +
+            '<span class="highlight">' + matchedText + '</span>' +
+            afterText;
+        }
+      }
+
+      // Thêm sự kiện input để tìm kiếm realtime
+      document.getElementById('search-input').addEventListener('input', searchBorrowRecords);
+
       function toggleForm(formId) {
         document.getElementById(formId).style.display =
           document.getElementById(formId).style.display === "none"

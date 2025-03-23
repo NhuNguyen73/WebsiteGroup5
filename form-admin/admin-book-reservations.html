@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Quản lý đặt mượn sách - Admin</title>
-    <link rel="stylesheet" href="admin.css">
-    <link rel="stylesheet" href=".\css\admin.css">
-    <link rel="stylesheet" href=".\css\admin-orders.css"> <!-- CSS riêng cho trang Dashboard -->
-    <!-- Thêm Chart.js -->
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/admin-orders.css"> <!-- CSS cho trang Quản lý đặt mượn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -84,7 +83,19 @@
     </aside>
 
     <main>
-        <h1>Quản lý đặt mượn sách</h1>
+        <div class="main-header">
+            <h1>Quản lý đặt mượn sách</h1>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Tìm kiếm theo email người đặt hoặc tên sách...">
+                <button class="btn" onclick="searchOrders()">
+                    <i class="fas fa-search"></i> Tìm kiếm
+                </button>
+            </div>
+        </div>
+
         <table id="order-list">
             <thead>
                 <tr>
@@ -112,7 +123,60 @@
         </table>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script> <!-- Font Awesome : Các ký hiêu ở aside -->
+    <script>
+        function searchOrders() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const tbody = document.querySelector('#order-list tbody');
+            const rows = tbody.getElementsByTagName('tr');
 
+            for (let row of rows) {
+                const emailCell = row.cells[0];
+                const bookCell = row.cells[1];
+                const emailText = emailCell.textContent.toLowerCase();
+                const bookText = bookCell.textContent.toLowerCase();
+                
+                // Reset highlights
+                emailCell.innerHTML = emailCell.textContent;
+                bookCell.innerHTML = bookCell.textContent;
+                
+                if (emailText.includes(searchTerm) || bookText.includes(searchTerm)) {
+                    row.style.display = '';
+                    if (searchTerm) {
+                        if (emailText.includes(searchTerm)) highlightText(emailCell, searchTerm);
+                        if (bookText.includes(searchTerm)) highlightText(bookCell, searchTerm);
+                    }
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+
+        function highlightText(cell, searchText) {
+            const originalText = cell.textContent;
+            const lowerText = originalText.toLowerCase();
+            const index = lowerText.indexOf(searchText.toLowerCase());
+            
+            if (index >= 0) {
+                const beforeText = originalText.substring(0, index);
+                const matchedText = originalText.substring(index, index + searchText.length);
+                const afterText = originalText.substring(index + searchText.length);
+                
+                cell.innerHTML = beforeText +
+                    '<span class="highlight">' + matchedText + '</span>' +
+                    afterText;
+            }
+        }
+
+        // Thêm sự kiện input để tìm kiếm realtime
+        document.getElementById('search-input').addEventListener('input', searchOrders);
+    </script>
+
+    <style>
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px;
+            border-radius: 2px;
+        }
+    </style>
 </body>
 </html>
