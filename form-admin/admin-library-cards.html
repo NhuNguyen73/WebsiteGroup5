@@ -30,9 +30,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin-users.html" class="nav-link">
+                <a href="admin-readers.html" class="nav-link">
                     <i class="fas fa-users" style="padding-right: 8px;"></i>
-                    <span>Quản lý người dùng</span>
+                    <span>Quản lý độc giả</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -90,12 +90,14 @@
             </div>
         </div>
 
+        <!-- Thanh tìm kiếm -->
         <div class="search-section">
-            <div class="search-box">
-                <input type="text" id="search-input" placeholder="Tìm kiếm theo ID thẻ, ID độc giả hoặc tên độc giả...">
-                <button class="btn" onclick="searchCards()">
-                    <i class="fas fa-search"></i> Tìm kiếm
-                </button>
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" id="search-input" placeholder="Tìm kiếm theo ID thẻ, ID độc giả hoặc tên độc giả..." oninput="searchCards()">
+                    <span class="search-icon" onclick="searchCards()"><i class="fas fa-search"></i></span>
+                    <span class="clear-search" id="clear-search" onclick="clearSearch()"><i class="fas fa-times"></i></span>
+                </div>
             </div>
         </div>
 

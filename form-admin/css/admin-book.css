@@ -23,7 +23,7 @@
     margin: 5% auto;
     padding: 20px;
     width: 80%;
-    max-width: 900px;
+    max-width: 600px;
     border-radius: 5px;
     max-height: 80vh;
     overflow-y: auto;
@@ -48,10 +48,6 @@
     color: #dc3545;
 }
 
-.reader-info p {
-    margin: 10px 0;
-}
-
 .modal-actions {
     margin-top: 20px;
     text-align: right;
@@ -71,17 +67,27 @@
 }
 
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-.button-group {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+.form-group input[readonly] {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.required {
+    color: #dc3545;
+    margin-left: 4px;
 }
 
 /* Thanh tìm kiếm */
@@ -226,23 +232,18 @@
     color: white;
 }
 
-.btn-reject, .btn-lock {
+.btn-delete {
     background-color: #dc3545;
     color: white;
 }
 
-.btn-edit, .btn-save, .btn-details {
+.btn-edit, .btn-save {
     background-color: #007bff;
     color: white;
 }
 
 .btn-cancel {
     background-color: #6c757d;
-    color: white;
-}
-
-.btn-unlock {
-    background-color: #17a2b8;
     color: white;
 }
 
@@ -270,6 +271,11 @@ table td button {
     margin-right: 5px;
 }
 
+table img {
+    width: 50px;
+    height: auto;
+}
+
 /* Style cho hàng "Trống" */
 .empty-row {
     text-align: center;
@@ -280,6 +286,51 @@ table td button {
 .empty-row td {
     padding: 20px;
     border: none;
-    text-align: center; /* Căn giữa chữ "Trống" */
-    width: 100%; /* Đảm bảo ô chiếm toàn bộ chiều rộng bảng */
+    text-align: center;
+    width: 100%;
+}
+
+/* Responsive design */
+@media screen and (max-width: 1024px) {
+    table {
+        font-size: 14px;
+    }
+    
+    table td button {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    table thead {
+        display: none;
+    }
+    
+    table tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+    }
+    
+    table tbody td {
+        display: grid;
+        grid-template-columns: 35% 65%;
+        padding: 8px 15px;
+        border: none;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #2c88a6;
+    }
 }

@@ -104,28 +104,36 @@ function closeCustomAlert() {
 function showPendingCardsPopup() {
     const tbody = document.querySelector('#pending-cards-table tbody');
     tbody.innerHTML = '';
-    pendingCards.forEach(card => {
+    if (pendingCards.length === 0) {
+        // Hiển thị thông báo "Trống" nếu không có dữ liệu
         const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${card.cardId}</td>
-            <td>${card.readerId}</td>
-            <td>${card.name}</td>
-            <td>${card.createdDate}</td>
-            <td>${card.duration}</td>
-            <td>
-                <button class="btn btn-details" onclick="showReaderDetails('${card.readerId}', true)">
-                    <i class="fas fa-eye"></i> Chi tiết
-                </button>
-                <button class="btn btn-confirm" onclick="confirmCard('${card.readerId}')">
-                    <i class="fas fa-check"></i> Xác nhận
-                </button>
-                <button class="btn btn-reject" onclick="rejectCard('${card.readerId}')">
-                    <i class="fas fa-times"></i> Loại bỏ
-                </button>
-            </td>
-        `;
+        row.className = 'empty-row';
+        row.innerHTML = `<td colspan="6">Trống</td>`;
         tbody.appendChild(row);
-    });
+    } else {
+        pendingCards.forEach(card => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${card.cardId}</td>
+                <td>${card.readerId}</td>
+                <td>${card.name}</td>
+                <td>${card.createdDate}</td>
+                <td>${card.duration}</td>
+                <td>
+                    <button class="btn btn-details" onclick="showReaderDetails('${card.readerId}', true)">
+                        <i class="fas fa-eye"></i> Chi tiết
+                    </button>
+                    <button class="btn btn-confirm" onclick="confirmCard('${card.readerId}')">
+                        <i class="fas fa-check"></i> Xác nhận
+                    </button>
+                    <button class="btn btn-reject" onclick="rejectCard('${card.readerId}')">
+                        <i class="fas fa-times"></i> Loại bỏ
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
     showModal('pending-cards-popup');
 }
 
@@ -178,22 +186,30 @@ function removeCard(readerId) {
 function updateApprovedCardsTable(filteredCards = approvedCards) {
     const tbody = document.querySelector('#library-cards-list tbody');
     tbody.innerHTML = '';
-    filteredCards.forEach(card => {
+    if (filteredCards.length === 0) {
+        // Hiển thị thông báo "Trống" nếu không có dữ liệu
         const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${card.cardId}</td>
-            <td>${card.readerId}</td>
-            <td>${card.name}</td>
-            <td>${card.createdDate}</td>
-            <td>${card.duration}</td>
-            <td>
-                <button class="btn btn-details" onclick="showReaderDetails('${card.readerId}', false)">
-                    <i class="fas fa-eye"></i> Chi tiết
-                </button>
-            </td>
-        `;
+        row.className = 'empty-row';
+        row.innerHTML = `<td colspan="6">Trống</td>`;
         tbody.appendChild(row);
-    });
+    } else {
+        filteredCards.forEach(card => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${card.cardId}</td>
+                <td>${card.readerId}</td>
+                <td>${card.name}</td>
+                <td>${card.createdDate}</td>
+                <td>${card.duration}</td>
+                <td>
+                    <button class="btn btn-details" onclick="showReaderDetails('${card.readerId}', false)">
+                        <i class="fas fa-eye"></i> Chi tiết
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
 }
 
 // Tìm kiếm thẻ
@@ -316,22 +332,30 @@ function lockCard() {
 function showLockedCardsPopup() {
     const tbody = document.querySelector('#locked-cards-table tbody');
     tbody.innerHTML = '';
-    lockedCards.forEach(card => {
+    if (lockedCards.length === 0) {
+        // Hiển thị thông báo "Trống" nếu không có dữ liệu
         const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${card.cardId}</td>
-            <td>${card.readerId}</td>
-            <td>${card.name}</td>
-            <td>${card.createdDate}</td>
-            <td>${card.duration}</td>
-            <td>
-                <button class="btn btn-unlock" onclick="unlockCardConfirm('${card.readerId}')">
-                    <i class="fas fa-unlock"></i> Mở khóa
-                </button>
-            </td>
-        `;
+        row.className = 'empty-row';
+        row.innerHTML = `<td colspan="6">Trống</td>`;
         tbody.appendChild(row);
-    });
+    } else {
+        lockedCards.forEach(card => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${card.cardId}</td>
+                <td>${card.readerId}</td>
+                <td>${card.name}</td>
+                <td>${card.createdDate}</td>
+                <td>${card.duration}</td>
+                <td>
+                    <button class="btn btn-unlock" onclick="unlockCardConfirm('${card.readerId}')">
+                        <i class="fas fa-unlock"></i> Mở khóa
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
     showModal('locked-cards-popup');
 }
 
