@@ -79,7 +79,7 @@
     <main>
       <div class="main-header">
         <h1>Quản lý phiếu mượn trả</h1>
-        <button class="btn" onclick="toggleForm('add-borrow-form')">
+        <button class="btn" onclick="showAddBorrowModal()">
           <i class="fas fa-plus"></i> Thêm phiếu mượn
         </button>
       </div>
@@ -87,12 +87,12 @@
       <div class="search-section">
         <div class="search-container">
             <div class="search-wrapper">
-                <input type="text" id="search-input" placeholder="Tìm kiếm theo mã phiếu mượn hoặc tên độc giả..." oninput="searchBooks()">
-                <span class="search-icon" onclick="searchBooks()"><i class="fas fa-search"></i></span>
+                <input type="text" id="search-input" placeholder="Tìm kiếm theo mã phiếu mượn hoặc tên sách..." oninput="searchBorrowRecords()">
+                <span class="search-icon" onclick="searchBorrowRecords()"><i class="fas fa-search"></i></span>
                 <span class="clear-search" id="clear-search" onclick="clearSearch()"><i class="fas fa-times"></i></span>
             </div>
         </div>
-    </div>
+      </div>
 
       <table id="borrow-records-list">
         <thead>
@@ -117,55 +117,92 @@
             <td data-label="Ngày đến hạn">28/03/2025</td>
             <td data-label="Trạng thái">Đang mượn</td>
             <td data-label="Hành động">
-              <a href="#" class="btn" onclick="editBorrowRecord('PM001')">Sửa</a>
-              <a href="#" class="btn" onclick="deleteBorrowRecord('PM001')">Xóa</a>
+              <a href="#" class="btn" onclick="showEditBorrowModal('PM001')">Sửa</a>
+              <a href="#" class="btn" onclick="showDeleteBorrowModal('PM001')">Xóa</a>
               <a href="#" class="btn" onclick="showBorrowDetails('PM001')">Chi tiết</a>
             </td>
           </tr>
         </tbody>
       </table>
 
-      <!-- Form thêm phiếu mượn -->
-      <div id="add-borrow-form" class="form-container" style="display: none">
-        <h2>Thêm phiếu mượn</h2>
-        <div class="form-group">
-          <label>ID độc giả</label>
-          <input type="text" id="borrow-reader-id" required>
+      <!-- Modal thêm phiếu mượn -->
+      <div id="add-borrow-modal" class="modal" style="display: none">
+        <div class="modal-content">
+          <span class="close-button" onclick="closeModal('add-borrow-modal')">×</span>
+          <h2>Thêm phiếu mượn</h2>
+          <div class="form-group">
+            <label>ID độc giả</label>
+            <input type="text" id="borrow-reader-id" required>
+          </div>
+          <div class="form-group">
+            <label>Tên độc giả</label>
+            <input type="text" id="borrow-reader-name" required>
+          </div>
+          <div class="form-group">
+            <label>ID bản sao sách</label>
+            <input type="text" id="borrow-copy-id" required>
+          </div>
+          <div class="form-group">
+            <label>Tên sách</label>
+            <input type="text" id="borrow-book-name" required>
+          </div>
+          <div class="form-group">
+            <label>Ngày mượn</label>
+            <input type="date" id="borrow-date" required>
+          </div>
+          <div class="form-group">
+            <label>Thời hạn mượn</label>
+            <select id="borrow-duration" required>
+              <option value="7">7 ngày</option>
+              <option value="14">14 ngày</option>
+              <option value="30">30 ngày</option>
+            </select>
+          </div>
+          <div class="modal-actions">
+            <button class="btn btn-save" onclick="saveBorrowRecord()">Lưu</button>
+            <button class="btn btn-cancel" onclick="closeModal('add-borrow-modal')">Hủy</button>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Tên độc giả</label>
-          <input type="text" id="borrow-reader-name" required>
+      </div>
+
+      <!-- Modal sửa phiếu mượn -->
+      <div id="edit-borrow-modal" class="modal" style="display: none">
+        <div class="modal-content">
+          <span class="close-button" onclick="closeModal('edit-borrow-modal')">×</span>
+          <h2>Sửa phiếu mượn</h2>
+          <input type="hidden" id="edit-borrow-id">
+          <div class="form-group">
+            <label>Trạng thái</label>
+            <select id="edit-borrow-status" required>
+              <option value="Đang mượn">Đang mượn</option>
+              <option value="Đã trả">Đã trả</option>
+              <option value="Quá hạn">Quá hạn</option>
+            </select>
+          </div>
+          <div class="modal-actions">
+            <button class="btn btn-save" onclick="updateBorrowRecord()">Lưu</button>
+            <button class="btn btn-cancel" onclick="closeModal('edit-borrow-modal')">Hủy</button>
+          </div>
         </div>
-        <div class="form-group">
-          <label>ID bản sao sách</label>
-          <input type="text" id="borrow-copy-id" required>
-        </div>
-        <div class="form-group">
-          <label>Tên sách</label>
-          <input type="text" id="borrow-book-name" required>
-        </div>
-        <div class="form-group">
-          <label>Ngày mượn</label>
-          <input type="date" id="borrow-date" required>
-        </div>
-        <div class="form-group">
-          <label>Thời hạn mượn</label>
-          <select id="borrow-duration" required>
-            <option value="7">7 ngày</option>
-            <option value="14">14 ngày</option>
-            <option value="30">30 ngày</option>
-          </select>
-        </div>
-        <div class="modal-actions">
-          <button class="btn btn-save" onclick="saveBorrowRecord()">Lưu</button>
-          <button class="btn btn-cancel" onclick="toggleForm('add-borrow-form')">Hủy</button>
+      </div>
+
+      <!-- Modal xác nhận xóa phiếu mượn -->
+      <div id="delete-borrow-modal" class="modal" style="display: none">
+        <div class="modal-content">
+          <span class="close-button" onclick="closeModal('delete-borrow-modal')">×</span>
+          <h2>Xác nhận xóa</h2>
+          <p>Bạn có chắc chắn muốn xóa phiếu mượn <strong id="delete-borrow-id"></strong> không?</p>
+          <div class="modal-actions">
+            <button class="btn btn-danger" onclick="deleteBorrowRecord()">Xóa</button>
+            <button class="btn btn-cancel" onclick="closeModal('delete-borrow-modal')">Hủy</button>
+          </div>
         </div>
       </div>
 
       <!-- Modal chi tiết phiếu mượn -->
       <div id="borrow-details-modal" class="modal" style="display: none">
         <div class="modal-content">
-          <span class="close-button" onclick="closeModal()">×</span>
+          <span class="close-button" onclick="closeModal('borrow-details-modal')">×</span>
           <h2>Thông tin chi tiết phiếu mượn</h2>
           <div class="borrow-info">
             <p><strong>ID phiếu mượn:</strong> <span id="modal-borrow-id"></span></p>
@@ -177,6 +214,14 @@
             <p><strong>Ngày đến hạn:</strong> <span id="modal-borrow-due-date"></span></p>
             <p><strong>Trạng thái:</strong> <span id="modal-borrow-status"></span></p>
           </div>
+        </div>
+      </div>
+
+      <!-- Modal thông báo -->
+      <div id="notification-modal" class="notification-modal" style="display: none">
+        <div class="notification-content">
+          <p id="notification-message"></p>
+          <button class="btn btn-ok" onclick="closeNotificationModal()">OK</button>
         </div>
       </div>
     </main>

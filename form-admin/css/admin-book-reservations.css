@@ -1,4 +1,4 @@
-/* File: css/admin-borrow-records.css */
+/* File: css/admin-book-reservations.css */
 
 /* Thanh tìm kiếm */
 .search-section {
@@ -65,91 +65,74 @@
     color: #dc3545;
 }
 
-/* Button "Thêm phiếu mượn" */
-.search-section .btn {
-    padding: 8px 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    white-space: nowrap;
-}
-
-.search-section .btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
-.search-section .btn:active {
-    transform: translateY(0);
-}
-
 /* Table styles */
-#borrow-records-list {
+#order-list {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-#borrow-records-list th,
-#borrow-records-list td {
-    padding: 10px;
+#order-list th,
+#order-list td {
+    padding: 12px 15px;
     border: 1px solid #ddd;
+    text-align: left;
+    font-size: 15px;
 }
 
-#borrow-records-list th {
+#order-list th {
     background-color: #f8f9fa;
     color: #2c88a6;
     font-weight: 600;
 }
 
-#borrow-records-list tbody tr:hover {
+#order-list tbody tr:hover {
     background-color: #f1f1f1;
 }
 
 /* Button styles in table */
-#borrow-records-list td .btn {
+#order-list td .btn {
     padding: 8px 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease;
     margin-right: 5px;
+    font-size: 14px;
 }
 
-#borrow-records-list td .btn:hover {
+#order-list td .btn:hover {
     transform: translateY(-2px);
 }
 
-#borrow-records-list td .btn:active {
+#order-list td .btn:active {
     transform: translateY(0);
 }
 
-#borrow-records-list td .btn:nth-child(1) {
-    background-color: #007bff; /* Nút "Sửa" màu xanh dương */
+#order-list td .btn-approve {
+    background-color: #28a745; /* Nút "Duyệt" màu xanh lá */
     color: white;
 }
 
-#borrow-records-list td .btn:nth-child(1):hover {
-    background-color: #0056b3;
+#order-list td .btn-approve:hover {
+    background-color: #218838;
 }
 
-#borrow-records-list td .btn:nth-child(2) {
-    background-color: #dc3545; /* Nút "Xóa" màu đỏ */
+#order-list td .btn-cancel {
+    background-color: #dc3545; /* Nút "Hủy" màu đỏ */
     color: white;
 }
 
-#borrow-records-list td .btn:nth-child(2):hover {
+#order-list td .btn-cancel:hover {
     background-color: #c82333;
 }
 
-#borrow-records-list td .btn:nth-child(3) {
-    background-color: #28a745; /* Nút "Chi tiết" màu xanh lá */
-    color: white;
-}
-
-#borrow-records-list td .btn:nth-child(3):hover {
-    background-color: #218838;
+/* Highlight text */
+.highlight {
+    background-color: #fff3cd;
+    padding: 2px;
+    border-radius: 2px;
 }
 
 /* Modal styles */
@@ -177,13 +160,13 @@
     margin: 5% auto;
     padding: 30px;
     width: 90%;
-    max-width: 500px; /* Giảm chiều rộng để modal gọn hơn */
-    border-radius: 10px; /* Bo góc mềm mại hơn */
+    max-width: 500px;
+    border-radius: 10px;
     max-height: 80vh;
     overflow-y: auto;
     transform: scale(0.9);
     transition: transform 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Thêm bóng để modal nổi bật */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .modal.show .modal-content {
@@ -194,7 +177,7 @@
     position: absolute;
     right: 15px;
     top: 15px;
-    font-size: 28px; /* Tăng kích thước nút đóng */
+    font-size: 28px;
     cursor: pointer;
     transition: color 0.3s ease;
 }
@@ -203,56 +186,37 @@
     color: #dc3545;
 }
 
-/* Form inside modal */
-.modal .form-group {
-    margin-bottom: 20px; /* Tăng khoảng cách giữa các trường */
-}
-
-.modal .form-group label {
-    display: block;
-    margin-bottom: 8px; /* Tăng khoảng cách giữa label và input */
-    color: #2c88a6;
-    font-weight: 600;
-    font-size: 16px; /* Tăng kích thước chữ của label */
-}
-
-.modal .form-group input,
-.modal .form-group select {
-    width: 100%;
-    padding: 10px; /* Tăng padding để input/select dễ nhìn hơn */
-    border: 1px solid #ddd;
-    border-radius: 5px; /* Bo góc mềm mại hơn */
-    font-size: 15px; /* Tăng kích thước chữ trong input/select */
-    transition: border-color 0.3s ease;
-}
-
-.modal .form-group input:focus,
-.modal .form-group select:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-}
-
 .modal h2 {
-    font-size: 22px; /* Tăng kích thước tiêu đề */
+    font-size: 22px;
     color: #2c88a6;
-    margin-bottom: 25px; /* Tăng khoảng cách dưới tiêu đề */
+    margin-bottom: 25px;
     text-align: center;
-    font-weight: 700; /* Làm tiêu đề đậm hơn */
+    font-weight: 700;
+}
+
+.modal p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal p strong {
+    color: #2c88a6;
 }
 
 .modal-actions {
-    margin-top: 30px; /* Tăng khoảng cách trên nút */
-    text-align: center; /* Căn giữa các nút */
+    margin-top: 30px;
+    text-align: center;
     display: flex;
     justify-content: center;
-    gap: 15px; /* Tạo khoảng cách giữa các nút */
+    gap: 15px;
 }
 
 .modal-actions .btn {
-    padding: 10px 20px; /* Tăng kích thước nút */
-    font-size: 15px; /* Tăng kích thước chữ trong nút */
-    border-radius: 5px; /* Bo góc mềm mại hơn */
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 5px;
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
@@ -265,12 +229,12 @@
 }
 
 .modal-actions .btn-save {
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
 }
 
 .modal-actions .btn-save:hover {
-    background-color: #0056b3;
+    background-color: #218838;
 }
 
 .modal-actions .btn-cancel {
@@ -289,28 +253,6 @@
 
 .modal-actions .btn-danger:hover {
     background-color: #c82333;
-}
-
-/* Borrow info in details modal */
-.borrow-info p {
-    margin-bottom: 15px; /* Tăng khoảng cách giữa các dòng */
-    font-size: 15px; /* Tăng kích thước chữ */
-    display: flex;
-    justify-content: space-between; /* Căn đều nội dung */
-    padding: 5px 0;
-    border-bottom: 1px solid #f0f0f0; /* Thêm đường viền dưới mỗi dòng */
-}
-
-.borrow-info p strong {
-    color: #2c88a6;
-    font-weight: 600;
-    flex: 0 0 40%; /* Đảm bảo phần "strong" chiếm 40% chiều rộng */
-}
-
-.borrow-info p span {
-    flex: 0 0 60%; /* Phần nội dung chiếm 60% chiều rộng */
-    text-align: right;
-    color: #333;
 }
 
 /* Notification modal */
@@ -372,36 +314,29 @@
 
 /* Responsive */
 @media screen and (max-width: 768px) {
-    .main-header {
-        text-align: center;
+    .search-container {
+        max-width: 100%;
+        padding: 0 15px;
     }
 
-    .search-box {
-        flex-direction: column;
-        gap: 15px;
+    #order-list th,
+    #order-list td {
+        padding: 8px 10px;
+        font-size: 14px;
     }
 
-    .search-box input {
-        width: 100%;
-    }
-
-    .search-section .btn {
-        width: 100%;
-        max-width: 200px;
-    }
-
-    #borrow-records-list thead {
+    #order-list thead {
         display: none;
     }
 
-    #borrow-records-list tbody tr {
+    #order-list tbody tr {
         display: block;
         margin-bottom: 15px;
         border: 1px solid #e9ecef;
         border-radius: 4px;
     }
 
-    #borrow-records-list tbody td {
+    #order-list tbody td {
         display: grid;
         grid-template-columns: 35% 65%;
         padding: 8px 15px;
@@ -409,37 +344,33 @@
         border-bottom: 1px solid #e9ecef;
     }
 
-    #borrow-records-list tbody td::before {
+    #order-list tbody td::before {
         content: attr(data-label);
         font-weight: 600;
         color: #2c88a6;
     }
 
+    #order-list td .btn {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
     .modal-content,
     .notification-content {
         width: 90%;
-        padding: 20px; /* Giảm padding trên thiết bị nhỏ */
+        padding: 20px;
     }
 
     .modal h2 {
-        font-size: 20px; /* Giảm kích thước tiêu đề trên thiết bị nhỏ */
+        font-size: 20px;
     }
 
-    .modal .form-group label {
-        font-size: 14px; /* Giảm kích thước chữ label */
-    }
-
-    .modal .form-group input,
-    .modal .form-group select {
-        font-size: 14px; /* Giảm kích thước chữ trong input/select */
+    .modal p {
+        font-size: 14px;
     }
 
     .modal-actions .btn {
-        padding: 8px 15px; /* Giảm kích thước nút */
-        font-size: 14px; /* Giảm kích thước chữ trong nút */
-    }
-
-    .borrow-info p {
-        font-size: 14px; /* Giảm kích thước chữ trong modal chi tiết */
+        padding: 8px 15px;
+        font-size: 14px;
     }
 }

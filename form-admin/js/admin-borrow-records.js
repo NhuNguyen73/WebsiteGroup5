@@ -12,6 +12,9 @@ let borrowRecords = [
     }
   ];
   
+  // Biến lưu ID phiếu mượn đang được xóa
+  let currentDeleteBorrowId = null;
+  
   // Khởi tạo trang
   document.addEventListener('DOMContentLoaded', function() {
     renderBorrowRecords();
@@ -36,8 +39,8 @@ let borrowRecords = [
         <td data-label="Ngày đến hạn">${new Date(record.dueDate).toLocaleDateString('vi-VN')}</td>
         <td data-label="Trạng thái">${record.status}</td>
         <td data-label="Hành động">
-          <a href="#" class="btn" onclick="editBorrowRecord('${record.borrowId}')">Sửa</a>
-          <a href="#" class="btn" onclick="deleteBorrowRecord('${record.borrowId}')">Xóa</a>
+          <a href="#" class="btn" onclick="showEditBorrowModal('${record.borrowId}')">Sửa</a>
+          <a href="#" class="btn" onclick="showDeleteBorrowModal('${record.borrowId}')">Xóa</a>
           <a href="#" class="btn" onclick="showBorrowDetails('${record.borrowId}')">Chi tiết</a>
         </td>
       `;
@@ -49,15 +52,43 @@ let borrowRecords = [
   function searchBorrowRecords() {
     const searchTerm = document.getElementById('search-input').value;
     renderBorrowRecords(searchTerm);
+    const clearSearchIcon = document.getElementById('clear-search');
+    clearSearchIcon.style.display = searchTerm ? 'block' : 'none';
+  }
+  
+  // Xóa nội dung tìm kiếm
+  function clearSearch() {
+    document.getElementById('search-input').value = '';
+    renderBorrowRecords();
+    document.getElementById('clear-search').style.display = 'none';
   }
   
   // Thêm sự kiện input để tìm kiếm realtime
   document.getElementById('search-input').addEventListener('input', searchBorrowRecords);
   
-  // Hiển thị/Ẩn form
-  function toggleForm(formId) {
-    document.getElementById(formId).style.display =
-      document.getElementById(formId).style.display === "none" ? "block" : "none";
+  // Hiển thị modal thêm phiếu mượn
+  function showAddBorrowModal() {
+    document.getElementById('add-borrow-modal').style.display = 'block';
+    document.getElementById('add-borrow-modal').classList.add('show');
+  }
+  
+  // Hiển thị modal sửa phiếu mượn
+  function showEditBorrowModal(borrowId) {
+    const record = borrowRecords.find(r => r.borrowId === borrowId);
+    if (record) {
+      document.getElementById('edit-borrow-id').value = record.borrowId;
+      document.getElementById('edit-borrow-status').value = record.status;
+      document.getElementById('edit-borrow-modal').style.display = 'block';
+      document.getElementById('edit-borrow-modal').classList.add('show');
+    }
+  }
+  
+  // Hiển thị modal xác nhận xóa
+  function showDeleteBorrowModal(borrowId) {
+    currentDeleteBorrowId = borrowId;
+    document.getElementById('delete-borrow-id').textContent = borrowId;
+    document.getElementById('delete-borrow-modal').style.display = 'block';
+    document.getElementById('delete-borrow-modal').classList.add('show');
   }
   
   // Hiển thị chi tiết phiếu mượn
@@ -79,11 +110,27 @@ let borrowRecords = [
   }
   
   // Đóng modal
-  function closeModal() {
-    const modal = document.getElementById("borrow-details-modal");
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
     modal.classList.remove("show");
     setTimeout(() => {
       modal.style.display = "none";
+    }, 300);
+  }
+  
+  // Hiển thị modal thông báo
+  function showNotificationModal(message) {
+    document.getElementById('notification-message').textContent = message;
+    document.getElementById('notification-modal').style.display = 'block';
+    document.getElementById('notification-modal').classList.add('show');
+  }
+  
+  // Đóng modal thông báo
+  function closeNotificationModal() {
+    const modal = document.getElementById('notification-modal');
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = 'none';
     }, 300);
   }
   
@@ -119,41 +166,55 @@ let borrowRecords = [
   
     borrowRecords.push(newRecord);
     renderBorrowRecords();
-    document.getElementById("add-borrow-form").reset();
-    toggleForm("add-borrow-form");
-    alert("Thêm phiếu mượn thành công!");
+    document.getElementById("add-borrow-modal").querySelectorAll('input, select').forEach(input => input.value = '');
+    closeModal("add-borrow-modal");
+    showNotificationModal("Thêm phiếu mượn thành công!");
   }
   
-  // Sửa phiếu mượn
-  function editBorrowRecord(borrowId) {
+  // Cập nhật phiếu mượn
+  function updateBorrowRecord() {
+    const borrowId = document.getElementById("edit-borrow-id").value;
+    const newStatus = document.getElementById("edit-borrow-status").value;
+  
     const record = borrowRecords.find(r => r.borrowId === borrowId);
     if (record) {
-      const newStatus = prompt("Nhập trạng thái mới (Đang mượn/Đã trả/Hết hạn):", record.status);
-      if (newStatus && ["Đang mượn", "Đã trả", "Hết hạn"].includes(newStatus)) {
-        record.status = newStatus;
-        renderBorrowRecords();
-        alert("Cập nhật trạng thái thành công!");
-      } else if (newStatus) {
-        alert("Trạng thái không hợp lệ! Vui lòng chọn: Đang mượn, Đã trả, hoặc Hết hạn.");
-      }
+      record.status = newStatus;
+      renderBorrowRecords();
+      closeModal("edit-borrow-modal");
+      showNotificationModal("Cập nhật trạng thái thành công!");
     }
   }
   
   // Xóa phiếu mượn
-  function deleteBorrowRecord(borrowId) {
-    if (confirm("Bạn có chắc chắn muốn xóa phiếu mượn này?")) {
-      borrowRecords = borrowRecords.filter(r => r.borrowId !== borrowId);
+  function deleteBorrowRecord() {
+    if (currentDeleteBorrowId) {
+      borrowRecords = borrowRecords.filter(r => r.borrowId !== currentDeleteBorrowId);
       renderBorrowRecords();
-      alert("Đã xóa phiếu mượn thành công!");
+      closeModal("delete-borrow-modal");
+      showNotificationModal("Đã xóa phiếu mượn thành công!");
+      currentDeleteBorrowId = null;
     }
   }
   
   // Đóng modal khi click bên ngoài
   window.onclick = function(event) {
-    const modal = document.getElementById("borrow-details-modal");
-    if (event.target == modal) {
-      closeModal();
-    }
+    const modals = [
+      'add-borrow-modal',
+      'edit-borrow-modal',
+      'delete-borrow-modal',
+      'borrow-details-modal',
+      'notification-modal'
+    ];
+    modals.forEach(modalId => {
+      const modal = document.getElementById(modalId);
+      if (event.target == modal) {
+        if (modalId === 'notification-modal') {
+          closeNotificationModal();
+        } else {
+          closeModal(modalId);
+        }
+      }
+    });
   };
   
   // Toggle sidebar
