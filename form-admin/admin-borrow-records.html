@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Quản lý phiếu mượn - Admin</title>
     <link rel="stylesheet" href="./css/admin.css">
-    <link rel="stylesheet" href="./css/admin-users.css">
+    <link rel="stylesheet" href="./css/admin-borrow-records.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
   </head>
   <body>
@@ -86,13 +86,15 @@
       </div>
 
       <div class="search-section">
-        <div class="search-box">
-          <input type="text" id="search-input" placeholder="Tìm kiếm theo mã phiếu mượn hoặc tên độc giả...">
-          <button class="btn" onclick="searchBorrowRecords()">
-            <i class="fas fa-search"></i> Tìm kiếm
-          </button>
+        <div class="search-container">
+            <div class="search-wrapper">
+                <input type="text" id="search-input" placeholder="Tìm kiếm theo mã sách hoặc tên sách..." oninput="searchBooks()">
+                <span class="search-icon" onclick="searchBooks()"><i class="fas fa-search"></i></span>
+                <span class="clear-search" id="clear-search" onclick="clearSearch()"><i class="fas fa-times"></i></span>
+            </div>
         </div>
-      </div>
+    </div>
+
       <table id="borrow-records-list">
         <thead>
           <tr>
