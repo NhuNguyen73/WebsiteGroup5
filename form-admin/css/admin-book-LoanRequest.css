@@ -128,6 +128,15 @@
     background-color: #c82333;
 }
 
+#order-list td .btn-view {
+    background-color: #17a2b8; /* Nút "Xem chi tiết" màu xanh lam */
+    color: white;
+}
+
+#order-list td .btn-view:hover {
+    background-color: #138496;
+}
+
 /* Highlight text */
 .highlight {
     background-color: #fff3cd;
@@ -137,15 +146,20 @@
 
 /* Modal styles */
 .modal {
-    display: none; /* Hidden by default */
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    background-color: rgba(0, 0, 0, 0.5);
     overflow: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal.show {
+    opacity: 1;
 }
 
 .modal-content {
@@ -154,13 +168,21 @@
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 500px;
+    max-width: 600px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-.close {
+.modal.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.close-button {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -168,12 +190,12 @@
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.close:hover,
-.close:focus {
+.close-button:hover,
+.close-button:focus {
     color: #000;
-    text-decoration: none;
 }
 
 .modal-content h2 {
@@ -208,6 +230,38 @@
     margin: 5px;
 }
 
+/* Căn giữa các nút trong modal-actions */
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Styles cho bảng chi tiết trong popup "Xem chi tiết" */
+.book-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.book-detail-table th,
+.book-detail-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.book-detail-table th {
+    background-color: #f8f9fa;
+    color: #2c88a6;
+    font-weight: 600;
+}
+
+.book-detail-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
 /* Notification modal */
 .notification-modal {
     position: fixed;
@@ -217,13 +271,11 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1001;
-    display: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .notification-modal.show {
-    display: block;
     opacity: 1;
 }
 
@@ -238,12 +290,14 @@
     border: 2px solid #ff4d4d;
     color: white;
     text-align: center;
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .notification-modal.show .notification-content {
     transform: scale(1);
+    opacity: 1;
 }
 
 .notification-content p {
@@ -325,5 +379,33 @@
     .modal-actions .btn {
         padding: 8px 15px;
         font-size: 14px;
+    }
+
+    /* Responsive cho bảng chi tiết */
+    .book-detail-table thead {
+        display: none;
+    }
+
+    .book-detail-table tbody tr {
+        display: block;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .book-detail-table tbody td {
+        display: block;
+        text-align: left;
+        padding: 5px 10px;
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .book-detail-table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #2c88a6;
+        display: inline-block;
+        width: 120px;
     }
 }

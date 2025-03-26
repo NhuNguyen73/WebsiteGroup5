@@ -42,9 +42,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin-copybook.html" class="nav-link">
-                    <i class="fas fa-book" style="padding-right: 8px;"></i>
-                    <span>Quản lý bản sao sách</span>
+                <a href="admin-ImportReceipt.html" class="nav-link">
+                    <i class="fas fa-receipt" style="padding-right: 8px;"></i>
+                    <span>Quản lý phiếu nhập - Bản sao sách</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -60,9 +60,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin-book-reservations.html" class="nav-link">
+                <a href="admin-book-LoanRequest.html" class="nav-link">
                     <i class="fas fa-shopping-cart" style="padding-right: 8px;"></i>
-                    <span>Quản lý đặt mượn sách</span>
+                    <span>Quản lý phiếu mượn đặt giữ sách</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -110,7 +110,7 @@
                     <th>Tên độc giả</th>
                     <th>Ngày tạo</th>
                     <th>Gia hạn</th>
-                    <th>Hành động</th>
+                    <th>Thao tác</th>
                 </tr>
             </thead>
             <tbody>
@@ -131,7 +131,7 @@
                             <th>Tên độc giả</th>
                             <th>Ngày tạo</th>
                             <th>Gia hạn</th>
-                            <th>Hành động</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -167,51 +167,8 @@
                     <!-- Nội dung sẽ được thêm động bằng JavaScript -->
                 </div>
                 <div class="modal-actions" id="reader-details-actions">
-                    <button class="btn btn-edit" onclick="showEditCardPopup()">
-                        <i class="fas fa-edit"></i> Sửa
-                    </button>
                     <button class="btn btn-lock" onclick="lockCardConfirm()">
                         <i class="fas fa-lock"></i> Khóa thẻ
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Popup chỉnh sửa thông tin thẻ -->
-        <div id="edit-card-popup" class="modal" style="display:none;">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal('edit-card-popup')">×</span>
-                <h2>Chỉnh sửa thông tin thẻ</h2>
-                <div class="form-group">
-                    <label>ID thẻ thư viện:</label>
-                    <input type="text" id="edit-card-id" readonly>
-                </div>
-                <div class="form-group">
-                    <label>ID độc giả:</label>
-                    <input type="text" id="edit-reader-id" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Họ và tên:</label>
-                    <input type="text" id="edit-reader-name" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Ngày tạo:</label>
-                    <input type="text" id="edit-card-created" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Gia hạn:</label>
-                    <select id="edit-card-duration">
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                        <option value="2026">2026</option>
-                    </select>
-                </div>
-                <div class="modal-actions">
-                    <button class="btn btn-save" onclick="saveEditedCard()">
-                        <i class="fas fa-save"></i> Lưu
-                    </button>
-                    <button class="btn btn-cancel" onclick="closeModal('edit-card-popup')">
-                        <i class="fas fa-times"></i> Hủy
                     </button>
                 </div>
             </div>
@@ -247,7 +204,7 @@
                             <th>Tên độc giả</th>
                             <th>Ngày tạo</th>
                             <th>Gia hạn</th>
-                            <th>Hành động</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
