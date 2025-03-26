@@ -163,54 +163,54 @@
         </div>
 
         <!-- Popup chỉnh sửa sách -->
-<div id="edit-book-popup" class="modal" style="display:none;">
-    <div class="modal-content">
-        <span class="close-button" onclick="closeModal('edit-book-popup')">×</span>
-        <h2>Chỉnh sửa sách</h2>
-        <div class="form-group">
-            <label>ID Sách:</label>
-            <input type="text" id="edit-book-id" readonly>
+        <div id="edit-book-popup" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('edit-book-popup')">×</span>
+                <h2>Chỉnh sửa sách</h2>
+                <div class="form-group">
+                    <label>ID Sách:</label>
+                    <input type="text" id="edit-book-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Tên sách <span class="required">*</span>:</label>
+                    <input type="text" id="edit-book-title" required>
+                </div>
+                <div class="form-group">
+                    <label>Mô tả <span class="required">*</span>:</label>
+                    <textarea id="edit-book-description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Giá bìa sách (VNĐ) <span class="required">*</span>:</label>
+                    <input type="number" id="edit-book-price" min="1000" required>
+                </div>
+                <div class="form-group">
+                    <label>Tác giả <span class="required">*</span>:</label>
+                    <input type="text" id="edit-book-author" required>
+                </div>
+                <div class="form-group">
+                    <label>Thể loại <span class="required">*</span>:</label>
+                    <select id="edit-book-category" required>
+                        <option value="">Chọn thể loại</option>
+                        <option value="van-hoc">Tài liệu học tập</option>
+                        <option value="khoa-hoc">Tài liệu lịch sử</option>
+                        <option value="lich-su">Sách phát triển bản thân</option>
+                        <option value="tam-ly">Tiểu thuyết</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ảnh sách:</label>
+                    <input type="file" id="edit-book-image" accept="image/*">
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-save" onclick="saveEditedBook()">
+                        <i class="fas fa-save"></i> Lưu
+                    </button>
+                    <button class="btn btn-cancel" onclick="closeModal('edit-book-popup')">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Tên sách <span class="required">*</span>:</label>
-            <input type="text" id="edit-book-title" required>
-        </div>
-        <div class="form-group">
-            <label>Mô tả <span class="required">*</span>:</label>
-            <textarea id="edit-book-description" required></textarea>
-        </div>
-        <div class="form-group">
-            <label>Giá bìa sách (VNĐ) <span class="required">*</span>:</label>
-            <input type="number" id="edit-book-price" min="1000" required>
-        </div>
-        <div class="form-group">
-            <label>Tác giả <span class="required">*</span>:</label>
-            <input type="text" id="edit-book-author" required>
-        </div>
-        <div class="form-group">
-            <label>Thể loại <span class="required">*</span>:</label>
-            <select id="edit-book-category" required>
-                <option value="">Chọn thể loại</option>
-                <option value="van-hoc">Tài liệu học tập</option>
-                <option value="khoa-hoc">Tài liệu lịch sử</option>
-                <option value="lich-su">Sách phát triển bản thân</option>
-                <option value="tam-ly">Tiểu thuyết</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Ảnh sách:</label>
-            <input type="file" id="edit-book-image" accept="image/*">
-        </div>
-        <div class="modal-actions">
-            <button class="btn btn-save" onclick="saveEditedBook()">
-                <i class="fas fa-save"></i> Lưu
-            </button>
-            <button class="btn btn-cancel" onclick="closeModal('edit-book-popup')">
-                <i class="fas fa-times"></i> Hủy
-            </button>
-        </div>
-    </div>
-</div>
 
         <!-- Popup xác nhận xóa sách -->
         <div id="delete-book-popup" class="modal" style="display:none;">
@@ -223,6 +223,68 @@
                         <i class="fas fa-check"></i> Xác nhận
                     </button>
                     <button class="btn btn-cancel" onclick="closeModal('delete-book-popup')">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Chi tiết Bản sao Sách -->
+        <div id="book-copy-details-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('book-copy-details-modal')">×</span>
+                <h2>Chi tiết Bản sao Sách</h2>
+                <p><strong>ID Sách:</strong> <span id="detail-book-id"></span></p>
+                <p><strong>Tên sách:</strong> <span id="detail-book-title"></span></p>
+                <p><strong>Số lượng bản sao:</strong> <span id="detail-book-quantity"></span></p>
+                <table id="book-copy-details-list">
+                    <thead>
+                        <tr>
+                            <th>ID Bản sao Sách</th>
+                            <th>ID Sách</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày nhập kho</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="book-copy-details-tbody">
+                    </tbody>
+                </table>
+                <!-- Bỏ nút Đóng -->
+            </div>
+        </div>
+
+        <!-- Modal for Sửa Bản sao Sách -->
+        <div id="edit-book-copy-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('edit-book-copy-modal')">×</span>
+                <h2>Sửa Bản sao Sách</h2>
+                <div class="form-group">
+                    <label>Mã bản sao:</label>
+                    <input type="text" id="edit-copy-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>ID Sách:</label>
+                    <input type="text" id="edit-book-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái <span class="required">*</span>:</label>
+                    <select id="edit-book-copy-status" required>
+                        <option value="">Chọn trạng thái</option>
+                        <option value="Có sẵn">Có sẵn</option>
+                        <option value="Đang mượn">Đang mượn</option>
+                        <option value="Hỏng">Hỏng</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ngày nhập kho <span class="required">*</span>:</label>
+                    <input type="date" id="edit-book-copy-created-at" readonly required>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-save" onclick="updateBookCopy()">
+                        <i class="fas fa-save"></i> Cập nhật
+                    </button>
+                    <button class="btn btn-cancel" onclick="closeModal('edit-book-copy-modal')">
                         <i class="fas fa-times"></i> Hủy
                     </button>
                 </div>

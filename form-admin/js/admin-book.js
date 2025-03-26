@@ -1,4 +1,4 @@
-// Danh sách sách (giả lập dữ liệu)
+// Dữ liệu sách (giả lập dữ liệu)
 let books = [
     {
         id: 'TT0001',
@@ -11,6 +11,30 @@ let books = [
     }
 ];
 
+// Dữ liệu bản sao sách (đồng bộ với admin-copybook.js)
+let bookCopies = [
+    {
+        id: "TT0001", // Đồng bộ với ID sách
+        title: "Đắc Nhân Tâm",
+        totalCopies: 7,
+        availableCopies: 3,
+        copies: [
+            { copyId: "COPY-001", bookId: "TT0001", status: "Có sẵn", createdAt: "2025-01-01" },
+            { copyId: "COPY-002", bookId: "TT0001", status: "Đang mượn", createdAt: "2025-01-02" },
+        ],
+    },
+    {
+        id: "BOOK-2025-002",
+        title: "Nhà Giả Kim",
+        totalCopies: 5,
+        availableCopies: 2,
+        copies: [
+            { copyId: "COPY-003", bookId: "BOOK-2025-002", status: "Có sẵn", createdAt: "2025-01-03" },
+            { copyId: "COPY-004", bookId: "BOOK-2025-002", status: "Hỏng", createdAt: "2025-01-04" },
+        ],
+    },
+];
+
 // Biến để theo dõi số thứ tự của từng danh mục
 let categoryCounters = {
     'van-hoc': 1,   // Tài liệu học tập
@@ -20,6 +44,7 @@ let categoryCounters = {
 };
 
 let currentBookId = null;
+let currentCopyId = null;
 
 // Hàm tạo ID tự động dựa trên danh mục
 function generateBookId(category) {
@@ -119,6 +144,9 @@ function updateBooksTable(filteredBooks = books) {
                     </button>
                     <button class="btn btn-delete" onclick="deleteBookConfirm('${book.id}')">
                         <i class="fas fa-trash-alt"></i> Xóa
+                    </button>
+                    <button class="btn btn-view" onclick="showViewBookCopyDetailsPopup('${book.id}')">
+                        <i class="fas fa-eye"></i> Xem chi tiết
                     </button>
                 </td>
             `;
@@ -298,6 +326,88 @@ function deleteBook() {
     updateBooksTable();
     closeModal('delete-book-popup');
     showCustomAlert('Sách đã được xóa!');
+}
+
+// Hiển thị popup chi tiết bản sao sách
+function showViewBookCopyDetailsPopup(bookId) {
+    const book = books.find(b => b.id === bookId);
+    const bookCopy = bookCopies.find(bc => bc.id === bookId);
+    if (book) {
+        document.getElementById('detail-book-id').textContent = book.id;
+        document.getElementById('detail-book-title').textContent = book.title;
+        document.getElementById('detail-book-quantity').textContent = bookCopy ? bookCopy.totalCopies : 0;
+
+        const tbody = document.getElementById('book-copy-details-tbody');
+        tbody.innerHTML = '';
+        if (!bookCopy || bookCopy.copies.length === 0) {
+            const row = document.createElement('tr');
+            row.className = 'empty-row';
+            row.innerHTML = `<td colspan="5">Trống</td>`;
+            tbody.appendChild(row);
+        } else {
+            bookCopy.copies.forEach(copy => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td data-label="ID Bản sao Sách">${copy.copyId}</td>
+                    <td data-label="ID Sách">${copy.bookId}</td>
+                    <td data-label="Trạng thái">${copy.status}</td>
+                    <td data-label="Ngày nhập kho">${copy.createdAt}</td>
+                    <td data-label="Thao tác">
+                        <button class="btn btn-edit" onclick="showEditBookCopyPopup('${copy.copyId}')">
+                            <i class="fas fa-edit"></i> Sửa
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        showModal('book-copy-details-modal');
+    }
+}
+
+// Hiển thị popup sửa bản sao sách
+function showEditBookCopyPopup(copyId) {
+    const bookCopy = bookCopies.find(bc => bc.copies.some(c => c.copyId === copyId));
+    if (bookCopy) {
+        const copy = bookCopy.copies.find(c => c.copyId === copyId);
+        currentCopyId = copyId;
+        document.getElementById('edit-copy-id').value = copy.copyId;
+        document.getElementById('edit-book-id').value = copy.bookId;
+        document.getElementById('edit-book-copy-status').value = copy.status;
+        document.getElementById('edit-book-copy-created-at').value = copy.createdAt;
+        document.getElementById('edit-book-copy-status').style.borderColor = '';
+        showModal('edit-book-copy-modal');
+    }
+}
+
+// Cập nhật bản sao sách
+function updateBookCopy() {
+    const statusInput = document.getElementById('edit-book-copy-status');
+    const status = statusInput.value;
+
+    if (!status) {
+        showCustomAlert('Vui lòng chọn trạng thái!');
+        statusInput.style.borderColor = 'red';
+        return;
+    }
+
+    const bookCopy = bookCopies.find(bc => bc.copies.some(c => c.copyId === currentCopyId));
+    if (bookCopy) {
+        const copy = bookCopy.copies.find(c => c.copyId === currentCopyId);
+        const oldStatus = copy.status;
+        copy.status = status;
+
+        // Cập nhật số lượng bản sao sẵn sàng mượn
+        if (oldStatus === "Có sẵn" && status !== "Có sẵn") {
+            bookCopy.availableCopies--;
+        } else if (oldStatus !== "Có sẵn" && status === "Có sẵn") {
+            bookCopy.availableCopies++;
+        }
+
+        closeModal('edit-book-copy-modal');
+        showCustomAlert('Đã cập nhật trạng thái bản sao thành công!');
+        showViewBookCopyDetailsPopup(bookCopy.id); // Refresh chi tiết
+    }
 }
 
 // Đóng modal khi click bên ngoài
