@@ -80,7 +80,7 @@
         <div class="main-header">
             <h1>Quản lý bản sao sách</h1>
         </div>
-
+    
         <div class="search-section">
             <div class="search-container">
                 <div class="search-wrapper">
@@ -107,60 +107,117 @@
                     <td>7</td>
                     <td>3</td>
                     <td>
-                        <a href="#" class="btn" onclick="addBookCopy('BOOK-2025-001')">Thêm bản sao</a>
-                        <a href="#" class="btn" onclick="viewBookCopyDetails('BOOK-2025-001')">Xem chi tiết</a>
+                        <button class="btn btn-edit" onclick="showAddBookCopyPopup('BOOK-2025-001')">
+                            <i class="fas fa-plus"></i> Thêm bản sao
+                        </button>
+                        <button class="btn btn-view" onclick="showViewBookCopyDetailsPopup('BOOK-2025-001')">
+                            <i class="fas fa-eye"></i> Xem chi tiết
+                        </button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <!-- Form Thêm Bản sao Sách -->
-        <div id="add-book-copy-form" class="form-container" style="display:none;">
-            <h2>Thêm Bản sao Sách</h2>
-            <input type="text" placeholder="ID Sách" id="book-id" readonly>
-            <input type="text" placeholder="Tên sách" id="book-title" readonly>
-            <input type="number" placeholder="Số lượng bản sao thêm" id="book-copy-quantity" min="1" required>
-            <button class="btn" onclick="saveBookCopy()">Lưu</button>
-            <button class="btn" onclick="toggleForm('add-book-copy-form')">Hủy</button>
+    
+        <!-- Modal for Thêm Bản sao Sách -->
+        <div id="add-book-copy-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('add-book-copy-modal')">×</span>
+                <h2>Thêm Bản sao Sách</h2>
+                <div class="form-group">
+                    <label>ID Sách:</label>
+                    <input type="text" id="book-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Tên sách:</label>
+                    <input type="text" id="book-title" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Số lượng bản sao thêm <span class="required">*</span>:</label>
+                    <input type="number" id="book-copy-quantity" min="1" required>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-save" onclick="saveBookCopy()">
+                        <i class="fas fa-save"></i> Lưu
+                    </button>
+                    <button class="btn btn-cancel" onclick="closeModal('add-book-copy-modal')">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                </div>
+            </div>
         </div>
-        <!-- Chi tiết Bản sao Sách -->
-        <div id="book-copy-details" class="details-container">
-            <h2>Chi tiết Bản sao Sách</h2>
-            <p><strong>ID Sách:</strong> <span id="detail-book-id"></span></p>
-            <p><strong>Tên sách:</strong> <span id="detail-book-title"></span></p>
-            <p><strong>Số lượng bản sao:</strong> <span id="detail-book-quantity"></span></p>
-            <table id="book-copy-details-list">
-                <thead>
-                    <tr>
-                        <th>ID Bản sao Sách</th>
-                        <th>ID Sách</th>
-                        <th>Trạng thái</th>
-                        <th>Ngày nhập kho</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody id="book-copy-details-tbody">
-                </tbody>
-            </table>
-            <button class="btn" onclick="toggleDetails()">Đóng</button>
+    
+        <!-- Modal for Chi tiết Bản sao Sách -->
+        <div id="book-copy-details-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('book-copy-details-modal')">×</span>
+                <h2>Chi tiết Bản sao Sách</h2>
+                <p><strong>ID Sách:</strong> <span id="detail-book-id"></span></p>
+                <p><strong>Tên sách:</strong> <span id="detail-book-title"></span></p>
+                <p><strong>Số lượng bản sao:</strong> <span id="detail-book-quantity"></span></p>
+                <table id="book-copy-details-list">
+                    <thead>
+                        <tr>
+                            <th>ID Bản sao Sách</th>
+                            <th>ID Sách</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày nhập kho</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="book-copy-details-tbody">
+                    </tbody>
+                </table>
+                <div class="modal-actions">
+                    <button class="btn btn-cancel" onclick="closeModal('book-copy-details-modal')">
+                        <i class="fas fa-times"></i> Đóng
+                    </button>
+                </div>
+            </div>
         </div>
-        <!-- Form Sửa Bản sao Sách -->
-        <div id="edit-book-copy-form" class="form-container" style="display:none;">
-            <h2>Sửa Bản sao Sách</h2>
-            <label>ID Bản sao:</label>
-            <input type="text" id="edit-copy-id" readonly>
-            <label>ID Sách:</label>
-            <input type="text" id="edit-book-id" readonly>
-            <label>Trạng thái:</label>
-            <select id="edit-book-copy-status" required>
-                <option value="">Chọn trạng thái</option>
-                <option value="Có sẵn">Có sẵn</option>
-                <option value="Đang mượn">Đang mượn</option>
-                <option value="Hỏng">Hỏng</option>
-            </select>
-            <label>Ngày nhập kho:</label>
-            <input type="date" id="edit-book-copy-created-at" required>
-            <button class="btn" onclick="updateBookCopy()">Cập nhật</button>
-            <button class="btn" onclick="toggleForm('edit-book-copy-form')">Hủy</button>
+    
+        <!-- Modal for Sửa Bản sao Sách -->
+        <div id="edit-book-copy-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal('edit-book-copy-modal')">×</span>
+                <h2>Sửa Bản sao Sách</h2>
+                <div class="form-group">
+                    <label>Mã bản sao:</label>
+                    <input type="text" id="edit-copy-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>ID Sách:</label>
+                    <input type="text" id="edit-book-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái <span class="required">*</span>:</label>
+                    <select id="edit-book-copy-status" required>
+                        <option value="">Chọn trạng thái</option>
+                        <option value="Có sẵn">Có sẵn</option>
+                        <option value="Đang mượn">Đang mượn</option>
+                        <option value="Hỏng">Hỏng</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ngày nhập kho <span class="required">*</span>:</label>
+                    <input type="date" id="edit-book-copy-created-at" required>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-save" onclick="updateBookCopy()">
+                        <i class="fas fa-save"></i> Cập nhật
+                    </button>
+                    <button class="btn btn-cancel" onclick="closeModal('edit-book-copy-modal')">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Popup thông báo tùy chỉnh -->
+        <div id="custom-alert-popup" class="custom-alert" style="display:none;">
+            <div class="custom-alert-content">
+                <p id="custom-alert-message"></p>
+                <button class="btn btn-ok" onclick="closeCustomAlert()">OK</button>
+            </div>
         </div>
     </main>
 
