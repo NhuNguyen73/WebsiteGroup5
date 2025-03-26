@@ -190,7 +190,7 @@
     z-index: 1000;
     display: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .modal.show {
@@ -208,13 +208,15 @@
     border-radius: 10px;
     max-height: 80vh;
     overflow-y: auto;
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .modal.show .modal-content {
     transform: scale(1);
+    opacity: 1;
 }
 
 /* History modal */
@@ -320,54 +322,42 @@
     font-size: 14px;
 }
 
-/* Book list grid */
+/* Book list section */
 .book-list-section h3 {
     font-size: 18px;
     color: #2c88a6;
     margin-bottom: 15px;
 }
 
-.book-list-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    font-size: 15px;
+/* Book detail table */
+.book-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
 }
 
-.book-list-grid .book-item {
-    padding: 5px 0;
+.book-detail-table th,
+.book-detail-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
 }
 
-.book-list-grid .book-item:nth-child(odd) {
+.book-detail-table th {
+    background-color: #f8f9fa;
+    color: #2c88a6;
     font-weight: 600;
-    color: #333;
 }
 
-.book-list-grid .book-item:nth-child(even) {
-    text-align: right;
-    color: #666;
+.book-detail-table tbody tr:hover {
+    background-color: #f1f1f1;
 }
 
-/* History book list grid */
-.history-book-list-grid {
-    grid-template-columns: 1fr 1fr; /* Chỉ 2 cột: Tên sách và Tình trạng */
-    gap: 15px; /* Tăng khoảng cách giữa các cột */
-    padding: 10px 0;
-}
-
-.history-book-list-grid .book-item {
-    padding: 8px 0; /* Tăng padding để dễ nhìn */
-    border-bottom: 1px solid #f0f0f0; /* Thêm đường viền dưới mỗi hàng */
-}
-
-.history-book-list-grid .book-item:nth-child(odd) {
-    font-weight: 600;
-    color: #333;
-}
-
-.history-book-list-grid .book-item:nth-child(even) {
-    text-align: right;
-    color: #666;
+.book-detail-table select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 .modal h2 {
@@ -452,7 +442,7 @@
     z-index: 1001;
     display: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .notification-modal.show {
@@ -471,12 +461,14 @@
     border: 2px solid #ff4d4d;
     color: white;
     text-align: center;
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .notification-modal.show .notification-content {
     transform: scale(1);
+    opacity: 1;
 }
 
 .notification-content p {
@@ -597,22 +589,30 @@
         font-size: 14px;
     }
 
-    .book-list-grid {
-        font-size: 14px;
-        grid-template-columns: 1fr;
+    .book-detail-table thead {
+        display: none;
     }
 
-    .book-list-grid .book-item:nth-child(even) {
-        text-align: left;
+    .book-detail-table tbody tr {
+        display: block;
         margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
     }
 
-    .history-book-list-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .history-book-list-grid .book-item:nth-child(even) {
+    .book-detail-table tbody td {
+        display: block;
         text-align: left;
-        margin-bottom: 10px;
+        padding: 5px 10px;
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .book-detail-table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #2c88a6;
+        display: inline-block;
+        width: 120px;
     }
 }

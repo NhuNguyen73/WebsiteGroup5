@@ -34,7 +34,7 @@ let pendingCards = [
         cardId: "LIB123458",
         email: "quynhphuong2000@email.com",
         phone: "0934567890",
-        birthday: "20/11/20055",
+        birthday: "20/11/2005",
         gender: "Nữ",
         education: "Tiến sĩ",
         address: "Hải Dương"
@@ -105,7 +105,6 @@ function showPendingCardsPopup() {
     const tbody = document.querySelector('#pending-cards-table tbody');
     tbody.innerHTML = '';
     if (pendingCards.length === 0) {
-        // Hiển thị thông báo "Trống" nếu không có dữ liệu
         const row = document.createElement('tr');
         row.className = 'empty-row';
         row.innerHTML = `<td colspan="6">Trống</td>`;
@@ -167,7 +166,6 @@ function approveCard(readerId) {
         pendingCards = pendingCards.filter(c => c.readerId !== readerId);
         updateApprovedCardsTable();
         closeModal('confirm-action-popup');
-        // Không đóng popup "Duyệt thẻ thư viện", mà cập nhật lại danh sách
         showPendingCardsPopup();
         showCustomAlert('Thẻ đã được xác nhận thành công!');
     }
@@ -177,7 +175,6 @@ function approveCard(readerId) {
 function removeCard(readerId) {
     pendingCards = pendingCards.filter(c => c.readerId !== readerId);
     closeModal('confirm-action-popup');
-    // Không đóng popup "Duyệt thẻ thư viện", mà cập nhật lại danh sách
     showPendingCardsPopup();
     showCustomAlert('Thẻ đã bị loại bỏ!');
 }
@@ -187,7 +184,6 @@ function updateApprovedCardsTable(filteredCards = approvedCards) {
     const tbody = document.querySelector('#library-cards-list tbody');
     tbody.innerHTML = '';
     if (filteredCards.length === 0) {
-        // Hiển thị thông báo "Trống" nếu không có dữ liệu
         const row = document.createElement('tr');
         row.className = 'empty-row';
         row.innerHTML = `<td colspan="6">Trống</td>`;
@@ -218,7 +214,6 @@ function searchCards() {
     const searchValue = searchInput.value.toLowerCase();
     const clearButton = document.getElementById('clear-search');
 
-    // Hiển thị/ẩn nút "X" dựa trên nội dung ô tìm kiếm
     clearButton.style.display = searchValue ? 'block' : 'none';
 
     const filteredCards = approvedCards.filter(card => 
@@ -234,7 +229,7 @@ function clearSearch() {
     const searchInput = document.getElementById('search-input');
     searchInput.value = '';
     document.getElementById('clear-search').style.display = 'none';
-    updateApprovedCardsTable(); // Hiển thị lại danh sách ban đầu
+    updateApprovedCardsTable();
 }
 
 // Hiển thị chi tiết độc giả/thẻ thư viện
@@ -249,7 +244,6 @@ function showReaderDetails(readerId, fromPending = false) {
         const content = document.getElementById('reader-info-content');
 
         if (fromPending) {
-            // Hiển thị thông tin chi tiết độc giả (Duyệt thẻ thư viện)
             title.textContent = 'Thông tin chi tiết độc giả';
             content.innerHTML = `
                 <p><strong>Mã độc giả:</strong> ${card.readerId}</p>
@@ -264,7 +258,6 @@ function showReaderDetails(readerId, fromPending = false) {
                 <p><strong>Gia hạn:</strong> ${card.duration}</p>
             `;
         } else {
-            // Hiển thị thông tin chi tiết thẻ thư viện (Quản lý thẻ thư viện)
             title.textContent = 'Thông tin chi tiết thẻ thư viện';
             content.innerHTML = `
                 <p><strong>ID thẻ thư viện:</strong> ${card.cardId}</p>
@@ -275,38 +268,10 @@ function showReaderDetails(readerId, fromPending = false) {
             `;
         }
 
-        // Ẩn nút Sửa và Khóa thẻ nếu xem từ "Duyệt thẻ thư viện"
         const actionsDiv = document.getElementById('reader-details-actions');
         actionsDiv.style.display = fromPending ? 'none' : 'block';
 
         showModal('reader-details-popup');
-    }
-}
-
-// Hiển thị popup chỉnh sửa thẻ
-function showEditCardPopup() {
-    const card = approvedCards.find(c => c.readerId === currentReaderId);
-    if (card) {
-        document.getElementById('edit-card-id').value = card.cardId;
-        document.getElementById('edit-reader-id').value = card.readerId;
-        document.getElementById('edit-reader-name').value = card.name;
-        document.getElementById('edit-card-created').value = card.createdDate;
-        document.getElementById('edit-card-duration').value = card.duration;
-        showModal('edit-card-popup');
-    }
-}
-
-// Lưu thông tin đã chỉnh sửa
-function saveEditedCard() {
-    const newDuration = document.getElementById('edit-card-duration').value;
-    const card = approvedCards.find(c => c.readerId === currentReaderId);
-    if (card) {
-        card.duration = newDuration;
-        updateApprovedCardsTable();
-        closeModal('edit-card-popup');
-        // Không đóng popup "Chi tiết", mà cập nhật lại nội dung
-        showReaderDetails(currentReaderId, isFromPending);
-        showCustomAlert('Thông tin thẻ đã được cập nhật!');
     }
 }
 
@@ -333,7 +298,6 @@ function showLockedCardsPopup() {
     const tbody = document.querySelector('#locked-cards-table tbody');
     tbody.innerHTML = '';
     if (lockedCards.length === 0) {
-        // Hiển thị thông báo "Trống" nếu không có dữ liệu
         const row = document.createElement('tr');
         row.className = 'empty-row';
         row.innerHTML = `<td colspan="6">Trống</td>`;
@@ -373,7 +337,6 @@ function unlockCard() {
         lockedCards = lockedCards.filter(c => c.readerId !== currentReaderId);
         updateApprovedCardsTable();
         closeModal('unlock-card-popup');
-        // Không đóng popup "Danh sách các thẻ bị khóa", mà cập nhật lại danh sách
         showLockedCardsPopup();
         showCustomAlert('Thẻ đã được mở khóa!');
     }

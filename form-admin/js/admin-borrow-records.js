@@ -12,19 +12,19 @@ let borrowRecords = [
     cardId: "TTV001",
     readerName: "Phạm Thị Minh Sang",
     books: [
-      { id: "S001", name: "Đắc Nhân Tâm", condition: "nguyên vẹn" }
+      { bookId: "S001", name: "Đắc Nhân Tâm", condition: "nguyên vẹn" }
     ],
     borrowDate: "2025-03-21",
     dueDate: "2025-03-28",
     duration: "7 ngày",
-    createdAt: new Date().toISOString() // Thêm trường createdAt
+    createdAt: new Date().toISOString()
   }
 ];
 
 // Giả lập dữ liệu lịch sử phiếu mượn trả
 let historyRecords = [];
 
-// Biến lưu ID phiếu mượn đang được xử lý
+// Biến lưu mã phiếu mượn đang được xử lý
 let currentReturnBorrowId = null;
 
 // Khởi tạo trang
@@ -41,7 +41,7 @@ function renderBorrowRecords(searchTerm = '') {
   const sortedRecords = borrowRecords.sort((a, b) => {
     const dateA = new Date(a.createdAt);
     const dateB = new Date(b.createdAt);
-    return dateB - dateA; // Phiếu tạo sau ở trên
+    return dateB - dateA;
   });
 
   const filteredRecords = sortedRecords.filter(record =>
@@ -57,12 +57,12 @@ function renderBorrowRecords(searchTerm = '') {
   filteredRecords.forEach(record => {
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td data-label="ID phiếu mượn">${record.borrowId}</td>
-      <td data-label="ID thẻ thư viện">${record.cardId}</td>
+      <td data-label="Mã phiếu mượn">${record.borrowId}</td>
+      <td data-label="Mã thẻ thư viện">${record.cardId}</td>
       <td data-label="Tên độc giả">${record.readerName}</td>
       <td data-label="Ngày mượn">${new Date(record.borrowDate).toLocaleDateString('vi-VN')}</td>
       <td data-label="Ngày đến hạn">${new Date(record.dueDate).toLocaleDateString('vi-VN')}</td>
-      <td data-label="Hành động">
+      <td data-label="Thao tác">
         <a href="#" class="btn btn-return" onclick="showReturnModal('${record.borrowId}')">Tạo phiếu trả</a>
         <a href="#" class="btn" onclick="showBorrowDetails('${record.borrowId}')">Chi tiết</a>
       </td>
@@ -89,7 +89,7 @@ function clearSearch() {
 // Thêm sự kiện input để tìm kiếm realtime
 document.getElementById('search-input').addEventListener('input', searchBorrowRecords);
 
-// Tự động điền tên sách khi nhập ID sách
+// Tự động điền tên sách khi nhập mã sách
 function fetchBookName(inputElement) {
   const bookId = inputElement.value;
   const bookNameInput = inputElement.parentElement.querySelector('.book-name');
@@ -107,7 +107,7 @@ function addBookItem() {
   bookItem.className = 'book-item';
   bookItem.innerHTML = `
     <div class="book-input">
-      <input type="text" class="book-id" placeholder="ID sách" oninput="fetchBookName(this)" required>
+      <input type="text" class="book-id" placeholder="Mã sách" oninput="fetchBookName(this)" required>
       <input type="text" class="book-name" placeholder="Tên sách" readonly required>
     </div>
     <button class="btn-remove-book" onclick="removeBookItem(this)"><i class="fas fa-times"></i></button>
@@ -147,19 +147,22 @@ function showAddBorrowModal() {
   document.getElementById('borrow-card-id').value = '';
   document.getElementById('borrow-reader-name').value = '';
   document.getElementById('borrow-date').value = '';
-  document.getElementById('borrow-duration').value = '7'; // Đặt lại giá trị mặc định
+  document.getElementById('borrow-duration').value = '7';
   document.getElementById('book-list').innerHTML = `
     <div class="book-item">
       <div class="book-input">
-        <input type="text" class="book-id" placeholder="ID sách" oninput="fetchBookName(this)" required>
+        <input type="text" class="book-id" placeholder="Mã sách" oninput="fetchBookName(this)" required>
         <input type="text" class="book-name" placeholder="Tên sách" readonly required>
       </div>
       <button class="btn-remove-book" onclick="removeBookItem(this)" style="display: none;"><i class="fas fa-times"></i></button>
     </div>
   `;
 
-  document.getElementById('add-borrow-modal').style.display = 'block';
-  document.getElementById('add-borrow-modal').classList.add('show');
+  const modal = document.getElementById('add-borrow-modal');
+  setTimeout(() => {
+    modal.style.display = 'block';
+    modal.classList.add('show');
+  }, 10);
   updateRemoveButtons();
 }
 
@@ -176,13 +179,19 @@ function showBorrowDetails(borrowId) {
     bookList.innerHTML = '';
     record.books.forEach(book => {
       bookList.innerHTML += `
-        <div class="book-item">${book.name}</div>
-        <div class="book-item">${book.condition}</div>
+        <tr>
+          <td>${book.bookId}</td>
+          <td>${book.name}</td>
+          <td>${book.condition}</td>
+        </tr>
       `;
     });
 
-    document.getElementById("borrow-details-modal").style.display = "block";
-    document.getElementById("borrow-details-modal").classList.add("show");
+    const modal = document.getElementById("borrow-details-modal");
+    setTimeout(() => {
+      modal.style.display = "block";
+      modal.classList.add("show");
+    }, 10);
   }
 }
 
@@ -191,6 +200,9 @@ function showReturnModal(borrowId) {
   currentReturnBorrowId = borrowId;
   const record = borrowRecords.find(r => r.borrowId === borrowId);
   if (record) {
+    // Để trống trường mã phiếu trả để người dùng tự nhập
+    document.getElementById("return-id").value = '';
+
     const now = new Date();
     const returnDateInput = document.getElementById("return-date");
     returnDateInput.value = now.toISOString().slice(0, 16);
@@ -199,27 +211,49 @@ function showReturnModal(borrowId) {
     bookList.innerHTML = '';
     record.books.forEach(book => {
       bookList.innerHTML += `
-        <div class="book-item">${book.name}</div>
-        <div class="book-item">
-          <select class="book-condition" required>
-            <option value="nguyên vẹn">Nguyên vẹn</option>
-            <option value="hỏng">Hỏng</option>
-            <option value="mất">Mất</option>
-          </select>
-        </div>
+        <tr>
+          <td>${book.bookId}</td>
+          <td>${book.name}</td>
+          <td>
+            <select class="book-condition" required>
+              <option value="nguyên vẹn">Nguyên vẹn</option>
+              <option value="hỏng">Hỏng</option>
+              <option value="mất">Mất</option>
+            </select>
+          </td>
+        </tr>
       `;
     });
 
-    document.getElementById("return-modal").style.display = "block";
-    document.getElementById("return-modal").classList.add("show");
+    const modal = document.getElementById("return-modal");
+    setTimeout(() => {
+      modal.style.display = "block";
+      modal.classList.add("show");
+    }, 10);
   }
 }
 
 // Lưu phiếu trả
 function saveReturnRecord() {
+  const returnId = document.getElementById("return-id").value.trim();
   const returnDate = document.getElementById("return-date").value;
-  if (!returnDate) {
-    alert("Vui lòng chọn thời gian trả");
+
+  // Kiểm tra các trường bắt buộc
+  if (!returnId || !returnDate) {
+    alert("Vui lòng điền đầy đủ thông tin: Mã phiếu trả và Ngày trả");
+    return;
+  }
+
+  // Kiểm tra mã phiếu trả có trùng không
+  const isDuplicate = historyRecords.some(record => record.returnId === returnId);
+  if (isDuplicate) {
+    alert("Mã phiếu trả đã tồn tại. Vui lòng nhập mã khác!");
+    return;
+  }
+
+  // Kiểm tra định dạng mã phiếu trả (bắt đầu bằng "PT")
+  if (!returnId.startsWith("PT")) {
+    alert("Mã phiếu trả phải bắt đầu bằng 'PT'!");
     return;
   }
 
@@ -239,29 +273,24 @@ function saveReturnRecord() {
       return { ...book, condition, detail };
     });
 
-    const dueDate = new Date(record.dueDate);
-    const returnDateObj = new Date(returnDate);
-    const status = returnDateObj > dueDate ? "Quá hạn" : "Hoàn thành";
-
     const historyRecord = {
       borrowId: record.borrowId,
+      returnId: returnId, // Sử dụng mã do người dùng nhập
       cardId: record.cardId,
       readerName: record.readerName,
       books: updatedBooks,
       borrowDate: record.borrowDate,
       duration: record.duration,
-      returnDate: returnDateObj.toLocaleString('vi-VN'),
-      status: status,
-      createdAt: new Date().toISOString() // Thêm trường createdAt
+      returnDate: new Date(returnDate).toLocaleString('vi-VN'),
+      createdAt: new Date().toISOString()
     };
 
     // Thêm vào lịch sử
     historyRecords.push(historyRecord);
-    // Sắp xếp lịch sử theo thời điểm tạo giảm dần
     historyRecords.sort((a, b) => {
       const dateA = new Date(a.createdAt);
       const dateB = new Date(b.createdAt);
-      return dateB - dateA; // Phiếu tạo sau ở trên
+      return dateB - dateA;
     });
     renderHistoryRecords();
 
@@ -278,8 +307,11 @@ function saveReturnRecord() {
 // Hiển thị modal lịch sử phiếu mượn trả
 function showHistoryModal() {
   renderHistoryRecords();
-  document.getElementById("history-modal").style.display = "block";
-  document.getElementById("history-modal").classList.add("show");
+  const modal = document.getElementById("history-modal");
+  setTimeout(() => {
+    modal.style.display = "block";
+    modal.classList.add("show");
+  }, 10);
 }
 
 // Hiển thị danh sách lịch sử phiếu mượn trả
@@ -287,11 +319,10 @@ function renderHistoryRecords(searchTerm = '') {
   const tbody = document.querySelector('#history-list tbody');
   tbody.innerHTML = '';
 
-  // Sắp xếp theo thời điểm tạo giảm dần (phiếu tạo sau ở trên)
   const sortedRecords = historyRecords.sort((a, b) => {
     const dateA = new Date(a.createdAt);
     const dateB = new Date(b.createdAt);
-    return dateB - dateA; // Phiếu tạo sau ở trên
+    return dateB - dateA;
   });
 
   const filteredRecords = sortedRecords.filter(record =>
@@ -307,13 +338,13 @@ function renderHistoryRecords(searchTerm = '') {
   filteredRecords.forEach(record => {
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td data-label="ID phiếu mượn">${record.borrowId}</td>
-      <td data-label="ID thẻ thư viện">${record.cardId}</td>
+      <td data-label="Mã phiếu mượn">${record.borrowId}</td>
+      <td data-label="Mã phiếu trả">${record.returnId}</td>
+      <td data-label="Mã thẻ thư viện">${record.cardId}</td>
       <td data-label="Tên độc giả">${record.readerName}</td>
       <td data-label="Ngày mượn">${new Date(record.borrowDate).toLocaleDateString('vi-VN')}</td>
       <td data-label="Ngày trả">${record.returnDate}</td>
-      <td data-label="Trạng thái">${record.status}</td>
-      <td data-label="Hành động">
+      <td data-label="Thao tác">
         <a href="#" class="btn" onclick="showHistoryDetails('${record.borrowId}')">Chi tiết</a>
       </td>
     `;
@@ -341,6 +372,7 @@ function showHistoryDetails(borrowId) {
   const record = historyRecords.find(r => r.borrowId === borrowId);
   if (record) {
     document.getElementById("history-modal-borrow-id").textContent = record.borrowId;
+    document.getElementById("history-modal-return-id").textContent = record.returnId;
     document.getElementById("history-modal-card-id").textContent = record.cardId;
     document.getElementById("history-modal-reader-name").textContent = record.readerName;
     document.getElementById("history-modal-borrow-date").textContent = new Date(record.borrowDate).toLocaleDateString('vi-VN');
@@ -351,13 +383,19 @@ function showHistoryDetails(borrowId) {
     bookList.innerHTML = '';
     record.books.forEach(book => {
       bookList.innerHTML += `
-        <div class="book-item">${book.name}</div>
-        <div class="book-item">${book.detail}</div>
+        <tr>
+          <td>${book.bookId}</td>
+          <td>${book.name}</td>
+          <td>${book.detail}</td>
+        </tr>
       `;
     });
 
-    document.getElementById("history-details-modal").style.display = "block";
-    document.getElementById("history-details-modal").classList.add("show");
+    const modal = document.getElementById("history-details-modal");
+    setTimeout(() => {
+      modal.style.display = "block";
+      modal.classList.add("show");
+    }, 10);
   }
 }
 
@@ -373,8 +411,11 @@ function closeModal(modalId) {
 // Hiển thị modal thông báo
 function showNotificationModal(message) {
   document.getElementById('notification-message').textContent = message;
-  document.getElementById('notification-modal').style.display = 'block';
-  document.getElementById('notification-modal').classList.add('show');
+  const modal = document.getElementById('notification-modal');
+  setTimeout(() => {
+    modal.style.display = 'block';
+    modal.classList.add('show');
+  }, 10);
 }
 
 // Đóng modal thông báo
@@ -408,7 +449,7 @@ function saveBorrowRecord() {
       valid = false;
       return;
     }
-    books.push({ id: bookId, name: bookName, condition: "nguyên vẹn" });
+    books.push({ bookId: bookId, name: bookName, condition: "nguyên vẹn" });
   });
 
   if (!valid) {
@@ -429,28 +470,25 @@ function saveBorrowRecord() {
     borrowDate: borrowDate,
     dueDate: dueDateObj.toISOString().split('T')[0],
     duration: `${borrowDuration} ngày`,
-    createdAt: new Date().toISOString() // Thêm trường createdAt
+    createdAt: new Date().toISOString()
   };
 
-  // Thêm phiếu mượn mới vào danh sách
   borrowRecords.push(newRecord);
-  // Sắp xếp lại danh sách theo thời điểm tạo giảm dần
   borrowRecords.sort((a, b) => {
     const dateA = new Date(a.createdAt);
     const dateB = new Date(b.createdAt);
-    return dateB - dateA; // Phiếu tạo sau ở trên
+    return dateB - dateA;
   });
   renderBorrowRecords();
 
-  // Reset các trường trong modal sau khi lưu
   document.getElementById('borrow-card-id').value = '';
   document.getElementById('borrow-reader-name').value = '';
   document.getElementById('borrow-date').value = '';
-  document.getElementById('borrow-duration').value = '7'; // Đặt lại giá trị mặc định
+  document.getElementById('borrow-duration').value = '7';
   document.getElementById('book-list').innerHTML = `
     <div class="book-item">
       <div class="book-input">
-        <input type="text" class="book-id" placeholder="ID sách" oninput="fetchBookName(this)" required>
+        <input type="text" class="book-id" placeholder="Mã sách" oninput="fetchBookName(this)" required>
         <input type="text" class="book-name" placeholder="Tên sách" readonly required>
       </div>
       <button class="btn-remove-book" onclick="removeBookItem(this)" style="display: none;"><i class="fas fa-times"></i></button>
