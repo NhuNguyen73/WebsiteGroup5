@@ -43,7 +43,7 @@
         <li class="nav-item">
           <a href="admin-ImportReceipt.html" class="nav-link">
               <i class="fas fa-receipt" style="padding-right: 8px;"></i>
-              <span>Quản lý phiếu nhập - Bản sao sách</span>
+              <span>Quản lý phiếu nhập</span>
           </a>
       </li>
         <li class="nav-item">
@@ -56,13 +56,13 @@
           <a href="admin-borrow-records.html" class="nav-link active">
             <i class="fas fa-tasks" style="padding-right: 8px"></i>
             <span>Quản lý phiếu mượn trả</span>
-          </a>
+          </a> 
         </li>
         <li class="nav-item">
           <a href="admin-book-LoanRequest.html" class="nav-link">
               <i class="fas fa-shopping-cart" style="padding-right: 8px;"></i>
-              <span>Quản lý phiếu mượn đặt giữ sách</span>
-          </a>
+              <span>Quản lý yêu cầu đặt mượn sách</span>
+            </a>
       </li>
         <li class="nav-item">
           <a href="admin-stats.html" class="nav-link">
@@ -192,10 +192,6 @@
         <div class="modal-content">
           <span class="close-button" onclick="closeModal('return-modal')">×</span>
           <h2>Tạo phiếu trả</h2>
-          <div class="form-group">
-            <label>Mã phiếu trả</label>
-            <input type="text" id="return-id" required>
-          </div>
           <div class="form-group">
             <label>Ngày trả</label>
             <input type="datetime-local" id="return-date" required>

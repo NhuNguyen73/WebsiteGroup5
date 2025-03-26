@@ -32,6 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
   renderBorrowRecords();
 });
 
+// Hàm tạo mã phiếu trả tự động
+function generateReturnId() {
+  const existingIds = historyRecords.map(record => parseInt(record.returnId.replace("PT", "")));
+  const maxId = existingIds.length > 0 ? Math.max(...existingIds) : 0;
+  const newId = maxId + 1;
+  return "PT" + newId.toString().padStart(3, "0");
+}
+
 // Hiển thị danh sách phiếu mượn
 function renderBorrowRecords(searchTerm = '') {
   const tbody = document.querySelector('#borrow-records-list tbody');
@@ -200,9 +208,6 @@ function showReturnModal(borrowId) {
   currentReturnBorrowId = borrowId;
   const record = borrowRecords.find(r => r.borrowId === borrowId);
   if (record) {
-    // Để trống trường mã phiếu trả để người dùng tự nhập
-    document.getElementById("return-id").value = '';
-
     const now = new Date();
     const returnDateInput = document.getElementById("return-date");
     returnDateInput.value = now.toISOString().slice(0, 16);
@@ -235,27 +240,16 @@ function showReturnModal(borrowId) {
 
 // Lưu phiếu trả
 function saveReturnRecord() {
-  const returnId = document.getElementById("return-id").value.trim();
   const returnDate = document.getElementById("return-date").value;
 
-  // Kiểm tra các trường bắt buộc
-  if (!returnId || !returnDate) {
-    alert("Vui lòng điền đầy đủ thông tin: Mã phiếu trả và Ngày trả");
+  // Kiểm tra trường bắt buộc
+  if (!returnDate) {
+    alert("Vui lòng điền đầy đủ thông tin: Ngày trả");
     return;
   }
 
-  // Kiểm tra mã phiếu trả có trùng không
-  const isDuplicate = historyRecords.some(record => record.returnId === returnId);
-  if (isDuplicate) {
-    alert("Mã phiếu trả đã tồn tại. Vui lòng nhập mã khác!");
-    return;
-  }
-
-  // Kiểm tra định dạng mã phiếu trả (bắt đầu bằng "PT")
-  if (!returnId.startsWith("PT")) {
-    alert("Mã phiếu trả phải bắt đầu bằng 'PT'!");
-    return;
-  }
+  // Tự động sinh mã phiếu trả
+  const returnId = generateReturnId();
 
   const record = borrowRecords.find(r => r.borrowId === currentReturnBorrowId);
   if (record) {
@@ -275,7 +269,7 @@ function saveReturnRecord() {
 
     const historyRecord = {
       borrowId: record.borrowId,
-      returnId: returnId, // Sử dụng mã do người dùng nhập
+      returnId: returnId, // Sử dụng mã tự động sinh
       cardId: record.cardId,
       readerName: record.readerName,
       books: updatedBooks,
