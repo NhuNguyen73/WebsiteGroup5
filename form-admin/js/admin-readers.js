@@ -8,7 +8,7 @@ let readers = [
         phone: "0987654321",
         email: "minhsang@gmail.com",
         address: "Thái Bình",
-        education: "Đại học"
+        education: "Trung học"
     },
     {
         id: "DG0001",
@@ -18,7 +18,7 @@ let readers = [
         phone: "0912345678",
         email: "ducduc@gmail.com",
         address: "Hải Phòng",
-        education: "Đại học"
+        education: "Cao học"
     },
     {
         id: "DG0002",
@@ -28,7 +28,7 @@ let readers = [
         phone: "0934567890",
         email: "quynhphuong2000@gmail.com",
         address: "Hải Dương",
-        education: "Tiến sĩ"
+        education: "Cao học"
     },
     {
         id: "DG0003",
@@ -38,7 +38,7 @@ let readers = [
         phone: "0971234567",
         email: "phucphuc@gmail.com",
         address: "Hưng Yên",
-        education: "Đại học"
+        education: "Trung học"
     }
 ];
 
@@ -137,7 +137,7 @@ function updateReadersTable(filteredReaders = readers) {
     if (sortedReaders.length === 0) {
         const row = document.createElement('tr');
         row.className = 'empty-row';
-        row.innerHTML = `<td colspan="8">Trống</td>`;
+        row.innerHTML = `<td colspan="9">Trống</td>`;
         tbody.appendChild(row);
     } else {
         sortedReaders.forEach(reader => {
@@ -150,6 +150,7 @@ function updateReadersTable(filteredReaders = readers) {
                 <td data-label="Số điện thoại">${reader.phone}</td>
                 <td data-label="Email">${reader.email}</td>
                 <td data-label="Địa chỉ">${reader.address}</td>
+                <td data-label="Trình độ học vấn">${reader.education}</td>
                 <td data-label="Thao tác">
                     <button class="btn btn-edit" onclick="showEditReaderPopup('${reader.id}')">
                         <i class="fas fa-edit"></i> Sửa
@@ -196,6 +197,7 @@ function showAddReaderPopup() {
     document.getElementById('add-reader-phone').value = '';
     document.getElementById('add-reader-email').value = '';
     document.getElementById('add-reader-address').value = '';
+    document.getElementById('add-reader-education').value = '';
     showModal('add-reader-popup');
 }
 
@@ -247,7 +249,7 @@ function addReader() {
         phone: phone,
         email: email,
         address: document.getElementById('add-reader-address').value,
-        education: "Đại học" // Giá trị mặc định vì không có trường nhập education
+        education: document.getElementById('add-reader-education').value
     };
 
     readers.push(newReader); // Thêm vào cuối mảng
@@ -269,6 +271,7 @@ function showEditReaderPopup(readerId) {
         document.getElementById('edit-reader-phone').value = reader.phone;
         document.getElementById('edit-reader-email').value = reader.email;
         document.getElementById('edit-reader-address').value = reader.address;
+        document.getElementById('edit-reader-education').value = reader.education;
         showModal('edit-reader-popup');
     }
 }
@@ -323,7 +326,7 @@ function saveEditedReader() {
             phone: phone,
             email: email,
             address: document.getElementById('edit-reader-address').value,
-            education: readers[readerIndex].education // Giữ nguyên education
+            education: document.getElementById('edit-reader-education').value
         };
         readers.sort((a, b) => b.id.localeCompare(a.id)); // Sắp xếp lại theo ID giảm dần
         updateReadersTable();
