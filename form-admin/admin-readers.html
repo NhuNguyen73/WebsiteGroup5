@@ -29,7 +29,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin-readers.html" class="nav-link">
+                <a href="admin-readers.html" class="nav-link active">
                     <i class="fas fa-users" style="padding-right: 8px;"></i>
                     <span>Quản lý độc giả</span>
                 </a>
@@ -41,9 +41,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin-copybook.html" class="nav-link">
-                    <i class="fas fa-book" style="padding-right: 8px;"></i>
-                    <span>Quản lý bản sao sách</span>
+                <a href="admin-ImportReceipt.html" class="nav-link">
+                    <i class="fas fa-receipt" style="padding-right: 8px;"></i>
+                    <span>Quản lý phiếu nhập</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -59,9 +59,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin-book-reservations.html" class="nav-link">
+                <a href="admin-book-LoanRequest.html" class="nav-link">
                     <i class="fas fa-shopping-cart" style="padding-right: 8px;"></i>
-                    <span>Quản lý đặt mượn sách</span>
+                    <span>Quản lý yêu cầu đặt mượn sách</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -104,6 +104,7 @@
                     <th>Số điện thoại</th>
                     <th>Email</th>
                     <th>Địa chỉ</th>
+                    <th>Trình độ học vấn</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -149,6 +150,14 @@
                 <div class="form-group">
                     <label>Địa chỉ <span class="required">*</span>:</label>
                     <input type="text" id="add-reader-address" required>
+                </div>
+                <div class="form-group">
+                    <label>Trình độ học vấn <span class="required">*</span>:</label>
+                    <select id="add-reader-education" required>
+                        <option value="">Chọn trình độ</option>
+                        <option value="Trung học">Trung học</option>
+                        <option value="Cao học">Cao học</option>
+                    </select>
                 </div>
                 <div class="modal-actions">
                     <button class="btn btn-save" onclick="addReader()">
@@ -198,6 +207,14 @@
                 <div class="form-group">
                     <label>Địa chỉ <span class="required">*</span>:</label>
                     <input type="text" id="edit-reader-address" required>
+                </div>
+                <div class="form-group">
+                    <label>Trình độ học vấn <span class="required">*</span>:</label>
+                    <select id="edit-reader-education" required>
+                        <option value="">Chọn trình độ</option>
+                        <option value="Trung học">Trung học</option>
+                        <option value="Cao học">Cao học</option>
+                    </select>
                 </div>
                 <div class="modal-actions">
                     <button class="btn btn-save" onclick="saveEditedReader()">

@@ -1,3 +1,5 @@
+/* File: css/admin-book.css */
+
 /* Styles cho modal */
 .modal {
     position: fixed;
@@ -237,13 +239,18 @@
     color: white;
 }
 
-.btn-edit, .btn-save {
-    background-color: #007bff;
+.btn-view {
+    background-color: #17a2b8;
     color: white;
 }
 
 .btn-cancel {
     background-color: #6c757d;
+    color: white;
+}
+
+.btn-save {
+    background-color: #007bff;
     color: white;
 }
 
@@ -271,11 +278,6 @@ table td button {
     margin-right: 5px;
 }
 
-table img {
-    width: 50px;
-    height: auto;
-}
-
 /* Style cho hàng "Trống" */
 .empty-row {
     text-align: center;
@@ -286,8 +288,40 @@ table img {
 .empty-row td {
     padding: 20px;
     border: none;
-    text-align: center;
+    text-align: center !important; /* Đảm bảo căn giữa với độ ưu tiên cao */
     width: 100%;
+}
+
+/* Details container (Chi tiết bản sao) */
+.modal-content p {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.modal-content p strong {
+    color: #2c88a6;
+}
+
+/* Table styles for book copy details */
+#book-copy-details-list {
+    margin-top: 20px;
+}
+
+#book-copy-details-list th,
+#book-copy-details-list td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#book-copy-details-list th {
+    background-color: #f8f9fa;
+    color: #2c88a6;
+    font-weight: 600;
+}
+
+#book-copy-details-list tbody tr:hover {
+    background-color: #f1f1f1;
 }
 
 /* Responsive design */
@@ -299,6 +333,10 @@ table img {
     table td button {
         padding: 4px 8px;
         font-size: 12px;
+    }
+
+    #book-copy-details-list {
+        font-size: 14px;
     }
 }
 
@@ -332,5 +370,37 @@ table img {
         content: attr(data-label);
         font-weight: 600;
         color: #2c88a6;
+    }
+
+    #book-copy-details-list thead {
+        display: none;
+    }
+
+    #book-copy-details-list tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+    }
+
+    #book-copy-details-list tbody td {
+        display: grid;
+        grid-template-columns: 35% 65%;
+        padding: 8px 15px;
+        border: none;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    #book-copy-details-list tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #2c88a6;
+    }
+
+    /* Căn giữa chữ "Trống" trong responsive mode */
+    .empty-row td {
+        display: block !important; /* Ghi đè display: grid */
+        grid-template-columns: none !important; /* Xóa grid layout */
+        text-align: center !important; /* Đảm bảo căn giữa */
     }
 }

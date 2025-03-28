@@ -2,9 +2,9 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý sách - Admin</title>
+    <title>Quản lý phiếu nhập - Bản sao sách - Admin</title>
     <link rel="stylesheet" href="./css/admin.css">
-    <link rel="stylesheet" href="./css/admin-book.css">
+    <link rel="stylesheet" href="./css/admin-ImportReceipt.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 </head>
 <body>
@@ -78,33 +78,28 @@
 
     <main>
         <div class="main-header">
-            <h1>Quản lý sách</h1>
-            <button class="btn" onclick="showAddBookPopup()">
-                <i class="fas fa-plus"></i> Thêm sách
+            <h1>Quản lý phiếu nhập - Bản sao sách</h1>
+            <button class="btn" onclick="showAddImportReceiptPopup()">
+                <i class="fas fa-plus"></i> Thêm phiếu nhập
             </button>
         </div>
 
         <div class="search-section">
             <div class="search-container">
                 <div class="search-wrapper">
-                    <input type="text" id="search-input" placeholder="Tìm kiếm theo mã đầu sách hoặc tiêu đề..." oninput="searchBooks()">
+                    <input type="text" id="search-input" placeholder="Tìm kiếm theo mã phiếu nhập..." oninput="searchBooks()">
                     <span class="search-icon" onclick="searchBooks()"><i class="fas fa-search"></i></span>
                     <span class="clear-search" id="clear-search" onclick="clearSearch()"><i class="fas fa-times"></i></span>
                 </div>
             </div>
         </div>
 
-        <table id="book-list">
+        <table id="book-copy-list">
             <thead>
                 <tr>
-                    <th>Mã đầu sách</th>
-                    <th>Tiêu đề đầu sách</th>
-                    <th>Nhà xuất bản</th>
-                    <th>Tác giả</th>
-                    <th>Số trang</th>
-                    <th>Số lượng</th>
-                    <th>Năm xuất bản</th>
-                    <th>Thể loại</th>
+                    <th>Mã phiếu nhập</th>
+                    <th>Ngày nhập</th>
+                    <th>Nhà cung cấp</th>
                     <th>Thao tác</th>
                 </tr>
             </thead>
@@ -113,89 +108,76 @@
             </tbody>
         </table>
 
-        <!-- Popup thêm sách -->
-        <div id="add-book-popup" class="modal" style="display:none;">
+        <!-- Popup thêm phiếu nhập -->
+        <div id="add-import-receipt-modal" class="modal" style="display:none;">
             <div class="modal-content">
-                <span class="close-button" onclick="closeModal('add-book-popup')">×</span>
-                <h2>Thêm sách</h2>
+                <span class="close-button" onclick="closeModal('add-import-receipt-modal')">×</span>
+                <h2>Thêm phiếu nhập</h2>
                 <div class="form-group">
-                    <label>Mã đầu sách <span class="required">*</span>:</label>
-                    <input type="text" id="add-book-id" required> <!-- Bỏ readonly để người dùng tự nhập -->
+                    <label>Mã phiếu nhập <span class="required">*</span>:</label>
+                    <input type="text" id="add-receipt-id" required>
                 </div>
                 <div class="form-group">
-                    <label>Tiêu đề đầu sách <span class="required">*</span>:</label>
-                    <input type="text" id="add-book-title" required>
+                    <label>Ngày nhập <span class="required">*</span>:</label>
+                    <input type="text" id="add-created-at" placeholder="DD/MM/YYYY" required>
                 </div>
                 <div class="form-group">
-                    <label>Nhà xuất bản <span class="required">*</span>:</label>
-                    <input type="text" id="add-book-publisher" required>
+                    <label>Nhà cung cấp <span class="required">*</span>:</label>
+                    <input type="text" id="add-supplier" required>
                 </div>
                 <div class="form-group">
-                    <label>Tác giả <span class="required">*</span>:</label>
-                    <input type="text" id="add-book-author" required>
-                </div>
-                <div class="form-group">
-                    <label>Số trang <span class="required">*</span>:</label>
-                    <input type="number" id="add-book-pages" min="1" required>
-                </div>
-                <div class="form-group">
-                    <label>Năm xuất bản <span class="required">*</span>:</label>
-                    <input type="number" id="add-book-year" min="1900" max="2025" required>
-                </div>
-                <div class="form-group">
-                    <label>Thể loại <span class="required">*</span>:</label>
-                    <select id="add-book-category" required>
-                        <option value="">Chọn thể loại</option>
-                        <option value="van-hoc">Tài liệu học tập</option>
-                        <option value="khoa-hoc">Tài liệu lịch sử</option>
-                        <option value="lich-su">Sách phát triển bản thân</option>
-                        <option value="tam-ly">Tiểu thuyết</option>
-                    </select>
+                    <label>Danh sách đầu sách:</label>
+                    <div id="book-list"></div>
+                    <button class="btn btn-add-book" onclick="addBookEntry()">
+                        <i class="fas fa-plus"></i> Thêm đầu sách
+                    </button>
                 </div>
                 <div class="modal-actions">
-                    <button class="btn btn-save" onclick="addBook()">
+                    <button class="btn btn-save" onclick="confirmAddImportReceipt()">
                         <i class="fas fa-save"></i> Lưu
                     </button>
-                    <button class="btn btn-cancel" onclick="closeModal('add-book-popup')">
+                    <button class="btn btn-cancel" onclick="closeModal('add-import-receipt-modal')">
                         <i class="fas fa-times"></i> Hủy
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Popup xác nhận xóa sách -->
-        <div id="delete-book-popup" class="modal" style="display:none;">
+        <!-- Popup xác nhận thêm phiếu nhập -->
+        <div id="confirm-add-receipt-popup" class="modal" style="display:none;">
             <div class="modal-content">
-                <span class="close-button" onclick="closeModal('delete-book-popup')">×</span>
-                <h2>Xác nhận xóa sách</h2>
-                <p>Bạn có chắc chắn muốn xóa sách này?</p>
+                <span class="close-button" onclick="closeModal('confirm-add-receipt-popup')">×</span>
+                <h2>Xác nhận thêm phiếu nhập</h2>
+                <p>Bạn có chắc chắn muốn thêm phiếu nhập này?</p>
                 <div class="modal-actions">
-                    <button class="btn btn-confirm" onclick="deleteBook()">
+                    <button class="btn btn-confirm" onclick="saveImportReceipt()">
                         <i class="fas fa-check"></i> Xác nhận
                     </button>
-                    <button class="btn btn-cancel" onclick="closeModal('delete-book-popup')">
+                    <button class="btn btn-cancel" onclick="closeModal('confirm-add-receipt-popup')">
                         <i class="fas fa-times"></i> Hủy
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Modal for Chi tiết Bản sao Sách -->
+        <!-- Popup chi tiết phiếu nhập -->
         <div id="book-copy-details-modal" class="modal" style="display:none;">
             <div class="modal-content">
                 <span class="close-button" onclick="closeModal('book-copy-details-modal')">×</span>
-                <h2>Chi tiết Bản sao Sách</h2>
-                <table id="book-copy-details-list">
+                <h2>Chi tiết phiếu nhập</h2>
+                <p><strong>Mã phiếu nhập:</strong> <span id="detail-receipt-id"></span></p>
+                <p><strong>Ngày nhập:</strong> <span id="detail-created-at"></span></p>
+                <p><strong>Nhà cung cấp:</strong> <span id="detail-supplier"></span></p>
+                <hr>
+                <table class="book-detail-table">
                     <thead>
                         <tr>
-                            <th>Mã bản sao sách</th>
                             <th>Mã đầu sách</th>
-                            <th>Tình trạng</th>
-                            <th>Ngày nhập</th>
+                            <th>Số lượng</th>
+                            <th>Giá nhập</th>
                         </tr>
                     </thead>
-                    <tbody id="book-copy-details-tbody">
-                    </tbody>
+                    <tbody id="detail-book-list"></tbody>
                 </table>
             </div>
         </div>
@@ -210,6 +192,6 @@
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-    <script src="./js/admin-book.js"></script>
+    <script src="./js/admin-ImportReceipt.js"></script>
 </body>
-</html>    
+</html>
