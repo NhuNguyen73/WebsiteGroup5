@@ -7,14 +7,15 @@ let books = [
         author: 'Dale Carnegie',
         pages: 320,
         year: 1936,
-        category: 'tam-ly'
+        category: 'tam-ly',
+        image: null
     }
 ];
 
 // Dữ liệu bản sao sách (đồng bộ với admin-copybook.js)
 let bookCopies = [
     {
-        id: "TT0001", // Đồng bộ với ID sách
+        id: "TT0001",
         title: "Đắc Nhân Tâm",
         copies: [
             { copyId: "COPY-001", bookId: "TT0001", status: "Nguyên vẹn", createdAt: "2025-01-01" },
@@ -31,6 +32,8 @@ let bookCopies = [
     },
 ];
 
+// Lưu trữ ảnh sách
+let bookImages = {};
 let currentBookId = null;
 
 // Đóng modal
@@ -87,19 +90,46 @@ function getCopyCount(bookId) {
     return bookCopy ? bookCopy.copies.length : 0;
 }
 
+// Xử lý upload ảnh
+function handleImageUpload(event) {
+    const input = event.target;
+    const preview = document.getElementById('preview-image');
+    const previewContainer = document.getElementById('book-image-preview');
+
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            previewContainer.style.display = 'block';
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.src = '#';
+        previewContainer.style.display = 'none';
+    }
+}
+
 // Cập nhật bảng sách
 function updateBooksTable(filteredBooks = books) {
     const tbody = document.querySelector('#book-list tbody');
     tbody.innerHTML = '';
+    
     if (filteredBooks.length === 0) {
         const row = document.createElement('tr');
         row.className = 'empty-row';
-        row.innerHTML = `<td colspan="9">Trống</td>`;
+        row.innerHTML = `<td colspan="10">Trống</td>`;
         tbody.appendChild(row);
     } else {
         filteredBooks.forEach(book => {
             const row = document.createElement('tr');
             row.innerHTML = `
+                <td data-label="Ảnh bìa">
+                    ${book.image ? 
+                        `<img src="${book.image}" alt="${book.title}" class="book-cover">` : 
+                        `<div class="no-image">No image</div>`}
+                </td>
                 <td data-label="Mã đầu sách">${book.id}</td>
                 <td data-label="Tiêu đề đầu sách">${book.title}</td>
                 <td data-label="Nhà xuất bản">${book.publisher}</td>
@@ -110,7 +140,7 @@ function updateBooksTable(filteredBooks = books) {
                 <td data-label="Thể loại">${getCategoryText(book.category)}</td>
                 <td data-label="Thao tác">
                     <button class="btn btn-view" onclick="showViewBookCopyDetailsPopup('${book.id}')">
-                        <i class="fas fa-eye"></i> Chi tiết bản sao
+                        <i class="fas fa-eye"></i> Chi tiết
                     </button>
                     <button class="btn btn-delete" onclick="deleteBookConfirm('${book.id}')">
                         <i class="fas fa-trash-alt"></i> Xóa
@@ -154,6 +184,8 @@ function showAddBookPopup() {
     document.getElementById('add-book-pages').value = '';
     document.getElementById('add-book-year').value = '';
     document.getElementById('add-book-category').value = '';
+    document.getElementById('add-book-image').value = '';
+    document.getElementById('book-image-preview').style.display = 'none';
     showModal('add-book-popup');
 }
 
@@ -177,7 +209,6 @@ function addBook() {
     }
 
     const bookId = document.getElementById('add-book-id').value.trim();
-    // Kiểm tra xem ID đã tồn tại chưa
     if (books.some(book => book.id === bookId)) {
         showCustomAlert('Mã đầu sách đã tồn tại! Vui lòng nhập mã khác.');
         document.getElementById('add-book-id').style.borderColor = 'red';
@@ -198,6 +229,15 @@ function addBook() {
         return;
     }
 
+    const imageFile = document.getElementById('add-book-image').files[0];
+    let imageUrl = null;
+    
+    if (imageFile) {
+        // Tạo URL tạm thời cho ảnh
+        imageUrl = URL.createObjectURL(imageFile);
+        bookImages[bookId] = imageFile;
+    }
+
     const newBook = {
         id: bookId,
         title: document.getElementById('add-book-title').value,
@@ -205,10 +245,10 @@ function addBook() {
         author: document.getElementById('add-book-author').value,
         pages: pages,
         year: year,
-        category: document.getElementById('add-book-category').value
+        category: document.getElementById('add-book-category').value,
+        image: imageUrl
     };
 
-    // Thêm sách mới vào đầu mảng
     books.unshift(newBook);
     updateBooksTable();
     closeModal('add-book-popup');
@@ -224,7 +264,14 @@ function deleteBookConfirm(bookId) {
 // Xóa sách
 function deleteBook() {
     books = books.filter(b => b.id !== currentBookId);
-    bookCopies = bookCopies.filter(bc => bc.id !== currentBookId); // Xóa bản sao liên quan
+    bookCopies = bookCopies.filter(bc => bc.id !== currentBookId);
+    
+    // Xóa ảnh nếu có
+    if (bookImages[currentBookId]) {
+        URL.revokeObjectURL(bookImages[currentBookId]);
+        delete bookImages[currentBookId];
+    }
+    
     updateBooksTable();
     closeModal('delete-book-popup');
     showCustomAlert('Sách đã được xóa!');
@@ -235,6 +282,7 @@ function showViewBookCopyDetailsPopup(bookId) {
     const bookCopy = bookCopies.find(bc => bc.id === bookId);
     const tbody = document.getElementById('book-copy-details-tbody');
     tbody.innerHTML = '';
+    
     if (!bookCopy || bookCopy.copies.length === 0) {
         const row = document.createElement('tr');
         row.className = 'empty-row';
@@ -270,7 +318,10 @@ window.onclick = function(event) {
     }
 };
 
-// Khởi tạo bảng khi tải trang
+// Khởi tạo khi tải trang
 document.addEventListener('DOMContentLoaded', () => {
     updateBooksTable();
+    
+    // Thêm sự kiện cho input file
+    document.getElementById('add-book-image').addEventListener('change', handleImageUpload);
 });
