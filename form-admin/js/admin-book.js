@@ -1,38 +1,6 @@
 // Dữ liệu sách (giả lập dữ liệu)
-let books = [
-    {
-        id: 'TT0001',
-        title: 'Đắc Nhân Tâm',
-        publisher: 'NXB Trẻ',
-        author: 'Dale Carnegie',
-        pages: 320,
-        year: 1936,
-        category: 'tam-ly',
-        image: null
-    }
-];
-
-// Dữ liệu bản sao sách (đồng bộ với admin-copybook.js)
-let bookCopies = [
-    {
-        id: "TT0001",
-        title: "Đắc Nhân Tâm",
-        copies: [
-            { copyId: "COPY-001", bookId: "TT0001", status: "Nguyên vẹn", createdAt: "2025-01-01" },
-            { copyId: "COPY-002", bookId: "TT0001", status: "Hỏng", createdAt: "2025-01-02" },
-        ],
-    },
-    {
-        id: "BOOK-2025-002",
-        title: "Nhà Giả Kim",
-        copies: [
-            { copyId: "COPY-003", bookId: "BOOK-2025-002", status: "Nguyên vẹn", createdAt: "2025-01-03" },
-            { copyId: "COPY-004", bookId: "BOOK-2025-002", status: "Mất", createdAt: "2025-01-04" },
-        ],
-    },
-];
-
-// Lưu trữ ảnh sách
+let books = [];
+let bookCopies = [];
 let bookImages = {};
 let currentBookId = null;
 
@@ -98,16 +66,47 @@ function handleImageUpload(event) {
 
     if (input.files && input.files[0]) {
         const reader = new FileReader();
-
         reader.onload = function(e) {
             preview.src = e.target.result;
             previewContainer.style.display = 'block';
         };
-
         reader.readAsDataURL(input.files[0]);
     } else {
         preview.src = '#';
         previewContainer.style.display = 'none';
+    }
+}
+
+// Tạo mã đầu sách tự động dựa trên thể loại
+function generateBookId() {
+    const category = document.getElementById('add-book-category').value;
+    const bookIdInput = document.getElementById('add-book-id');
+
+    if (category) {
+        let prefix = '';
+        switch (category) {
+            case 'van-hoc':
+                prefix = 'VH';
+                break;
+            case 'khoa-hoc':
+                prefix = 'KH';
+                break;
+            case 'lich-su':
+                prefix = 'LS';
+                break;
+            case 'tam-ly':
+                prefix = 'TL';
+                break;
+            default:
+                prefix = 'XX';
+        }
+
+        const categoryBooks = books.filter(book => book.category === category);
+        const count = categoryBooks.length + 1;
+        const paddedCount = String(count).padStart(4, '0');
+        bookIdInput.value = `${prefix}${paddedCount}`;
+    } else {
+        bookIdInput.value = '';
     }
 }
 
@@ -135,7 +134,7 @@ function updateBooksTable(filteredBooks = books) {
                 <td data-label="Nhà xuất bản">${book.publisher}</td>
                 <td data-label="Tác giả">${book.author}</td>
                 <td data-label="Số trang">${book.pages}</td>
-                <td data-label="Số lượng">${getCopyCount(book.id)}</td>
+                <td data-label="Số lượng">${book.quantity}</td>
                 <td data-label="Năm xuất bản">${book.year}</td>
                 <td data-label="Thể loại">${getCategoryText(book.category)}</td>
                 <td data-label="Thao tác">
@@ -210,8 +209,7 @@ function addBook() {
 
     const bookId = document.getElementById('add-book-id').value.trim();
     if (books.some(book => book.id === bookId)) {
-        showCustomAlert('Mã đầu sách đã tồn tại! Vui lòng nhập mã khác.');
-        document.getElementById('add-book-id').style.borderColor = 'red';
+        showCustomAlert('Mã đầu sách đã tồn tại! Vui lòng chọn lại thể loại.');
         return;
     }
 
@@ -230,29 +228,37 @@ function addBook() {
     }
 
     const imageFile = document.getElementById('add-book-image').files[0];
-    let imageUrl = null;
-    
+    const formData = new FormData();
+    formData.append('BookId', bookId);
+    formData.append('OriginalBookTitle', document.getElementById('add-book-title').value);
+    formData.append('Publisher', document.getElementById('add-book-publisher').value);
+    formData.append('Author', document.getElementById('add-book-author').value);
+    formData.append('PageCount', pages);
+    formData.append('PublicationYear', year);
+    formData.append('Category', document.getElementById('add-book-category').value);
     if (imageFile) {
-        // Tạo URL tạm thời cho ảnh
-        imageUrl = URL.createObjectURL(imageFile);
-        bookImages[bookId] = imageFile;
+        formData.append('imageFile', imageFile);
     }
 
-    const newBook = {
-        id: bookId,
-        title: document.getElementById('add-book-title').value,
-        publisher: document.getElementById('add-book-publisher').value,
-        author: document.getElementById('add-book-author').value,
-        pages: pages,
-        year: year,
-        category: document.getElementById('add-book-category').value,
-        image: imageUrl
-    };
-
-    books.unshift(newBook);
-    updateBooksTable();
-    closeModal('add-book-popup');
-    showCustomAlert('Sách đã được thêm thành công!');
+    fetch('/Books/AddBook', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            books.unshift(data.book);
+            updateBooksTable();
+            closeModal('add-book-popup');
+            showCustomAlert('Sách đã được thêm thành công!');
+        } else {
+            showCustomAlert(data.message + ': ' + (data.errors ? data.errors.join(', ') : ''));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showCustomAlert('Có lỗi xảy ra khi thêm sách!');
+    });
 }
 
 // Xác nhận xóa sách
@@ -263,44 +269,58 @@ function deleteBookConfirm(bookId) {
 
 // Xóa sách
 function deleteBook() {
-    books = books.filter(b => b.id !== currentBookId);
-    bookCopies = bookCopies.filter(bc => bc.id !== currentBookId);
-    
-    // Xóa ảnh nếu có
-    if (bookImages[currentBookId]) {
-        URL.revokeObjectURL(bookImages[currentBookId]);
-        delete bookImages[currentBookId];
-    }
-    
-    updateBooksTable();
-    closeModal('delete-book-popup');
-    showCustomAlert('Sách đã được xóa!');
+    fetch(`/Books/DeleteBook/${currentBookId}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            books = books.filter(b => b.id !== currentBookId);
+            bookCopies = bookCopies.filter(bc => bc.id !== currentBookId);
+            if (bookImages[currentBookId]) {
+                URL.revokeObjectURL(bookImages[currentBookId]);
+                delete bookImages[currentBookId];
+            }
+            updateBooksTable();
+            closeModal('delete-book-popup');
+            showCustomAlert('Sách đã được xóa!');
+        } else {
+            showCustomAlert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showCustomAlert('Có lỗi xảy ra khi xóa sách!');
+    });
 }
 
 // Hiển thị popup chi tiết bản sao sách
 function showViewBookCopyDetailsPopup(bookId) {
-    const bookCopy = bookCopies.find(bc => bc.id === bookId);
-    const tbody = document.getElementById('book-copy-details-tbody');
-    tbody.innerHTML = '';
-    
-    if (!bookCopy || bookCopy.copies.length === 0) {
-        const row = document.createElement('tr');
-        row.className = 'empty-row';
-        row.innerHTML = `<td colspan="4">Trống</td>`;
-        tbody.appendChild(row);
-    } else {
-        bookCopy.copies.forEach(copy => {
+    fetch(`/Books/GetBookCopies?bookId=${bookId}`)
+    .then(response => response.json())
+    .then(data => {
+        const tbody = document.getElementById('book-copy-details-tbody');
+        tbody.innerHTML = '';
+        if (!data || data.length === 0) {
             const row = document.createElement('tr');
-            row.innerHTML = `
-                <td data-label="Mã bản sao sách">${copy.copyId}</td>
-                <td data-label="Mã đầu sách">${copy.bookId}</td>
-                <td data-label="Tình trạng">${copy.status}</td>
-                <td data-label="Ngày nhập">${copy.createdAt}</td>
-            `;
+            row.className = 'empty-row';
+            row.innerHTML = '<td colspan="4">Trống</td>';
             tbody.appendChild(row);
-        });
-    }
-    showModal('book-copy-details-modal');
+        } else {
+            data.forEach(copy => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td data-label="Mã bản sao sách">${copy.copyId}</td>
+                    <td data-label="Mã đầu sách">${copy.bookId}</td>
+                    <td data-label="Tình trạng">${copy.status}</td>
+                    <td data-label="Ngày nhập">${copy.createdAt}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        showModal('book-copy-details-modal');
+    })
+    .catch(error => console.error('Error:', error));
 }
 
 // Đóng modal khi click bên ngoài
@@ -320,8 +340,13 @@ window.onclick = function(event) {
 
 // Khởi tạo khi tải trang
 document.addEventListener('DOMContentLoaded', () => {
-    updateBooksTable();
-    
-    // Thêm sự kiện cho input file
+    fetch('/Books/GetBooks')
+    .then(response => response.json())
+    .then(data => {
+        books = data;
+        updateBooksTable();
+    })
+    .catch(error => console.error('Error:', error));
+
     document.getElementById('add-book-image').addEventListener('change', handleImageUpload);
 });

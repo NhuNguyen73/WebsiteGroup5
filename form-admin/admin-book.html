@@ -83,7 +83,7 @@
                 <i class="fas fa-plus"></i> Thêm sách
             </button>
         </div>
-
+    
         <div class="search-section">
             <div class="search-container">
                 <div class="search-wrapper">
@@ -93,7 +93,7 @@
                 </div>
             </div>
         </div>
-
+    
         <table id="book-list">
             <thead>
                 <tr>
@@ -113,7 +113,7 @@
                 <!-- Dữ liệu sẽ được thêm động bằng JavaScript -->
             </tbody>
         </table>
-
+    
         <!-- Popup thêm sách -->
         <div id="add-book-popup" class="modal" style="display:none;">
             <div class="modal-content">
@@ -121,7 +121,7 @@
                 <h2>Thêm sách</h2>
                 <div class="form-group">
                     <label>Mã đầu sách <span class="required">*</span>:</label>
-                    <input type="text" id="add-book-id" required>
+                    <input type="text" id="add-book-id" readonly required> <!-- Khóa ô nhập -->
                 </div>
                 <div class="form-group">
                     <label>Tiêu đề đầu sách <span class="required">*</span>:</label>
@@ -145,7 +145,7 @@
                 </div>
                 <div class="form-group">
                     <label>Thể loại <span class="required">*</span>:</label>
-                    <select id="add-book-category" required>
+                    <select id="add-book-category" onchange="generateBookId()" required>
                         <option value="">Chọn thể loại</option>
                         <option value="van-hoc">Tài liệu học tập</option>
                         <option value="khoa-hoc">Tài liệu lịch sử</option>
@@ -170,7 +170,7 @@
                 </div>
             </div>
         </div>
-
+    
         <!-- Popup xác nhận xóa sách -->
         <div id="delete-book-popup" class="modal" style="display:none;">
             <div class="modal-content">
@@ -187,7 +187,7 @@
                 </div>
             </div>
         </div>
-
+    
         <!-- Modal for Chi tiết Bản sao Sách -->
         <div id="book-copy-details-modal" class="modal" style="display:none;">
             <div class="modal-content">
@@ -207,7 +207,7 @@
                 </table>
             </div>
         </div>
-
+    
         <!-- Popup thông báo tùy chỉnh -->
         <div id="custom-alert-popup" class="custom-alert" style="display:none;">
             <div class="custom-alert-content">
