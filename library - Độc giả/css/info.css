@@ -576,3 +576,33 @@
         gap: 6px;
     }
 }
+/* Định dạng thông báo khi chưa đăng ký thẻ */
+.library-card-message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.library-card-message-line1 {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.library-card-message-line2 {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 18px;
+}
+
+.library-card-message-line2 a {
+    color: #dc3545;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.library-card-message-line2 a:hover {
+    color: #ff6f61;
+    text-decoration: underline;
+}

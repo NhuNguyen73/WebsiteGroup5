@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Infomation_Độc giả-Thẻ thư viện</title>
+    <title>Đăng Ký Thẻ Thư Viện</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/info.css">
+    <link rel="stylesheet" href="css/library-register-card.css">
     <!-- Liên kết Font Awesome để sử dụng icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </head>
@@ -34,7 +34,7 @@
   
           <div class="collapse navbar-collapse" id="ftco-nav">
               <ul class="navbar-nav ml-auto">
-                  <li class="nav-item active"><a href="index-reader.html" class="nav-link">Trang chủ</a></li>
+                  <li class="nav-item"><a href="index-reader.html" class="nav-link">Trang chủ</a></li>
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thư viện sách</a>
                       <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -65,108 +65,31 @@
     <!--===============================================MAIN==============================================================-->
     <main class="library-main-section">
       <div class="library-main-wrapper">
-        <!-- Menu bên trái (Sidebar) -->
-        <div class="library-sidebar">
-          <ul class="library-nav-menu">
-            <li class="library-nav-item" data-target="library-personal-content">
-              Thông Tin Cá Nhân
-            </li>
-            <li class="library-nav-separator"></li>
-            <li class="library-nav-item" data-target="library-card-content">
-              Thông Tin Thẻ Thư Viện
-            </li>
-          </ul>
-        </div>
-
-        <!-- Nội dung bên phải -->
         <div class="library-content-area">
-          <!-- Phần thông tin cá nhân -->
-          <section id="library-personal-content" class="library-content-section library-personal-section">
-            <h2 class="library-section-title">Thông Tin Cá Nhân</h2>
+          <section class="library-content-section">
+            <h2 class="library-section-title">Đăng Ký Thẻ Thư Viện</h2>
             <div class="library-info-list">
               <div class="library-info-item">
                 <label class="library-info-label">Mã độc giả:</label>
-                <span class="library-info-value">DG0000</span>
+                <input type="text" class="library-info-input" id="readerCode" value="DG0000" readonly>
               </div>
               <div class="library-info-item">
                 <label class="library-info-label">Họ và tên:</label>
-                <span class="library-info-value">Phạm Thị Minh Sang</span>
+                <input type="text" class="library-info-input" id="readerName" value="Phạm Thị Minh Sang" readonly>
               </div>
               <div class="library-info-item">
-                <label class="library-info-label">Năm sinh:</label>
-                <span class="library-info-value">20/11/2005</span>
+                <label class="library-info-label">Ngày đăng ký:</label>
+                <input type="text" class="library-info-input" id="registerDate" readonly>
               </div>
               <div class="library-info-item">
-                <label class="library-info-label">Giới tính:</label>
-                <span class="library-info-value">Nữ</span>
+                <label class="library-info-label">Ngày hết hạn:</label>
+                <input type="text" class="library-info-input" id="expiryDate" readonly>
               </div>
               <div class="library-info-item">
-                <label class="library-info-label">Số điện thoại:</label>
-                <span class="library-info-value">0987654321</span>
+                <label class="library-info-label">Ảnh thẻ 3x4:</label>
+                <input type="file" class="library-info-input" id="cardPhoto" accept="image/*">
               </div>
-              <div class="library-info-item">
-                <label class="library-info-label">Email:</label>
-                <span class="library-info-value">minhsang@email.com</span>
-              </div>
-              
-              <div class="library-info-item">
-                <label class="library-info-label">Trình độ văn hóa:</label>
-                <span class="library-info-value">Cao học</span>
-              </div>
-              <div class="library-info-item">
-                <label class="library-info-label">Địa chỉ:</label>
-                <span class="library-info-value">Thái Bình</span>
-              </div>
-              <button class="library-action-button">Chỉnh Sửa</button>
-            </div>
-          </section>
-          <!-- Phần thông tin thẻ thư viện -->
-          <section id="library-card-content" class="library-content-section library-card-section">
-            <h2 class="library-section-title">Thông Tin Thẻ Thư Viện</h2>
-            <!-- Nội dung khi đã đăng ký thẻ -->
-            <div class="library-card-registered" style="display: none;">
-              <div class="library-card-grid">
-                <!-- Cột trái: Ảnh thẻ 3x4 -->
-                <div class="library-card-image">
-                  <img src="images/Ảnh thẻ.jpg" alt="Ảnh thẻ 3x4" class="library-card-photo">
-                </div>
-                <!-- Cột phải: Thông tin thẻ -->
-                <div class="library-card-details">
-                  <div class="library-card-info">
-                    <div class="library-card-row">
-                      <label class="library-info-label">Mã Thẻ:</label>
-                      <span class="library-info-value">LIB123456</span>
-                    </div>
-                    <div class="library-card-row">
-                      <label class="library-info-label">Thời Gian Thẻ:</label>
-                      <div class="card-time-options" id="timeOptions">
-                        <span class="card-time-option year-2024" data-year="2024">2024</span>
-                        <span class="card-time-option year-2025 selected" data-year="2025">2025</span>
-                        <span class="card-time-option year-2026" data-year="2026">2026</span>
-                      </div>
-                    </div>
-                    <div class="library-card-row">
-                      <label class="library-info-label">Tình Trạng Thẻ:</label>
-                      <span class="library-info-value card-status-item active" id="cardStatus">
-                        <span class="status-circle"><i class="fas fa-check"></i></span>
-                        <span class="status-text">Hoạt động</span>
-                      </span>
-                    </div>
-                  </div>
-                  <button class="library-renew-button" onclick="window.location.href='library-renew-card.html'">
-                    <span class="renew-icon"></span> Gia Hạn Thẻ
-                  </button>
-                </div>
-              </div>
-            </div>
-            <!-- Nội dung khi chưa đăng ký thẻ -->
-            <div class="library-card-unregistered" style="display: none;">
-              <div class="library-card-message">
-                <p class="library-card-message-line1">Oops, bạn chưa đăng ký thẻ</p>
-                <p class="library-card-message-line2">
-                  <a href="library-register-card.html">Nhấn vào đây để đăng ký thẻ nào!!</a>
-                </p>
-              </div>
+              <button class="library-action-button" onclick="proceedToPayment()">Thanh Toán</button>
             </div>
           </section>
         </div>
@@ -268,6 +191,6 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/info.js"></script>
+    <script src="js/library-register-card.js"></script>
   </body>
 </html>

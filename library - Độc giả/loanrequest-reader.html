@@ -114,12 +114,9 @@
                 <div class="w-100"></div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label>Thời gian bạn dự kiến mượn sách</label>
-                    <small class="d-block text-muted">Trong 2 ngày kể từ khi giữ sách</small>
-                    <div class="radio">
-                      <label class="mr-3"><input type="radio" name="borrowDate" value="2025-03-19"> Ngày 19/3/2025</label>
-                      <label><input type="radio" name="borrowDate" value="2025-03-20"> Ngày 20/03/2025</label>
-                    </div>
+                    <label style="color: red; text-decoration: none">Lưu ý: <hr> Thời hạn mượn sách</label>
+                    <input type="text" class="form-control" id="borrowDeadline" value="" readonly>
+                    <small class="d-block text-muted">Nếu quá thời hạn thì phiếu giữ sẽ bị hủy</small>
                   </div>
                 </div>
               </div>
@@ -135,7 +132,6 @@
                   <div class="item-name text-ellipsis" data-title="History 1">History 1</div>
                   <div class="item-quantity">x1</div>
                 </div>
-               
               </div>
               <div class="borrow-item d-flex align-items-center mb-3">
                 <div class="item-stt text-end">2</div>
@@ -144,7 +140,6 @@
                   <div class="item-name text-ellipsis" data-title="Study Guide">Study Guide</div>
                   <div class="item-quantity">x1</div>
                 </div>
-                <div></div>
               </div>
               <div class="borrow-item d-flex align-items-center mb-3">
                 <div class="item-stt text-end">3</div>
@@ -155,14 +150,12 @@
                   </div>
                   <div class="item-quantity">x1</div>
                 </div>
-                <div></div>
               </div>
               <p class="mt-4 text-center">
                 <a href="#" class="btn btn-primary py-2 px-3">Tạo phiếu mượn</a>
               </p>
             </div>
           </div>
-          </div> <!-- .col-md-8 -->
         </div>
       </div>
     </section> <!-- .section -->
@@ -230,7 +223,7 @@
         <div class="row">
           <div class="col-md-12 text-center">
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy;<script>document.write(new Date().getFullYear());</script>Hệ thống thư viện Library. <i class="icon-heart color-danger" aria-hidden="true"></i> Bảo lưu mọi quyền
+              Copyright ©<script>document.write(new Date().getFullYear());</script>Hệ thống thư viện Library. <i class="icon-heart color-danger" aria-hidden="true"></i> Bảo lưu mọi quyền
               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
           </div>
@@ -258,5 +251,16 @@
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
     <script src="js/info.js"></script>
+    <script>
+      // Tự động cập nhật ngày hiện tại + 2 ngày trong textbox
+      document.addEventListener('DOMContentLoaded', () => {
+        const borrowDeadlineInput = document.getElementById('borrowDeadline');
+        const today = new Date();
+        const deadline = new Date(today);
+        deadline.setDate(today.getDate() + 2); // Cộng thêm 2 ngày
+        const formattedDeadline = `${deadline.getDate().toString().padStart(2, '0')}/${(deadline.getMonth() + 1).toString().padStart(2, '0')}/${deadline.getFullYear()}`;
+        borrowDeadlineInput.value = formattedDeadline;
+      });
+    </script>
   </body>
 </html>
