@@ -288,7 +288,7 @@ table td button {
 .empty-row td {
     padding: 20px;
     border: none;
-    text-align: center !important; /* Đảm bảo căn giữa với độ ưu tiên cao */
+    text-align: center !important;
     width: 100%;
 }
 
@@ -322,6 +322,37 @@ table td button {
 
 #book-copy-details-list tbody tr:hover {
     background-color: #f1f1f1;
+}
+
+/* Image preview and upload styles */
+.image-preview {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+
+#preview-image {
+    max-height: 200px;
+    max-width: 100%;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+/* Book cover in table */
+.book-cover {
+    width: 60px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* Responsive design */
@@ -397,10 +428,14 @@ table td button {
         color: #2c88a6;
     }
 
-    /* Căn giữa chữ "Trống" trong responsive mode */
     .empty-row td {
-        display: block !important; /* Ghi đè display: grid */
-        grid-template-columns: none !important; /* Xóa grid layout */
-        text-align: center !important; /* Đảm bảo căn giữa */
+        display: block !important;
+        grid-template-columns: none !important;
+        text-align: center !important;
+    }
+    
+    .book-cover {
+        width: 40px;
+        height: 60px;
     }
 }
